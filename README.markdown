@@ -15,6 +15,8 @@ About
 I have nothing to say.
 You may want to install ack and ctags. Also ruby.
 Git, of course.
+Oh, and there's no need to checkout to gh-pages branch.
+Seriously.
 
 TODO:
 =====
