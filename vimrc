@@ -20,7 +20,17 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set list listchars=tab:\ \ ,trail:·,nbsp:%
+set list
+if has('multi_byte')
+    if version >= 700
+        set listchars=tab:\ \ ,trail:·,extends:→,nbsp:×
+    else
+        set listchars=tab:\ \ ,trail:·,extends:>,nbsp:_
+    endif
+endif
+if has("linebreak")
+    let &sbr = nr2char(8618).' '  " Show ↪ at the beginning of wrapped lines
+endif
 
 " Searching
 set hlsearch
@@ -48,8 +58,17 @@ map <F2> :emenu Encoding.
 set laststatus=2
 
 
-set statusline=[%n]\ %<%.99f\ %w%m%r
-set statusline+=%=%-16(\ %l,%c%V\ %)%P
+set statusline=[%n]\ %f\ %w%m%r
+"set statusline+=%=%-16(\ %l,%c%V\ %)%P
+"set statusline=\ %<%-15.25(%f%)%m%r%h\ %w\ \ 
+"set statusline+=\ \ \ [%{&ff}/%Y]%=file=%{&fileencoding}\ enc=%{&encoding}\ 
+set statusline+=\ \ \ %<%.99(%{hostname()}:%{CurDir()}%)\ 
+set statusline+=\ \ \ %=%-10.(%l,%c%V%)\ %p%%/%L
+
+fun! CurDir()
+    let curdir = substitute(getcwd(), $HOME, "~", "")
+    return curdir
+endfunction
 
 
 " Without setting this, ZoomWin restores windows in a way that causes
@@ -171,11 +190,6 @@ vmap <D-j> ]egv
 " vmap <C-Left> dPgv
 
 
-
-" Enable syntastic syntax checking
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
-
 " Use modeline overrides
 set modeline
 set modelines=10
@@ -184,7 +198,12 @@ set modelines=10
 
 " let g:solarized_termcolors = 16
 set background=dark
+let g:solarized_visibility="low"
+"let g:solarized_termcolors = 16
+
+let g:solarized_termtrans = 1
 color solarized
+
 
 " Directories for swp files
 set backupdir=~/.vim/backup
@@ -290,18 +309,9 @@ let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
 
 
 if has("autocmd")
-  autocmd! bufwritepost .vimrc source $MYVIMRC
+  autocmd! bufwritepost vimrc source $MYVIMRC
 endif
 
-
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:<CR>
-  vmap <Leader>a: :Tabularize /:<CR>
-  nmap <Leader>a<Space> :Tabularize /<Space><CR>
-  vmap <Leader>a<Space> :Tabularize /<Space><CR>
-endif
 
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
@@ -352,6 +362,7 @@ imap <C-a> <C-o>I
 
 
 nnoremap <leader>ve <C-w>v<C-w>l:e ~/.vim/vimrc<CR>
+nnoremap <leader>vge <C-w>v<C-w>l:e ~/.vim/gvimrc<CR>
 
 
 " map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
@@ -386,4 +397,4 @@ set synmaxcol=2048
 " syntax highlighting goes.
 " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-
+let g:snippets_dir = '~/.vim/bundle/_/snippets'
