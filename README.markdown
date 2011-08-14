@@ -20,3 +20,5 @@ TODO:
 =====
 * properly comment vimrc
 * make uninstall script, possibly an upgrade script
+* make install script even better (thought I need learn shell scripting
+  first)
