@@ -16,7 +16,7 @@ I have nothing to say.
 You may want to install ack and ctags. Also ruby.
 Git, of course.
 Oh, and there's no need to checkout to gh-pages branch.
-Seriously.
+Seriously, it will ruin submodules.
 
 TODO:
 =====
@@ -24,3 +24,4 @@ TODO:
 * make uninstall script, possibly an upgrade script
 * make install script more awesome (though I need learn shell scripting
   first)
+* make install script for <del>losers</del> Windows
