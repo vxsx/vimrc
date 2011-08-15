@@ -1,7 +1,7 @@
 Installation
 ============
 ```
-curl http://vxsx.github.com/vimrc | sh
+curl http://vxsx.github.com/vimrc/ | sh
 ```
 
 Updating
@@ -22,5 +22,5 @@ TODO:
 =====
 * properly comment vimrc
 * make uninstall script, possibly an upgrade script
-* make install script more awesome (thought I need learn shell scripting
+* make install script more awesome (though I need learn shell scripting
   first)
