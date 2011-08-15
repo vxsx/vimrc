@@ -58,3 +58,7 @@
 	path = bundle/vim-supertab
 	url = https://github.com/ervandew/supertab.git
     ignore = dirty
+[submodule "bundle/vim-css3-syntax"]
+	path = bundle/vim-css3-syntax
+	url = https://github.com/hail2u/vim-css3-syntax.git
+    ignore = dirty
