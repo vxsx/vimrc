@@ -103,7 +103,7 @@ endfunction
 
 function s:setupMarkup()
   call s:setupWrapping()
-  map <buffer> <Leader>p :Mm <CR>
+  map <buffer> <Leader>p :Hammer <CR>
 endfunction
 
 " make uses real tabs
@@ -196,10 +196,8 @@ set modelines=10
 
 " Default color scheme
 
-" let g:solarized_termcolors = 16
 set background=dark
 let g:solarized_visibility="low"
-"let g:solarized_termcolors = 16
 
 let g:solarized_termtrans = 1
 color solarized
@@ -217,9 +215,6 @@ set nospell
 
 " Turn off jslint errors by default
 let g:JSLintHighlightErrorLine = 0
-
-" MacVIM shift+arrow-keys behavior (required in .vimrc)
-let macvim_hig_shift_movement = 1
 
 " Include user's local vim config
 if filereadable(expand("~/.vimrc.local"))
@@ -301,12 +296,10 @@ map Ю >
 "map , ?
 
 
-" vnoremap <silent> <Leader>s :<C-U>let @/="<C-R>=MakePattern(@*)<CR>"<CR>:set hls<CR>
 nmap <silent> <Leader><Space> :noh<CR>
 
 
 let Tlist_Ctags_Cmd = '/usr/local/bin/ctags'
-
 
 if has("autocmd")
   autocmd! bufwritepost vimrc source $MYVIMRC
@@ -323,7 +316,6 @@ nmap <C-l> <C-w>l
 nnoremap <Leader>[ <C-w>h<C-w><Bar>
 nnoremap <Leader>] <C-w>l<C-w><Bar>
 
-" thing is, if I leave only firefox.app - it opens firefox on my win7 virtual machine
 abbrev gc :! open -a /Applications/Google\ Chrome.app %:p<cr>
 
 nnoremap <tab> %
@@ -339,12 +331,15 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
-inoremap jj <esc>
+" don't really use it
+" inoremap jj <esc>
 
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>s <C-w>s<C-w>j:e
 nnoremap <leader>we <C-w>v<C-w>l:e <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <leader>se <C-w>s<C-w>j:e <C-R>=expand("%:p:h") . "/" <CR>
+nnoremap <leader>ve <C-w>v<C-w>l:e ~/.vim/vimrc<CR>
+nnoremap <leader>vge <C-w>v<C-w>l:e ~/.vim/gvimrc<CR>
 
 set rnu
 
@@ -357,12 +352,6 @@ map <Leader>s :call StripWhitespace ()<CR>
 
 imap <C-e> <C-o>A
 imap <C-a> <C-o>I
-
-
-
-
-nnoremap <leader>ve <C-w>v<C-w>l:e ~/.vim/vimrc<CR>
-nnoremap <leader>vge <C-w>v<C-w>l:e ~/.vim/gvimrc<CR>
 
 
 " map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
@@ -382,7 +371,7 @@ let g:bufExplorerSortBy='extension'
 
 
 " cd to the directory containing the file in the buffer
-nmap  <leader>cd :lcd <C-R>=expand("%:p:h")<CR>
+nmap  <leader>cd :lcd <C-R>=expand("%:p:h")<CR><CR>
 
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
