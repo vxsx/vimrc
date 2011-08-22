@@ -58,7 +58,7 @@ map <F2> :emenu Encoding.
 set laststatus=2
 
 
-set statusline=[%n]\ %f\ %w%m%r
+set statusline=[%n]\ %f\ %w%m%r%{fugitive#statusline()}
 "set statusline+=%=%-16(\ %l,%c%V\ %)%P
 "set statusline=\ %<%-15.25(%f%)%m%r%h\ %w\ \ 
 "set statusline+=\ \ \ [%{&ff}/%Y]%=file=%{&fileencoding}\ enc=%{&encoding}\ 
@@ -381,3 +381,14 @@ set synmaxcol=2048
 " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 let g:snippets_dir = '~/.vim/bundle/_/snippets'
+
+
+
+autocmd User fugitive
+  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+  \   nnoremap <buffer> .. :edit %:h<CR> |
+  \ endif
+
+
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
