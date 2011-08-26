@@ -191,9 +191,15 @@ set modelines=10
 
 set background=dark
 let g:solarized_visibility="low"
-
+let g:solarized_contrast="high"
 let g:solarized_termtrans = 1
+let g:solarized_diffmode="high"
 color solarized
+if has('gui_running')
+    set background=light
+    call togglebg#map("<F5>")
+endif
+
 
 
 " Directories for swp files
