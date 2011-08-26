@@ -398,3 +398,9 @@ autocmd User fugitive
 
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
+
+" Window resizing mappings
+nnoremap <S-Up>    5<C-w>+
+nnoremap <S-Down>  5<C-w>-
+nnoremap <S-Left>  5<C-w><
+nnoremap <S-Right> 5<C-w>>
