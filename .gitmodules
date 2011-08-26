@@ -86,3 +86,7 @@
 	path = bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
     ignore = dirty
+[submodule "bundle/mustache"]
+	path = bundle/mustache
+	url = git://github.com/juvenn/mustache.vim.git
+    ignore = dirty
