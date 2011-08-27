@@ -189,16 +189,12 @@ set modelines=10
 
 " Default color scheme
 
-set background=dark
 let g:solarized_visibility="low"
 let g:solarized_contrast="high"
 let g:solarized_termtrans = 1
 let g:solarized_diffmode="high"
+set background=dark
 color solarized
-if has('gui_running')
-    set background=light
-    call togglebg#map("<F5>")
-endif
 
 
 

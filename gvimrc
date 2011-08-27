@@ -22,10 +22,12 @@ endif
 " Start without the toolbar
 set guioptions-=T
 
-" Default gui color scheme
-set background=dark
-colorscheme solarized
-
+" Default color scheme
+if has('gui_macvim')
+    set background=light
+    colorscheme solarized
+    call togglebg#map("<F5>")
+endif
 
 " Project Tree
 autocmd FocusGained * call s:UpdateNERDTree()
