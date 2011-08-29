@@ -312,20 +312,27 @@ nmap <C-l> <C-w>l
 nnoremap <Leader>[ <C-w>h<C-w><Bar>
 nnoremap <Leader>] <C-w>l<C-w><Bar>
 
-abbrev gc :! open -a /Applications/Google\ Chrome.app %:p<cr>
+"abbrev gc :! open -a /Applications/Google\ Chrome.app %:p<cr>
+abbrev gc :! open -a /Applications/Chromium.app %:p<cr>
 
-nnoremap <tab> %
-vnoremap <tab> %
+nmap <tab> %
+vmap <tab> %
 
 " this is for learning hjkl moving
-nnoremap <up>  <nop>
-nnoremap <down> <nop>
-nnoremap <left> <nop>
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+nnoremap <left>  <nop>
 nnoremap <right> <nop>
-inoremap <up>   <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
 inoremap <right> <nop>
+
+
+imap <C-h> <C-o>h
+imap <C-j> <C-o>j
+imap <C-k> <C-o>k
+imap <C-l> <C-o>l
 
 " don't really use it
 " inoremap jj <esc>
@@ -355,6 +362,8 @@ imap <C-a> <C-o>I
 " That's so i have my css snippets in scss files
 autocmd BufNewFile,BufRead *.scss             set ft=scss.css
 
+" Reload snippets when editing snippets file
+au! BufWritePost      *.snippet               call ReloadAllSnippets()
 
 
 " Remove the Windows ^M - when the encodings gets messed up
@@ -400,3 +409,6 @@ nnoremap <S-Up>    5<C-w>+
 nnoremap <S-Down>  5<C-w>-
 nnoremap <S-Left>  5<C-w><
 nnoremap <S-Right> 5<C-w>>
+
+" // to toggle comments
+map // <plug>NERDCommenterToggle<CR>
