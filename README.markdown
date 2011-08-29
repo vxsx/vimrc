@@ -7,7 +7,7 @@ curl http://vxsx.github.com/vimrc/ | sh
 Updating
 ========
 ```
-cd ~/.vim/ && git submodule foreach git pull origin master
+cd ~/.vim/ && git pull && git submodule foreach git pull origin master
 ```
 
 About
