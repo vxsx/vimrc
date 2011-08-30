@@ -328,6 +328,12 @@ set ruler
     " NERDTree "{{{
         let NERDTreeIgnore=['\.rbc$', '\~$']
         map <Leader>n :NERDTreeToggle<CR>
+        let NERDTreeChDirMode=0
+        "let NERDTreeQuitOnOpen=1
+        let NERDTreeShowHidden=1
+        "let NERDTreeKeepTreeInNewTab=1
+        "let NERDTreeMinimalUI=1 " Disables display of the 'Bookmarks' label and 'Press ? for help' text.
+        let NERDTreeDirArrows=1 " Tells the NERD tree to use arrows instead of + ~ chars when displaying directories.
     "}}}
     " Command-T "{{{
         let g:CommandTMaxHeight=20
