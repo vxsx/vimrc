@@ -1,39 +1,70 @@
-
+" General "{{{
+    "set guioptions-=T  " disabling toolbar
+    set guioptions=aAce;
+    set guicursor=     " Disabling cursor blinking
+    set gcr=n:blinkon0 " Disabling cursor blinking
+"}}}
+" Mac settings "{{{
 if has("gui_macvim")
-  " Fullscreen takes up entire screen
-  set fuoptions=maxhorz,maxvert
+    " Fullscreen takes up entire screen
+    set fuoptions=maxhorz,maxvert
 
-  " Command-T for CommandT
-  macmenu &File.New\ Tab key=<D-T>
-  map <D-t> :CommandT<CR>
-  imap <D-t> <Esc>:CommandT<CR>
+    " Command-T for CommandT
+    macmenu &File.New\ Tab key=<D-T>
+    map <D-t> :CommandT<CR>
+    imap <D-t> <Esc>:CommandT<CR>
 
-  " Command-Return for fullscreen
-  macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
+    " Command-Return for fullscreen
+    macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
 
-  " Command-Shift-F for Ack
-  map <D-F> :Ack<space>
+    " Command-Shift-F for Ack
+    map <D-F> :Ack<space>
 
-  " Command-/ to toggle comments
-  map <D-/> <plug>NERDCommenterToggle<CR>
+    " Command-/ to toggle comments
+    map <D-/> <plug>NERDCommenterToggle<CR>
+
+    " Open current buffer in my browser of choice
+    "abbrev gc :! open -a /Applications/Google\ Chrome.app %:p<cr>
+    abbrev gc :! open -a /Applications/Chromium.app %:p<cr>
+
+    " Moving through tabs ala Textmate "{{{
+        map    <D-S-]>   gt
+        imap   <D-S-]>   <ESC>gt
+        map    <D-S-[>   gT
+        imap   <D-S-[>   <ESC>gT
+        map    <D-1>     1gt
+        imap   <D-1>     <ESC>1gt
+        map    <D-2>     2gt
+        imap   <D-2>     <ESC>2gt
+        map    <D-3>     3gt
+        imap   <D-3>     <ESC>3gt
+        map    <D-4>     4gt
+        imap   <D-4>     <ESC>4gt
+        map    <D-5>     5gt
+        imap   <D-5>     <ESC>5gt
+        map    <D-6>     6gt
+        imap   <D-6>     <ESC>6gt
+        map    <D-7>     7gt
+        imap   <D-7>     <ESC>7gt
+        map    <D-8>     8gt
+        imap   <D-8>     <ESC>8gt
+        map    <D-9>     9gt
+        imap   <D-9>     <ESC>9gt
+        map    <D-0>     :tablast<CR>
+        imap   <D-0>     <ESC>:tablast<CR>
+    "}}}
+
 
 endif
-
-" Start without the toolbar
-set guioptions-=T
-
-" Default color scheme
-if has('gui_macvim')
-    set background=light
-    colorscheme solarized
-    call togglebg#map("<F5>")
-endif
-
-" Project Tree
+"}}}
+" Colorscheme "{{{
+set background=light
+colorscheme solarized
+call togglebg#map("<F5>")
+"}}}
+" NERDTree utility functions "{{{
 autocmd FocusGained * call s:UpdateNERDTree()
 
-
-" NERDTree utility function
 function s:UpdateNERDTree(...)
   let stay = 0
 
@@ -56,8 +87,8 @@ function s:UpdateNERDTree(...)
     CommandTFlush
   endif
 endfunction
-
-" Utility functions to create file commands
+"}}}
+" Utility functions "{{{
 function s:CommandCabbr(abbreviation, expansion)
   execute 'cabbrev ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
 endfunction
@@ -76,12 +107,11 @@ function s:DefineCommand(name, destination)
   call s:FileCommand(a:destination)
   call s:CommandCabbr(a:name, a:destination)
 endfunction
+"}}}
+" Include user's local gvim config "{{{
+    if filereadable(expand("~/.gvimrc.local"))
+      source ~/.gvimrc.local
+    endif
+"}}}
 
-
-" Include user's local vim config
-if filereadable(expand("~/.gvimrc.local"))
-  source ~/.gvimrc.local
-endif
-
-set guioptions=aAce;
-
+" vim:foldmethod=marker:foldlevel=0

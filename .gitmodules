@@ -90,3 +90,7 @@
 	path = bundle/mustache
 	url = git://github.com/juvenn/mustache.vim.git
     ignore = dirty
+[submodule "bundle/yankring"]
+	path = bundle/yankring
+	url = https://github.com/vim-scripts/YankRing.vim.git
+    ignore = dirty
