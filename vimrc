@@ -145,7 +145,7 @@ set ruler
 
     set foldopen=block,hor,tag    " what movements open folds
     set foldopen+=percent,mark
-    set foldopen+=quickfix
+    set foldopen+=quickfix,search
 "}}}
 " Files manipulation "{{{
     nnoremap <leader>w   <C-w>v
