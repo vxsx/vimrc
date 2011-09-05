@@ -27,6 +27,9 @@ if has("gui_macvim")
     "abbrev gc :! open -a /Applications/Google\ Chrome.app %:p<cr>
     abbrev gc :! open -a /Applications/Chromium.app %:p<cr>
 
+    macmenu &Edit.Font.Bigger key=<nop>
+    macmenu &Edit.Font.Smaller key=<nop>
+
     " Moving through tabs ala Textmate "{{{
         map    <D-S-]>   gt
         imap   <D-S-]>   <ESC>gt
@@ -59,6 +62,7 @@ endif
 "}}}
 " Colorscheme "{{{
 set background=light
+let g:solarized_contrast="high"
 colorscheme solarized
 call togglebg#map("<F5>")
 "}}}

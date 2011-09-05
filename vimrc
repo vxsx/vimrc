@@ -41,7 +41,7 @@ set ruler
     "}}}
     " Colorscheme "{{{
         let g:solarized_visibility="low"
-        let g:solarized_contrast="high"
+        let g:solarized_contrast="normal"
         let g:solarized_termtrans = 1
         let g:solarized_diffmode="high"
         set background=dark
@@ -112,7 +112,8 @@ set ruler
     set ignorecase
     set smartcase
 
-    nmap <silent> <Leader><Space> :noh<CR> "mapping to disable search highlight
+    "mapping to disable search highlight
+    nmap <silent> <Leader><Space> :noh<CR> 
 "}}}
 " Tab completion"{{{
     set wildmode=list:longest,list:full
@@ -215,7 +216,7 @@ set ruler
         au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn}  map <buffer> <Leader>p :Hammer <CR>
         " make python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
         au FileType python  set tabstop=4 textwidth=79
-        au BufNewFile,BufRead *.tt set ft=html.css
+        au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
         " That's so i have my css snippets in scss files
         au BufNewFile,BufRead *.scss set ft=scss.css
         " Reload snippets when editing snippets file
