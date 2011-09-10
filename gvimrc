@@ -61,10 +61,24 @@ if has("gui_macvim")
 endif
 "}}}
 " Colorscheme "{{{
-set background=light
-let g:solarized_contrast="high"
+"set background=light
+"let g:solarized_contrast="high"
 colorscheme solarized
-call togglebg#map("<F5>")
+" call togglebg#map("<F5>")
+nnoremap <F5> :call Tbg()<CR>
+
+"This is basically :ToggleBg replacement
+function! Tbg()
+    if &background == "light"
+        set background=dark
+        :let g:solarized_contrast = "normal" 
+        :colorscheme solarized
+    else
+        set background=light
+        :let g:solarized_contrast = "high" 
+        :colorscheme solarized
+    endif
+endfunction
 "}}}
 " NERDTree utility functions "{{{
 autocmd FocusGained * call s:UpdateNERDTree()
