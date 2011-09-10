@@ -7,7 +7,7 @@ curl http://vxsx.github.com/vimrc/ | sh
 Updating
 ========
 ```
-cd ~/.vim/ && git pull && git submodule foreach git pull origin master
+cd ~/.vim/ && ./update.sh
 ```
 
 About
@@ -21,7 +21,6 @@ Seriously, it will ruin submodules.
 TODO:
 =====
 * properly comment vimrc
-* make uninstall script, possibly an upgrade script
-* make install script more awesome (though I need learn shell scripting
-  first)
+* make uninstall script (?)
+* make install script more awesome (though I need learn shell scripting first)
 * make install script for <del>losers</del> Windows
