@@ -113,7 +113,7 @@ set ruler
     set smartcase
 
     "mapping to disable search highlight
-    nmap <silent> <Leader><Space> :noh<CR> 
+    nmap <silent> <Leader><Space> :noh<CR>
 "}}}
 " Tab completion"{{{
     set wildmode=list:longest,list:full
