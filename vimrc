@@ -323,8 +323,8 @@ set ruler
     " SnipMate "{{{
         let g:snippets_dir = '~/.vim/bundle/_/snippets'
     "}}}
-    " NerdCommenter "{{{
-        map // <plug>NERDCommenterToggle<CR>
+    " TComment "{{{
+        map <silent> // :TComment<CR>
     "}}}
     " NERDTree "{{{
         let NERDTreeIgnore=['\.rbc$', '\~$']

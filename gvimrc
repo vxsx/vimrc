@@ -21,7 +21,7 @@ if has("gui_macvim")
     map <D-F> :Ack<space>
 
     " Command-/ to toggle comments
-    map <D-/> <plug>NERDCommenterToggle<CR>
+    map <silent> <D-/> :TComment<CR>
 
     " Open current buffer in my browser of choice
     "abbrev gc :! open -a /Applications/Google\ Chrome.app %:p<cr>
