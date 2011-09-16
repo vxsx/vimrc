@@ -1,8 +1,37 @@
-" General "{{{
+" General gui options "{{{
     "set guioptions-=T  " disabling toolbar
     set guioptions=aAce;
     set guicursor=     " Disabling cursor blinking
     set gcr=n:blinkon0 " Disabling cursor blinking
+
+    
+	function GuiTabLabel()
+	  let label = ''
+	  let bufnrlist = tabpagebuflist(v:lnum)
+
+	  " Add '+' if one of the buffers in the tab page is modified
+	  for bufnr in bufnrlist
+	    if getbufvar(bufnr, "&modified")
+	      let label = '+'
+	      break
+	    endif
+	  endfor
+
+	  " Append the number of windows in the tab page if more than one
+	  let wincount = tabpagewinnr(v:lnum, '$')
+	  if wincount > 1
+	    let label .= '['.wincount.']'
+	  endif
+	  if label != ''
+	    let label .= ' '
+	  endif
+
+	  " Append the buffer name
+	  return label . "%t"
+	endfunction
+
+    set guitablabel=%!GuiTabLabel()
+    
 "}}}
 " Mac settings "{{{
 if has("gui_macvim")
