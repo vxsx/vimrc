@@ -10,6 +10,7 @@
     " (if it is not empty), or to: filename [+=-] (path) - VIM
     set title
     set nospell
+    set mouse=a
 
     " make it easy
     nmap <Space> :
@@ -22,17 +23,27 @@ set ruler
 
     set visualbell
     set scrolloff=3
+    set showcmd
 
     set rnu
 
     " Status bar "{{{
         set laststatus=2
         set statusline=[%n]\ %f\ %w%m%r%{fugitive#statusline()}
+        set statusline+=%{HasPaste()}
         "set statusline+=%=%-16(\ %l,%c%V\ %)%P
         "set statusline=\ %<%-15.25(%f%)%m%r%h\ %w\ \ 
         "set statusline+=\ \ \ [%{&ff}/%Y]%=file=%{&fileencoding}\ enc=%{&encoding}\ 
         set statusline+=\ \ \ %<%.99(%{hostname()}:%{CurDir()}%)\ 
         set statusline+=\ \ \ %=%-10.(%l,%c%V%)\ %p%%/%L
+
+        fun! HasPaste()
+            if &paste
+                return '[paste]'
+            else
+                return ''
+            endif
+        endfunction
 
         fun! CurDir()
             let curdir = substitute(getcwd(), $HOME, "~", "")
@@ -61,6 +72,13 @@ set ruler
     menu Encoding.ISO-8859-5     :e ++enc=iso-8859-5<CR>
     menu Encoding.Latin-1        :e ++enc=latin1<CR>
     map <F2> :emenu Encoding.
+"}}}
+" FileFormat "{{{
+    menu FileFormat.UNIX         :e ++ff=unix<CR>
+    menu FileFormat.DOS          :e ++ff=dos<CR>
+    menu FileFormat.Mac          :e ++ff=mac<CR>
+
+    map <S-F2> :emenu FileFormat.
 "}}}
 " Whitespace and indentation "{{{
     set nowrap
@@ -97,6 +115,9 @@ set ruler
     vmap <D-[> <gv
     vmap <D-]> >gv
 
+    vnoremap < <gv
+    vnoremap > >gv
+
     " Remove the Windows ^M - when the encodings gets messed up
     noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
@@ -113,7 +134,17 @@ set ruler
     set smartcase
 
     "mapping to disable search highlight
-    nmap <silent> <Leader><Space> :noh<CR>
+    " nmap <silent> <Leader><Space> :noh<CR>
+    nmap <silent> <ESC> :noh<CR>
+
+	"always on center of the window
+	" nmap n nzz
+	" nmap N Nzz
+	" nmap * *zz
+	" nmap # #zz
+	" nmap g* g*zz
+	" nmap g# g#zz
+	
 "}}}
 " Tab completion"{{{
     set wildmode=list:longest,list:full
@@ -172,27 +203,14 @@ set ruler
     " cd to the directory containing the file in the buffer
     nmap  <leader>cd :lcd <C-R>=expand("%:p:h")<CR><CR>
 
+    " save file with root permissions"
+    cmap w!! %!sudo tee > /dev/null %
+
     " Editing files "{{{
-   
-        " K to split
-        " Basically this splits the current line into two new ones at the cursor position,
-        " then joins the second one with whatever comes next.
-        "
-        " Example:                      Cursor Here
-        "                                    |
-        "                                    V
-        " foo = ('hello', 'world', 'a', 'b', 'c',
-        "        'd', 'e')
-        "
-        " becomes
-        "
-        " foo = ('hello', 'world', 'a', 'b',
-        "        'c', 'd', 'e')
-        "
-        " Especially useful for adding items in the middle of long lists/tuples in Python
-        " while maintaining a sane text width.
         nnoremap K <nop>
-        nnoremap K h/[^ ]<cr>"zd$jyyP^v$h"zpJk:s/\v +$//<cr>:noh<cr>j^ 
+        nnoremap K i<CR><ESC>
+
+        set pastetoggle=,p
     "}}}
     " Moving in file "{{{
         imap <C-h> <C-o>h
