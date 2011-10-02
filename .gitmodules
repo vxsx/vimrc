@@ -102,4 +102,3 @@
 	path = bundle/scss-syntax
 	url = https://github.com/cakebaker/scss-syntax.vim.git
     ignore = dirty
-    ignore = dirty
