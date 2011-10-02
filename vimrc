@@ -134,8 +134,7 @@ set ruler
     set smartcase
 
     "mapping to disable search highlight
-    " nmap <silent> <Leader><Space> :noh<CR>
-    nmap <silent> <ESC> :noh<CR>
+    nmap <silent> <Leader><Space> :noh<CR>
 
 	"always on center of the window
 	" nmap n nzz
