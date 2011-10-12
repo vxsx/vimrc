@@ -204,12 +204,13 @@ set ruler
 
     " save file with root permissions"
     cmap w!! %!sudo tee > /dev/null %
+    cmap ц w
 
     " Editing files "{{{
         nnoremap K <nop>
         nnoremap K i<CR><ESC>
 
-        set pastetoggle=,p
+        set pastetoggle=<F10>
     "}}}
     " Moving in file "{{{
         imap <C-h> <C-o>h
