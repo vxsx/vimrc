@@ -198,6 +198,14 @@ snippet dump
 		[% USE Dumper %]
 		<pre class="dumper" data-dumper="${1:CNT}">[% Dumper.dump(${2:CNT}) %]</pre>
 	[% END %]
+snippet dumper
+	[% IF 1 %]
+	[% USE Dumper %]
+	<div class="dumper">
+		<pre class="dumper__i" data-dumper="${1:c.stash}">[% Dumper.dump(${2:c.stash}) %]</pre>
+	</div>
+	[% END %]
+
 #some js
 snippet dom
 	$(function(){
