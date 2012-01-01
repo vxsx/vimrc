@@ -211,6 +211,24 @@ set ruler
         nnoremap K i<CR><ESC>
 
         set pastetoggle=<F10>
+
+
+        " html escape/unescape
+        " via: http://vim.wikia.com/wiki/HTML_entities
+        function HtmlEscape()
+          silent s/&/\&amp;/eg
+          silent s/</\&lt;/eg
+          silent s/>/\&gt;/eg
+        endfunction
+
+        function HtmlUnEscape()
+          silent s/&lt;/</eg
+          silent s/&gt;/>/eg
+          silent s/&amp;/\&/eg
+        endfunction
+
+        map <silent> <Leader>he :call HtmlEscape()<CR>
+        map <silent> <Leader>hu :call HtmlUnEscape()<CR>
     "}}}
     " Moving in file "{{{
         imap <C-h> <C-o>h
