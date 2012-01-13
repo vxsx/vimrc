@@ -127,7 +127,7 @@ set ruler
     endfunction
     map <Leader>s :call StripWhitespace ()<CR>
 "}}}
-" Searching"{{{
+" Searching and Replacing"{{{
     set hlsearch
     set incsearch
     set ignorecase
@@ -143,6 +143,11 @@ set ruler
 	" nmap # #zz
 	" nmap g* g*zz
 	" nmap g# g#zz
+
+    set gdefault "set 'g' by default in commands like :%s/../.../
+
+    " map to fast search/replace
+    nnoremap <leader>s :%s//<left>
 	
 "}}}
 " Tab completion"{{{
@@ -180,8 +185,6 @@ set ruler
 "}}}
 " Files manipulation "{{{
     nnoremap <leader>w   <C-w>v
-    nnoremap <leader>v   <C-w>v
-    nnoremap <leader>s   <C-w>s:e
     nnoremap <leader>we  <C-w>v:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>se  <C-w>s:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>ve  <C-w>v:e ~/.vim/vimrc<CR>
