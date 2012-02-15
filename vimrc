@@ -31,6 +31,9 @@ set ruler
         set laststatus=2
         set statusline=[%n]\ %f\ %w%m%r%{fugitive#statusline()}
         set statusline+=%{HasPaste()}
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
         "set statusline+=%=%-16(\ %l,%c%V\ %)%P
         "set statusline=\ %<%-15.25(%f%)%m%r%h\ %w\ \ 
         "set statusline+=\ \ \ [%{&ff}/%Y]%=file=%{&fileencoding}\ enc=%{&encoding}\ 
@@ -435,6 +438,14 @@ set ruler
     "}}}
     " Gundo "{{{
         nnoremap <Leader>gu :GundoToggle<CR>
+    "}}}
+    " Syntastic "{{{
+        let g:syntastic_check_on_open=1
+        let g:syntastic_enable_signs=0
+        " let g:syntastic_enable_balloons = 1
+        let g:syntastic_mode_map = { 'mode': 'passive',
+                                   \ 'active_filetypes': ['javascript', 'php'],
+                                   \ 'passive_filetypes': [] }
     "}}}
 " }}}
 " Disabled options "{{{
