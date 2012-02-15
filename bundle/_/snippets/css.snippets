@@ -1,11 +1,11 @@
 snippet !
 	!important
 snippet di
-	display: inline;${2}
+	display: inline;
 snippet db
-	display: block;${1}
+	display: block;
 snippet dib
-	display: inline-block;${1}
+	display: inline-block;
 snippet dn
 	display: none;
 snippet ma
@@ -28,19 +28,35 @@ snippet pr
 	padding-right: ${1:10}px;${2}
 snippet pb
 	padding-bottom: ${1:10}px;${2}
+snippet w
+	width: ${1:100%};${2}
 snippet wi
 	width: ${1:100%};${2}
 snippet li
-	line-height: ${1:1.2em};${2}
+	line-height:
+snippet lh
+	line-height:
+snippet hlh
+	line-height: $1;
+	height: ${1:};
+snippet h
+	height: 
 snippet he
 	height: ${1:100px};${2}
+snippet wh
+	width: $1;
+	height: ${1:};
+snippet mh
+	min-height: 
+snippet mw
+	min-width: 
 snippet ba
 	background: ${1:black};${2}
-snippet back
+snippet bg
 	background: url('${1}') ${2:no-repeat} ${3:0} ${4:0} ${5:#000000};${6}
 snippet ta
 	text-align: ${1:center};${2}
-snippet co
+snippet c
 	color: ${1:black};${2}
 snippet po
 	position: ${1:relative};${2}
@@ -52,8 +68,10 @@ snippet vat
 	vertical-align: top;
 snippet vab
 	vertical-align: bottom;
+snippet vabl
+	vertical-align: baseline;
 snippet bo
-	border: ${1:1}px ${2:solid} ${3:black};${4}
+	border: 
 snippet bb
 	border-bottom: 
 snippet bt
@@ -73,23 +91,39 @@ snippet brn
 snippet btn
 	border-top: none;
 snippet oh
-	overflow: hidden;${1}
+	overflow: hidden;
+snippet oxh
+	overflow-x: hidden;
+snippet oyh
+	overflow-y: hidden;
+snippet oya
+	overflow-y: auto;
+snippet oxa
+	overflow-x: auto;
 snippet ov
 	overflow: visible;
+snippet oa
+	overflow: auto;
 snippet z
-	z-index: ${1:9999};${2}
+	z-index: ${1:1};${2}
 snippet fs
-	font-size: ${1};${2}
+	font-size: 
 snippet fwb
 	font-weight: bold;
 snippet fwn
 	font-weight: normal;
+snippet fwl
+	font-weight: ligher;
 snippet fsi
 	font-style: italic;
 snippet fsn
 	font-style: normal;
 snippet fw
 	font-weight: ${1:bold};${2}
+snippet bcc
+	border-collapse: collapse;
+snippet bcs
+	border-collapse: separate;
 snippet l
 	left: ${1:0px};${2}
 snippet r
@@ -98,6 +132,26 @@ snippet b
 	bottom: ${1:0px};${2}
 snippet t
 	top: ${1:0px};${2}
+snippet tl
+	left: ${2:0};
+	top: ${3:0};{$1}
+snippet bl
+	left: ${2:0};
+	bottom: ${3:0};{$1}
+snippet br
+	right: ${2:0};
+	bottom: ${3:0};{$1}
+snippet tr
+	right: ${2:0};
+	top: ${3:0};{$1}
+snippet la
+	left: auto;
+snippet ra
+	right: auto;
+snippet lsn
+	list-style: none;
+snippet lstn
+	list-style-type: none;
 snippet {
 	{
 		${1}
@@ -116,6 +170,8 @@ snippet poa
 	position: absolute;
 snippet pos
 	position: static;
+snippet pof
+	position: fixed;
 snippet tal
 	text-align: left;
 snippet tar
@@ -148,7 +204,9 @@ snippet cup
 	cursor: pointer;
 snippet cut
 	cursor: text;
-snippet tr
+snippet cud
+	cursor: default;
+snippet tra
 	-webkit-transition: all linear 1s;
 	-moz-transition: all linear 1s;
 	-o-transition: all linear 1s;
@@ -159,10 +217,8 @@ snippet tf
 	-ms-transform: $1;
 	-o-transform: $1;
 	transform: ${1:};${2}
-snippet z1
-	zoom: 1;
 snippet ti
-	text-indent: ${1};${2}
+	text-indent: -9999px;
 snippet ttn
 	text-transform: none;
 snippet ttu
@@ -175,14 +231,14 @@ snippet les
 	letter-spacing: ${1};${2}
 snippet wos
 	word-spacing: ${1};${2}
-snippet bxs
-	-webkit-box-shadow: $1;
-	-moz-box-shadow: $1;
-	box-shadow: ${1:};${2}
+snippet ws
+	white-space: 
 snippet vh
 	visibility: hidden;
 snippet vv
 	visibility: visible;
+snippet ff
+	font-family: 
 snippet @f
 	@font-face {
 		 font-family: ${1};
@@ -217,3 +273,15 @@ snippet :a
 	::after
 snippet :b
 	::before
+snippet co
+	content: '';
+snippet ts
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+snippet rb
+	rgba(0, 0, 0, 0.5);
+snippet rw
+	rgba(255, 255, 255, 0.5);
+snippet on
+	outline: none;
+snippet o1
+	outline: 1px dotted;
