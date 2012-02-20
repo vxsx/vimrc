@@ -106,3 +106,7 @@
     path = bundle/vim-indentobject
     url = https://github.com/austintaylor/vim-indentobject.git
     ignore = dirty
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+    ignore = dirty
