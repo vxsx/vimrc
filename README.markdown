@@ -1,7 +1,7 @@
 Installation
 ============
 ```
-curl http://vxsx.github.com/vimrc/ | sh
+curl -L http://vxsx.github.com/vimrc/ | sh
 ```
 
 Updating
