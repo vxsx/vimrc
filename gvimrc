@@ -53,7 +53,7 @@ if has("gui_macvim")
     map <silent> <D-/> :TComment<CR>
 
     " Open current buffer in my browser of choice
-    abbrev gc! :! open -a /Applications/Google\ Chrome.app %:p<cr>
+    cmap gc! ! open -a /Applications/Google\ Chrome.app %:p
     " abbrev gc :! open -a /Applications/Chromium.app %:p<cr>
 
     macmenu &Edit.Font.Bigger key=<nop>
