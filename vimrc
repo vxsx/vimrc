@@ -128,7 +128,7 @@ set ruler
     function! StripWhitespace ()
         exec ':%s/ \+$//gc'
     endfunction
-    map <Leader>s :call StripWhitespace ()<CR>
+    map <Leader>sw :call StripWhitespace ()<CR>
 "}}}
 " Searching and Replacing"{{{
     set hlsearch

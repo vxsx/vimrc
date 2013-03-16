@@ -110,3 +110,6 @@
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
     ignore = dirty
+[submodule "bundle/mojo"]
+	path = bundle/mojo
+	url = https://github.com/yko/mojo.vim.git
