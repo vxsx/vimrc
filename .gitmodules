@@ -109,3 +109,6 @@
 [submodule "bundle/mojo"]
 	path = bundle/mojo
 	url = https://github.com/yko/mojo.vim.git
+[submodule "bundle/vim-coffee-script"]
+	path = bundle/vim-coffee-script
+	url = https://github.com/kchmck/vim-coffee-script.git
