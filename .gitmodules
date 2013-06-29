@@ -116,3 +116,6 @@
 	path = bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
     ignore = dirty
+[submodule "bundle/tasklist-vim"]
+	path = bundle/tasklist-vim
+	url = https://github.com/vim-scripts/TaskList.vim.git
