@@ -119,3 +119,7 @@
 [submodule "bundle/tasklist-vim"]
 	path = bundle/tasklist-vim
 	url = https://github.com/vim-scripts/TaskList.vim.git
+[submodule "bundle/vim-indent-line"]
+	path = bundle/vim-indent-line
+	url = https://github.com/Yggdroot/indentLine.git
+    ignore = dirty

@@ -447,6 +447,11 @@ set ruler
                                    \ 'active_filetypes': ['javascript', 'php'],
                                    \ 'passive_filetypes': [] }
     "}}}
+    " IndentLine "{{{
+        let g:indentLine_char = '│'
+        let g:indentLine_noConcealCursor = 1
+        let g:indentLine_color_gui = '#E4E1D2'
+    "}}}
 " }}}
 " Disabled options "{{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
