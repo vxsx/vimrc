@@ -11,6 +11,9 @@
     set title
     set nospell
     set mouse=a
+    if $TMUX == ''
+        set clipboard+=unnamed
+    endif
 
     " make it easy
     nmap <Space> :
@@ -56,9 +59,7 @@ set ruler
     " Colorscheme "{{{
         let g:solarized_visibility="low"
         let g:solarized_contrast="normal"
-        let g:solarized_termtrans = 1
         let g:solarized_diffmode="high"
-        set background=dark
         color solarized
     "}}}
 
@@ -246,10 +247,10 @@ set ruler
         map <silent> <Leader>hu :call HtmlUnEscape()<CR>
     "}}}
     " Moving in file "{{{
-        imap <C-h> <C-o>h
-        imap <C-j> <C-o>j
-        imap <C-k> <C-o>k
-        imap <C-l> <C-o>l
+        " imap <C-h> <C-o>h
+        " imap <C-j> <C-o>j
+        " imap <C-k> <C-o>k
+        " imap <C-l> <C-o>l
 
         nmap <tab> %
         vmap <tab> %
@@ -289,12 +290,17 @@ set ruler
         au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn}  map <buffer> <Leader>p :Hammer <CR>
         " make python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
         au FileType python  set tabstop=4 textwidth=79
+        au BufRead,BufNewFile *.yml  set tabstop=2
         au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
         " That's so i have my css snippets in scss files
         au BufNewFile,BufRead *.scss set ft=scss.css
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
         au! bufwritepost vimrc source $MYVIMRC
+
+
+        au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
+
     endif
 "}}}
 " Directories for swp files "{{{
@@ -450,6 +456,8 @@ set ruler
     " IndentLine "{{{
         let g:indentLine_char = '│'
         let g:indentLine_noConcealCursor = 1
+        let g:indentLine_color_term = 7
+        " let g:indentLine_color_term = 0
         let g:indentLine_color_gui = '#E4E1D2'
     "}}}
 " }}}

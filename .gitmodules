@@ -123,3 +123,6 @@
 	path = bundle/vim-indent-line
 	url = https://github.com/Yggdroot/indentLine.git
     ignore = dirty
+[submodule "bundle/vim-stylus"]
+	path = bundle/vim-stylus
+	url = https://github.com/wavded/vim-stylus.git
