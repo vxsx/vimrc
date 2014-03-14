@@ -417,6 +417,8 @@ set ruler
     "}}}
     " Command-T "{{{
         let g:CommandTMaxHeight=20
+        map <C-t> :CommandT<CR>
+        imap <C-t> <Esc>:CommandT<CR>
     "}}}
     " ZoomWin configuration "{{{
         map <Leader><Leader> :ZoomWin<CR>
@@ -459,6 +461,10 @@ set ruler
         let g:indentLine_color_term = 7
         " let g:indentLine_color_term = 0
         let g:indentLine_color_gui = '#E4E1D2'
+    "}}}
+    " Taskpaper "{{{
+        hi link taskpaperDone Comment
+        hi link taskpaperCancelled Comment
     "}}}
 " }}}
 " Disabled options "{{{

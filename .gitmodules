@@ -126,3 +126,6 @@
 [submodule "bundle/vim-stylus"]
 	path = bundle/vim-stylus
 	url = https://github.com/wavded/vim-stylus.git
+[submodule "bundle/taskpaper-vim"]
+	path = bundle/taskpaper-vim
+	url = https://github.com/davidoc/taskpaper.vim.git
