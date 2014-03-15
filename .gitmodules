@@ -1,3 +1,3 @@
-[submodule "/Users/vxsx/.vim/bundle/vundle"]
-	path = /Users/vxsx/.vim/bundle/vundle
+[submodule "bundle/vundle"]
+	path = bundle/vundle
 	url = https://github.com/gmarik/vundle.git
