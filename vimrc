@@ -486,9 +486,14 @@ set ruler
     " IndentLine "{{{
         let g:indentLine_char = '│'
         let g:indentLine_noConcealCursor = 1
-        let g:indentLine_color_term = 7
-        " let g:indentLine_color_term = 0
-        let g:indentLine_color_gui = '#E4E1D2'
+
+        if &background is# "light"
+            let g:indentLine_color_term = 7
+            let g:indentLine_color_gui = '#E4E1D2'
+        else
+            let g:indentLine_color_term = 0
+            let g:indentLine_color_gui = '#003540'
+        endif
     "}}}
     " Taskpaper "{{{
         hi link taskpaperDone Comment
