@@ -1,11 +1,51 @@
-" Pathogen initialization"{{{
-    source ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-    call pathogen#runtime_append_all_bundles()
-    call pathogen#helptags()
+" Vundle initialization"{{{
+    set nocompatible
+    filetype off
+
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+
+    " let Vundle manage Vundle, required
+    Bundle 'gmarik/vundle'
+
+    " Bundles "{{{
+        Bundle 'altercation/vim-colors-solarized'
+        Bundle 'editorconfig/editorconfig-vim'
+        Bundle 'mustache/vim-mustache-handlebars'
+        Bundle 'cakebaker/scss-syntax.vim'
+        Bundle 'scrooloose/syntastic'
+        Bundle 'vim-scripts/TaskList.vim'
+        Bundle 'davidoc/taskpaper.vim'
+        Bundle 'tomtom/tcomment_vim'
+        Bundle 'mileszs/ack.vim'
+        Bundle 'pix/vim-align'
+        Bundle 'kchmck/vim-coffee-script'
+        Bundle 'kien/ctrlp.vim'
+        Bundle 'hail2u/vim-css3-syntax'
+        Bundle 'tpope/vim-fugitive'
+        Bundle 'tpope/vim-git'
+        Bundle 'tpope/vim-haml'
+        Bundle 'sjl/gundo.vim'
+        Bundle 'Yggdroot/indentLine'
+        Bundle 'michaeljsmith/vim-indent-object'
+        Bundle 'pangloss/vim-javascript'
+        Bundle 'tpope/vim-markdown'
+        Bundle 'scrooloose/nerdtree'
+        Bundle 'MarcWeber/vim-addon-mw-utils'
+        Bundle 'tomtom/tlib_vim'
+        Bundle 'garbas/vim-snipmate'
+        Bundle 'wavded/vim-stylus'
+        Bundle 'ervandew/supertab'
+        Bundle 'tpope/vim-unimpaired'
+        Bundle 'vim-scripts/ZoomWin'
+        Bundle 'gregsexton/MatchTag'
+        Bundle 'vim-scripts/matchit.zip'
+    "}}}
+
+    filetype plugin indent on     " required
 "}}}
 " Basic rules "{{{
-    set nocompatible
-
     " the title of the window will be set to the value of 'titlestring'
     " (if it is not empty), or to: filename [+=-] (path) - VIM
     set title
@@ -395,10 +435,6 @@ set ruler
         vmap <D-k> [egv
         vmap <D-j> ]egv
     "}}}
-    " YankRing "{{{
-        :nnoremap <silent> <F11> :YRShow<CR>
-        let g:yankring_history_dir = '~/.vim/backup'
-    "}}}
     " SnipMate "{{{
         let g:snippets_dir = '~/.vim/bundle/_/snippets'
     "}}}
@@ -423,9 +459,6 @@ set ruler
     " ZoomWin configuration "{{{
         map <Leader><Leader> :ZoomWin<CR>
     "}}}
-    " Taglist "{{{
-        map <Leader>rt :!ctags --extra=+f -R *<CR><CR>
-    "}}}
     " Fugitive "{{{
         autocmd User fugitive
           \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
@@ -438,11 +471,6 @@ set ruler
         " equalalways behavior to be triggered the next time CommandT is used.
         " This is likely a bludgeon to solve some other issue, but it works
         set noequalalways
-    "}}}
-    " BufExplorer "{{{
-        map <silent> <Leader>b :BufExplorer<CR>
-        map <silent> <Space>b :BufExplorer<CR>
-        let g:bufExplorerSortBy='extension'
     "}}}
     " Gundo "{{{
         nnoremap <Leader>gu :GundoToggle<CR>
