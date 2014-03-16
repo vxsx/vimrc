@@ -503,6 +503,10 @@ set ruler
         hi link taskpaperDone Comment
         hi link taskpaperCancelled Comment
     "}}}
+    " Emmet "{{{
+        let g:user_emmet_leader_key='<C-e>'
+
+    "}}}
 " }}}
 " Disabled options "{{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
