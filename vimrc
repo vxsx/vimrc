@@ -44,6 +44,7 @@
         Bundle 'vim-scripts/jQuery'
         Bundle 'othree/html5.vim'
         Bundle 'mattn/emmet-vim'
+        Bundle 'vxsx/vim-snippets'
     "}}}
 
     filetype plugin indent on     " required
@@ -439,7 +440,7 @@ set ruler
         vmap <D-j> ]egv
     "}}}
     " SnipMate "{{{
-        let g:snippets_dir = '~/.vim/bundle/_/snippets'
+        let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
     "}}}
     " TComment "{{{
         map <silent> // :TComment<CR>
