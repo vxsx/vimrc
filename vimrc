@@ -41,6 +41,9 @@
         Bundle 'vim-scripts/ZoomWin'
         Bundle 'gregsexton/MatchTag'
         Bundle 'vim-scripts/matchit.zip'
+        Bundle 'vim-scripts/jQuery'
+        Bundle 'othree/html5.vim'
+        Bundle 'mattn/emmet-vim'
     "}}}
 
     filetype plugin indent on     " required
