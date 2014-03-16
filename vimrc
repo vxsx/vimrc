@@ -65,7 +65,7 @@
 " Appearance "{{{
 set ruler
     syntax on
-    set synmaxcol=2048 " Syntax coloring lines that are too long just slows down the world
+    set synmaxcol=200 " Syntax coloring lines that are too long just slows down the world
     set cursorline
 
     set visualbell
@@ -104,6 +104,7 @@ set ruler
         let g:solarized_visibility="low"
         let g:solarized_contrast="normal"
         let g:solarized_diffmode="high"
+        let g:solarized_termtrans=1
         color solarized
     "}}}
 
