@@ -455,11 +455,6 @@ set ruler
         "let NERDTreeMinimalUI=1 " Disables display of the 'Bookmarks' label and 'Press ? for help' text.
         let NERDTreeDirArrows=1 " Tells the NERD tree to use arrows instead of + ~ chars when displaying directories.
     "}}}
-    " Command-T "{{{
-        let g:CommandTMaxHeight=20
-        map <C-t> :CommandT<CR>
-        imap <C-t> <Esc>:CommandT<CR>
-    "}}}
     " ZoomWin configuration "{{{
         map <Leader><Leader> :ZoomWin<CR>
     "}}}
