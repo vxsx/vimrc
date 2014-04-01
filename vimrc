@@ -65,7 +65,7 @@
 " Appearance "{{{
 set ruler
     syntax on
-    set synmaxcol=200 " Syntax coloring lines that are too long just slows down the world
+    set synmaxcol=500 " Syntax coloring lines that are too long just slows down the world
     set cursorline
 
     set visualbell
