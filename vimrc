@@ -38,7 +38,7 @@
         Bundle 'wavded/vim-stylus'
         Bundle 'ervandew/supertab'
         Bundle 'tpope/vim-unimpaired'
-        Bundle 'vim-scripts/ZoomWin'
+        Bundle 'regedarek/ZoomWin'
         Bundle 'gregsexton/MatchTag'
         Bundle 'vim-scripts/matchit.zip'
         Bundle 'vim-scripts/jQuery'
@@ -465,12 +465,6 @@ set ruler
           \   nnoremap <buffer> .. :edit %:h<CR> |
           \ endif
         autocmd BufReadPost fugitive://* set bufhidden=delete
-    "}}}
-    " ZoomWin "{{{
-        " Without setting this, ZoomWin restores windows in a way that causes
-        " equalalways behavior to be triggered the next time CommandT is used.
-        " This is likely a bludgeon to solve some other issue, but it works
-        set noequalalways
     "}}}
     " Gundo "{{{
         nnoremap <Leader>gu :GundoToggle<CR>
