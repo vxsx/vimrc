@@ -484,6 +484,8 @@ set ruler
         let g:indentLine_color_term = 7
         let g:indentLine_color_gui = '#E4E1D2'
 
+        let g:indentLine_faster = 1
+
         if &background is# "dark"
             let g:indentLine_color_term = 0
             let g:indentLine_color_gui = '#003540'
