@@ -474,7 +474,7 @@ set ruler
         let g:syntastic_enable_signs=0
         " let g:syntastic_enable_balloons = 1
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript', 'php'],
+                                   \ 'active_filetypes': ['javascript', 'php', 'coffee'],
                                    \ 'passive_filetypes': [] }
     "}}}
     " IndentLine "{{{
