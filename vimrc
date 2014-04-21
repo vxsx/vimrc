@@ -476,6 +476,7 @@ set ruler
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['javascript', 'php', 'coffee'],
                                    \ 'passive_filetypes': [] }
+        let g:syntastic_javascript_checkers = ['jshint', 'jscs']
     "}}}
     " IndentLine "{{{
         let g:indentLine_char = '│'
