@@ -3,6 +3,10 @@ Installation
 ```
 curl -L http://vxsx.github.com/vimrc/ | sh
 ```
+or
+```
+wget http://vxsx.github.com/vimrc/ -O - | sh
+```
 
 Updating
 ========
