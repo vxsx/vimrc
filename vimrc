@@ -25,7 +25,6 @@
         Bundle 'hail2u/vim-css3-syntax'
         Bundle 'tpope/vim-fugitive'
         Bundle 'tpope/vim-git'
-        Bundle 'tpope/vim-haml'
         Bundle 'sjl/gundo.vim'
         Bundle 'Yggdroot/indentLine'
         Bundle 'michaeljsmith/vim-indent-object'
