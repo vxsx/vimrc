@@ -264,7 +264,11 @@ set ruler
 
     " save file with root permissions"
     cmap w!! %!sudo tee > /dev/null %
+
+    " map command wq wa qa in russian
     cmap ц w
+    cmap ф a
+    cmap й q
 
     " Editing files "{{{
         nnoremap K <nop>
