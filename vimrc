@@ -42,6 +42,7 @@
         Bundle 'vim-scripts/matchit.zip'
         Bundle 'vim-scripts/jQuery'
         Bundle 'othree/html5.vim'
+        Bundle 'vim-scripts/django.vim'
         Bundle 'mattn/emmet-vim'
         Bundle 'vxsx/vim-snippets'
     "}}}
