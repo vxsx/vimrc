@@ -328,6 +328,19 @@ set ruler
         \| exe "normal g'\"" | endif
     endif
     "}}}
+    " Helper functions "{{{
+    fun! DetectDjangoTemplate()
+        let n = 1
+        while n < line("$")
+            if getline(n) =~ '{%' || getline(n) =~ '{{'
+                set ft=htmldjango
+                return
+            endif
+            let n = n + 1
+        endwhile
+        set ft=html "default html
+    endfun
+    "}}}
 "}}}
 " Filetype autocommands "{{{
     if has("autocmd")
@@ -345,8 +358,8 @@ set ruler
         au BufNewFile,BufRead *.scss set ft=scss.css
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
+        au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! bufwritepost vimrc source $MYVIMRC
-
 
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
 
