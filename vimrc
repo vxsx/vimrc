@@ -491,9 +491,10 @@ set ruler
         let g:syntastic_enable_signs=0
         " let g:syntastic_enable_balloons = 1
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript', 'php', 'coffee'],
+                                   \ 'active_filetypes': ['javascript', 'php', 'coffee', 'html'],
                                    \ 'passive_filetypes': [] }
         let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+        let g:syntastic_html_checkers = ['validator']
     "}}}
     " IndentLine "{{{
         let g:indentLine_char = '│'
