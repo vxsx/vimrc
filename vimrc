@@ -520,7 +520,11 @@ set ruler
     "}}}
     " Emmet "{{{
         let g:user_emmet_leader_key='<C-e>'
-
+    "}}}
+    " JS DOC "{{{
+        let g:jsdoc_default_mapping = 0
+        let g:jsdoc_return = 0
+        nmap <silent> <Leader>js :JsDoc<CR>
     "}}}
 " }}}
 " Disabled options "{{{
