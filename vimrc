@@ -29,6 +29,7 @@
         Bundle 'Yggdroot/indentLine'
         Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'pangloss/vim-javascript'
+        Bundle 'heavenshell/vim-jsdoc'
         Bundle 'tpope/vim-markdown'
         Bundle 'scrooloose/nerdtree'
         Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -43,6 +44,8 @@
         Bundle 'vim-scripts/jQuery'
         Bundle 'othree/html5.vim'
         Bundle 'vim-scripts/django.vim'
+        Bundle 'kana/vim-textobj-user'
+        Bundle 'mjbrownie/django-template-textobjects'
         Bundle 'mattn/emmet-vim'
         Bundle 'vxsx/vim-snippets'
     "}}}
@@ -105,6 +108,7 @@ set ruler
         let g:solarized_contrast="normal"
         let g:solarized_diffmode="high"
         let g:solarized_termtrans=1
+        set background=light
         color solarized
     "}}}
 
@@ -491,7 +495,7 @@ set ruler
         let g:syntastic_enable_signs=0
         " let g:syntastic_enable_balloons = 1
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript', 'php', 'coffee', 'html'],
+                                   \ 'active_filetypes': ['javascript', 'php', 'coffee'],
                                    \ 'passive_filetypes': [] }
         let g:syntastic_javascript_checkers = ['jshint', 'jscs']
         let g:syntastic_html_checkers = ['validator']
