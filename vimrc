@@ -44,7 +44,9 @@
         Bundle 'vim-scripts/jQuery'
         Bundle 'othree/html5.vim'
         Bundle 'vim-scripts/django.vim'
+        Bundle 'Glench/Vim-Jinja2-Syntax'
         Bundle 'kana/vim-textobj-user'
+        Bundle 'terryma/vim-multiple-cursors'
         Bundle 'mjbrownie/django-template-textobjects'
         Bundle 'mattn/emmet-vim'
         Bundle 'vxsx/vim-snippets'
@@ -179,6 +181,12 @@ set ruler
         exec ':%s/ \+$//gc'
     endfunction
     map <Leader>sw :call StripWhitespace ()<CR>
+
+    " CSScomb
+    function! CSScomb()
+        execute "silent !csscomb " . expand('%')
+        redraw!
+    endfunction
 "}}}
 " Searching and Replacing"{{{
     set hlsearch
@@ -360,9 +368,10 @@ set ruler
         au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
         " That's so i have my css snippets in scss files
         au BufNewFile,BufRead *.scss set ft=scss.css
+        au FileType scss,css nnoremap <buffer> <F5> :call CSScomb()<CR>
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
-        au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
+        " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! bufwritepost vimrc source $MYVIMRC
 
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
@@ -525,6 +534,9 @@ set ruler
         let g:jsdoc_default_mapping = 0
         let g:jsdoc_return = 0
         nmap <silent> <Leader>js :JsDoc<CR>
+    "}}}
+    " CtrlP "{{{
+        let g:ctrlp_extensions = ['buffertag']
     "}}}
 " }}}
 " Disabled options "{{{
