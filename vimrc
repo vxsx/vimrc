@@ -366,6 +366,7 @@ set ruler
         au FileType python  set tabstop=4 textwidth=79
         au BufRead,BufNewFile *.yml  set tabstop=2
         au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
+        au BufNewFile,BufRead *.lancet set ft=dosini
         " That's so i have my css snippets in scss files
         au BufNewFile,BufRead *.scss set ft=scss.css
         au FileType scss,css nnoremap <buffer> <F5> :call CSScomb()<CR>
