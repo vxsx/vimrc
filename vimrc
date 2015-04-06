@@ -348,6 +348,18 @@ set ruler
         endwhile
         set ft=html "default html
     endfun
+
+    fun! DetectMinifiedJavaScriptFile()
+        let n = 1
+        while n < line("$")
+            if len(getline(n)) >= 500
+                " set syntastic to off
+                let b:syntastic_mode = 'passive'
+                return
+            endif
+            let n = n + 1
+        endwhile
+    endfun
     "}}}
 "}}}
 " Filetype autocommands "{{{
@@ -369,6 +381,7 @@ set ruler
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
+        au! BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! bufwritepost vimrc source $MYVIMRC
 
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
@@ -505,7 +518,7 @@ set ruler
         let g:syntastic_enable_signs=0
         " let g:syntastic_enable_balloons = 1
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript', 'php', 'coffee'],
+                                   \ 'active_filetypes': ['javascript'],
                                    \ 'passive_filetypes': [] }
         let g:syntastic_javascript_checkers = ['jshint', 'jscs']
         let g:syntastic_html_checkers = ['validator']
