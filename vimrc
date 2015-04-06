@@ -225,10 +225,10 @@ set ruler
     nmap <C-l> <C-w>l
 
     " Window resizing mappings "{{{
-        nnoremap <S-Up>    5<C-w>+
-        nnoremap <S-Down>  5<C-w>-
-        nnoremap <S-Left>  5<C-w><
-        nnoremap <S-Right> 5<C-w>>
+        nmap <Up>    5<C-w>+
+        nmap <Down>  5<C-w>-
+        nmap <Left>  5<C-w><
+        nmap <Right> 5<C-w>>
     "}}}
     " Tabs mappings "{{{
         nnoremap <Leader>[ gT
@@ -317,10 +317,6 @@ set ruler
         vmap <tab> %
 
         " this is for learning hjkl moving
-        nnoremap <up>    <nop>
-        nnoremap <down>  <nop>
-        nnoremap <left>  <nop>
-        nnoremap <right> <nop>
         inoremap <up>    <nop>
         inoremap <down>  <nop>
         inoremap <left>  <nop>
