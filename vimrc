@@ -374,6 +374,10 @@ set ruler
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
 
     endif
+
+    " Automatically reload file if it was changed on disc
+    " and was saved already in the editor
+    set autoread
 "}}}
 " Directories for swp files "{{{
     set backupdir=~/.vim/backup
