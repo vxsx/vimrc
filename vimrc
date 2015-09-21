@@ -29,6 +29,7 @@
         Bundle 'Yggdroot/indentLine'
         Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'pangloss/vim-javascript'
+        Bundle 'mxw/vim-jsx'
         Bundle 'heavenshell/vim-jsdoc'
         Bundle 'tpope/vim-markdown'
         Bundle 'scrooloose/nerdtree'
@@ -50,6 +51,7 @@
         Bundle 'mjbrownie/django-template-textobjects'
         Bundle 'mattn/emmet-vim'
         Bundle 'vxsx/vim-snippets'
+        Bundle 'wtfil/require-navigator.vim'
     "}}}
 
     filetype plugin indent on     " required
@@ -360,6 +362,17 @@ set ruler
             let n = n + 1
         endwhile
     endfun
+    fun! DetectJSX()
+        let n = 1
+        while n < line("$")
+            if getline(n) =~ 'React' || getline(n) =~ 'react'
+                " set syntax to jsx
+                set ft=javascript.jsx
+                return
+            endif
+            let n = n + 1
+        endwhile
+    endfun
     "}}}
 "}}}
 " Filetype autocommands "{{{
@@ -382,6 +395,7 @@ set ruler
         au! BufWritePost *.snippet call ReloadAllSnippets()
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
+        au! BufRead,BufNewFile *.js call DetectJSX()
         au! bufwritepost vimrc source $MYVIMRC
 
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
@@ -520,8 +534,15 @@ set ruler
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['javascript'],
                                    \ 'passive_filetypes': [] }
-        let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+        let g:syntastic_javascript_checkers = ['jsxhint', 'jscs']
+        " let g:syntastic_javascript_checkers = ['jsxhint']
+        let g:syntastic_javascript_jsxhint_args = "--es6module"
+        let g:syntastic_javascript_jscs_args = "--esnext"
         let g:syntastic_html_checkers = ['validator']
+        let g:syntastic_aggregate_errors=1
+    "}}}
+    " Vim-JSX "{{{
+        let g:jsx_ext_required = 0
     "}}}
     " IndentLine "{{{
         let g:indentLine_char = '│'
@@ -551,6 +572,13 @@ set ruler
     "}}}
     " CtrlP "{{{
         let g:ctrlp_extensions = ['buffertag']
+    "}}}
+    " Require navigator "{{{
+        nnoremap <Leader>gf :call Navigate()<cr>
+        nnoremap <Leader>gb :call Back()<cr>
+    "}}}
+    " Dpaster "{{{
+        vmap <Leader>dp :w !dpaster -t 
     "}}}
 " }}}
 " Disabled options "{{{
