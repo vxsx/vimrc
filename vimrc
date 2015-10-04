@@ -530,7 +530,7 @@ set ruler
     " Syntastic "{{{
         let g:syntastic_check_on_open=1
         let g:syntastic_enable_signs=0
-        " let g:syntastic_enable_balloons = 1
+        let g:syntastic_enable_balloons = 0
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['javascript'],
                                    \ 'passive_filetypes': [] }
@@ -538,7 +538,8 @@ set ruler
         " let g:syntastic_javascript_checkers = ['jsxhint']
         let g:syntastic_javascript_jsxhint_args = "--es6module"
         let g:syntastic_javascript_jscs_args = "--esnext"
-        let g:syntastic_html_checkers = ['validator']
+        " let g:syntastic_html_checkers = ['validator']
+        let g:syntastic_always_populate_loc_list = 1
         let g:syntastic_aggregate_errors=1
     "}}}
     " Vim-JSX "{{{
