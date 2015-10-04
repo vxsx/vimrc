@@ -140,6 +140,11 @@ set ruler
     set softtabstop=4
     set expandtab
 
+    " Round indent to multiple of 'shiftwidth'.
+    " Indentation always be multiple of shiftwidth
+    " Applies to  < and > command
+    set shiftround
+
     " Invisible characters
     set list
     if has('multi_byte')
