@@ -5,4 +5,4 @@ echo ""
 echo "Updating vundle"
 cd ~/.vim/ && git submodule foreach git pull origin master
 echo "Updating plugins"
-vim -c ':BundleInstall!' -c ':qa'
+vim +BundleInstall +qall
