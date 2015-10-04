@@ -32,7 +32,6 @@
         Bundle 'mxw/vim-jsx'
         Bundle 'heavenshell/vim-jsdoc'
         Bundle 'tpope/vim-markdown'
-        " Bundle 'scrooloose/nerdtree'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         Bundle 'tomtom/tlib_vim'
         Bundle 'garbas/vim-snipmate'
