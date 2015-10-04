@@ -576,6 +576,11 @@ set ruler
         let g:airline#extensions#tmuxline#enabled = 1
         let g:airline#extensions#nrrwrgn#enabled = 0
     "}}}
+    " Gitgutter "{{{
+        let g:gitgutter_map_keys = 0
+        let g:gitgutter_signs = 0
+        let g:gitgutter_highlight_lines = 0
+    "}}}
     " Tern "{{{
         let g:tern_show_signature_in_pum = 1
     "}}}
