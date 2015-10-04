@@ -396,7 +396,7 @@ set ruler
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! BufRead,BufNewFile *.js call DetectJSX()
-        au! bufwritepost vimrc source $MYVIMRC
+        au! bufwritepost vimrc nested source $MYVIMRC
 
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
 
