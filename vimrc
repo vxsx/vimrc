@@ -47,6 +47,7 @@
         Bundle 'vxsx/vim-snippets'
         Bundle 'wtfil/require-navigator.vim'
         Bundle 'marijnh/tern_for_vim'
+        Bundle 'bling/vim-airline'
     "}}}
 
     filetype plugin indent on     " required
@@ -78,29 +79,6 @@ set ruler
 
     " Status bar "{{{
         set laststatus=2
-        set statusline=[%n]\ %f\ %w%m%r%{fugitive#statusline()}
-        set statusline+=%{HasPaste()}
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
-        "set statusline+=%=%-16(\ %l,%c%V\ %)%P
-        "set statusline=\ %<%-15.25(%f%)%m%r%h\ %w\ \ 
-        "set statusline+=\ \ \ [%{&ff}/%Y]%=file=%{&fileencoding}\ enc=%{&encoding}\ 
-        set statusline+=\ \ \ %<%.99(%{hostname()}:%{CurDir()}%)\ 
-        set statusline+=\ \ \ %=%-10.(%l,%c%V%)\ %p%%/%L
-
-        fun! HasPaste()
-            if &paste
-                return '[paste]'
-            else
-                return ''
-            endif
-        endfunction
-
-        fun! CurDir()
-            let curdir = substitute(getcwd(), $HOME, "~", "")
-            return curdir
-        endfunction
     "}}}
     " Colorscheme "{{{
         let g:solarized_visibility="low"
@@ -576,6 +554,20 @@ set ruler
     "}}}
     " Dpaster "{{{
         vmap <Leader>dp :w !dpaster -t 
+    "}}}
+    " Airline "{{{
+        let g:airline_powerline_fonts = 1
+        let g:airline#extensions#bufferline#enabled = 0
+        let g:airline#extensions#branch#enabled = 1
+        let g:airline#extensions#syntastic#enabled = 1
+        let g:airline#extensions#tagbar#enabled = 0
+        let g:airline#extensions#csv#enabled = 0
+        let g:airline#extensions#hunks#non_zero_only = 1
+        let g:airline#extensions#virtualenv#enabled = 0
+        let g:airline#extensions#eclim#enabled = 0
+        let g:airline#extensions#tabline#enabled = 0
+        let g:airline#extensions#tmuxline#enabled = 1
+        let g:airline#extensions#nrrwrgn#enabled = 0
     "}}}
 " }}}
 " Disabled options "{{{
