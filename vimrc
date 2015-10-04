@@ -408,7 +408,7 @@ set ruler
 "}}}
 " Directories for swp files "{{{
     set backupdir=~/.vim/backup
-    set directory=~/.vim/backup
+    set noswapfile
     set undofile
     set undodir=~/.vim/backup
 "}}}
