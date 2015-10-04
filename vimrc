@@ -558,6 +558,10 @@ set ruler
     " Dpaster "{{{
         vmap <Leader>dp :w !dpaster -t 
     "}}}
+    " Supertab "{{{
+        let g:SuperTabDefaultCompletionType = "context"
+        set completeopt-=preview
+    "}}}
     " Airline "{{{
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#bufferline#enabled = 0
@@ -571,6 +575,9 @@ set ruler
         let g:airline#extensions#tabline#enabled = 0
         let g:airline#extensions#tmuxline#enabled = 1
         let g:airline#extensions#nrrwrgn#enabled = 0
+    "}}}
+    " Tern "{{{
+        let g:tern_show_signature_in_pum = 1
     "}}}
 " }}}
 " Disabled options "{{{
