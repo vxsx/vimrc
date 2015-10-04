@@ -579,6 +579,15 @@ set ruler
     " Tern "{{{
         let g:tern_show_signature_in_pum = 1
     "}}}
+    " Toggle Cursor "{{{
+        " upon hitting escape to change modes,
+        " send successive move-left and move-right
+        " commands to immediately redraw the cursor
+        inoremap <special> <Esc> <Esc>hl
+
+        " don't blink the cursor
+        set guicursor+=i:blinkwait0
+    "}}}
 " }}}
 " Disabled options "{{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
