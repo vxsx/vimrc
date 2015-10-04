@@ -376,6 +376,7 @@ set ruler
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! BufRead,BufNewFile *.js call DetectJSX()
+        au! BufRead,BufNewFile *.json set ft=json
         au! bufwritepost vimrc nested source $MYVIMRC
 
         au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
@@ -512,7 +513,7 @@ set ruler
         let g:syntastic_enable_signs=0
         let g:syntastic_enable_balloons = 0
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript'],
+                                   \ 'active_filetypes': ['javascript', 'json'],
                                    \ 'passive_filetypes': [] }
         let g:syntastic_javascript_checkers = ['jsxhint', 'jscs']
         " let g:syntastic_javascript_checkers = ['jsxhint']
