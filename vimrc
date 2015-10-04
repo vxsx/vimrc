@@ -559,10 +559,6 @@ set ruler
             let g:indentLine_color_gui = '#003540'
         endif
     "}}}
-    " Taskpaper "{{{
-        hi link taskpaperDone Comment
-        hi link taskpaperCancelled Comment
-    "}}}
     " Emmet "{{{
         let g:user_emmet_leader_key='<C-e>'
     "}}}
