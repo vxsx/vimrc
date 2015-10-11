@@ -587,7 +587,8 @@ set ruler
         " upon hitting escape to change modes,
         " send successive move-left and move-right
         " commands to immediately redraw the cursor
-        inoremap <special> <Esc> <Esc>hl
+        " inoremap <special> <Esc> <Esc>hl
+        set ttimeoutlen=50
 
         " don't blink the cursor
         set guicursor+=i:blinkwait0
