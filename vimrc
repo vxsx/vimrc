@@ -380,6 +380,7 @@ set ruler
         au! BufWritePost *.snippet call ReloadAllSnippets()
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! FileType javascript call DetectMinifiedJavaScriptFile()
+        au! BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! FileType javascript call DetectJSX()
         au! BufRead,BufNewFile *.json set ft=json
         au! bufwritepost vimrc nested source $MYVIMRC
