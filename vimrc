@@ -1,4 +1,4 @@
-" Vundle initialization"{{{
+" Vundle initialization {{{
     set nocompatible
     filetype off
 
@@ -9,7 +9,7 @@
     " let Vundle manage Vundle, required
     Bundle 'gmarik/vundle'
 
-    " Bundles "{{{
+    " Bundles {{{
         Bundle 'altercation/vim-colors-solarized'
         Bundle 'editorconfig/editorconfig-vim'
         Bundle 'mustache/vim-mustache-handlebars'
@@ -54,7 +54,7 @@
 
     filetype plugin indent on     " required
 "}}}
-" Basic rules "{{{
+" Basic rules {{{
     " the title of the window will be set to the value of 'titlestring'
     " (if it is not empty), or to: filename [+=-] (path) - VIM
     set title
@@ -67,7 +67,7 @@
     " make it easy
     nmap <Space> :
 "}}}
-" Appearance "{{{
+" Appearance {{{
 set ruler
     syntax on
     set synmaxcol=500 " Syntax coloring lines that are too long just slows down the world
@@ -79,20 +79,20 @@ set ruler
 
     set rnu
 
-    " Status bar "{{{
+    " Status bar {{{
         set laststatus=2
     "}}}
-    " Colorscheme "{{{
+    " Colorscheme {{{
         let g:solarized_visibility="low"
         let g:solarized_contrast="normal"
         let g:solarized_diffmode="high"
         let g:solarized_termtrans=1
-        set background=light
+        set background=dark
         color solarized
     "}}}
 
 "}}}
-" Encoding "{{{
+" Encoding {{{
     set fileencodings=utf8,cp1251
     set encoding=utf-8
     menu Encoding.UTF-8          :e ++enc=utf-8<CR>
@@ -105,14 +105,14 @@ set ruler
     menu Encoding.Latin-1        :e ++enc=latin1<CR>
     map <F2> :emenu Encoding.
 "}}}
-" FileFormat "{{{
+" FileFormat {{{
     menu FileFormat.UNIX         :e ++ff=unix<CR>
     menu FileFormat.DOS          :e ++ff=dos<CR>
     menu FileFormat.Mac          :e ++ff=mac<CR>
 
     map <S-F2> :emenu FileFormat.
 "}}}
-" Whitespace and indentation "{{{
+" Whitespace and indentation {{{
     set nowrap
 
     set tabstop=4
@@ -170,7 +170,7 @@ set ruler
         redraw!
     endfunction
 "}}}
-" Searching and Replacing"{{{
+" Searching and Replacing {{{
     set hlsearch
     set incsearch
     set ignorecase
@@ -193,11 +193,11 @@ set ruler
     nnoremap <leader>s :%s//<left>
 	
 "}}}
-" Tab completion"{{{
+" Tab completion {{{
     set wildmode=list:longest,list:full
     set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*
 "}}}
-" Window manipulation "{{{
+" Window manipulation {{{
     set splitbelow
     set splitright
 
@@ -206,13 +206,13 @@ set ruler
     nmap <C-k> <C-w>k
     nmap <C-l> <C-w>l
 
-    " Window resizing mappings "{{{
+    " Window resizing mappings {{{
         nmap <Up>    5<C-w>+
         nmap <Down>  5<C-w>-
         nmap <Left>  5<C-w><
         nmap <Right> 5<C-w>>
     "}}}
-    " Tabs mappings "{{{
+    " Tabs mappings {{{
         nnoremap <Leader>[ gT
         nnoremap <Leader>] gt
         nnoremap <Leader>1 1gt
@@ -226,7 +226,7 @@ set ruler
         nnoremap <Leader>9 9gt
     "}}}
 "}}}
-" Folding "{{{
+" Folding {{{
     set foldenable                " Turn on folding
     set foldmethod=manual
     "set foldlevel=100             " Don't autofold anything (but I can still fold manually)
@@ -235,7 +235,7 @@ set ruler
     set foldopen+=percent,mark
     set foldopen+=quickfix,search
 "}}}
-" Files manipulation "{{{
+" Files manipulation {{{
     nnoremap <leader>w   <C-w>v
     nnoremap <leader>we  <C-w>v:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>se  <C-w>s:e <C-R>=expand("%:p:h") . "/" <CR>
@@ -265,7 +265,7 @@ set ruler
     cmap ф a
     cmap й q
 
-    " Editing files "{{{
+    " Editing files {{{
         nnoremap K <nop>
         nnoremap K i<CR><ESC>
 
@@ -288,7 +288,7 @@ set ruler
         map <silent> <Leader>he :call HtmlEscape()<CR>
         map <silent> <Leader>hu :call HtmlUnEscape()<CR>
     "}}}
-    " Moving in file "{{{
+    " Moving in file {{{
         " imap <C-h> <C-o>h
         " imap <C-j> <C-o>j
         " imap <C-k> <C-o>k
@@ -307,17 +307,17 @@ set ruler
         imap <C-e> <C-o>A
         imap <C-a> <C-o>I
     "}}}
-    " File formatting "{{{
+    " File formatting {{{
         set fo-=o  " Do not insert the current comment leader after hitting 'o' or 'O' in Normal mode.
         set fo+=r  " Automatically insert a comment leader after an enter
     "}}}
-    " Remember last location in file "{{{
+    " Remember last location in file {{{
     if has("autocmd")
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif
     endif
     "}}}
-    " Helper functions "{{{
+    " Helper functions {{{
     fun! DetectDjangoTemplate()
         let n = 1
         while n < line("$")
@@ -360,7 +360,7 @@ set ruler
     endfun
     "}}}
 "}}}
-" Filetype autocommands "{{{
+" Filetype autocommands {{{
     if has("autocmd")
         " make uses real tabs
         au FileType make  set noexpandtab
@@ -392,13 +392,13 @@ set ruler
     " and was saved already in the editor
     set autoread
 "}}}
-" Directories for swp files "{{{
+" Directories for swp files {{{
     set backupdir=~/.vim/backup
     set noswapfile
     set undofile
     set undodir=~/.vim/backup
 "}}}
-" Cyrillic keys mappings "{{{
+" Cyrillic keys mappings {{{
     map ё `
     map й q
     map ц w
@@ -469,14 +469,14 @@ set ruler
     map Ю >
     "map , ?
 "}}}
-" Include user's local vim config "{{{
+" Include user's local vim config {{{
     if filereadable(expand("~/.vimrc.local"))
       source ~/.vimrc.local
     endif
 "}}}
-" Plugins "{{{
+" Plugins {{{
 
-    " Unimpaired "{{{
+    " Unimpaired {{{
         " Bubble single lines
         nmap <D-k> [e
         nmap <D-j> ]e
@@ -484,13 +484,13 @@ set ruler
         vmap <D-k> [egv
         vmap <D-j> ]egv
     "}}}
-    " SnipMate "{{{
+    " SnipMate {{{
         let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
     "}}}
-    " TComment "{{{
+    " TComment {{{
         map <silent> // :TComment<CR>
     "}}}
-    " NERDTree "{{{
+    " NERDTree {{{
         let NERDTreeIgnore=['\.rbc$', '\~$']
         map <Leader>n :NERDTreeToggle<CR>
         let NERDTreeChDirMode=0
@@ -500,20 +500,20 @@ set ruler
         "let NERDTreeMinimalUI=1 " Disables display of the 'Bookmarks' label and 'Press ? for help' text.
         let NERDTreeDirArrows=1 " Tells the NERD tree to use arrows instead of + ~ chars when displaying directories.
     "}}}
-    " ZoomWin configuration "{{{
+    " ZoomWin configuration {{{
         map <Leader><Leader> :ZoomWin<CR>
     "}}}
-    " Fugitive "{{{
+    " Fugitive {{{
         autocmd User fugitive
           \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
           \   nnoremap <buffer> .. :edit %:h<CR> |
           \ endif
         autocmd BufReadPost fugitive://* set bufhidden=delete
     "}}}
-    " Gundo "{{{
+    " Gundo {{{
         nnoremap <Leader>gu :GundoToggle<CR>
     "}}}
-    " Syntastic "{{{
+    " Syntastic {{{
         let g:syntastic_check_on_open=1
         let g:syntastic_enable_signs=0
         let g:syntastic_enable_balloons = 0
@@ -528,12 +528,12 @@ set ruler
         let g:syntastic_always_populate_loc_list = 1
         let g:syntastic_aggregate_errors=1
     "}}}
-    " Vim-JSX "{{{
+    " Vim-JSX {{{
         let g:jsx_ext_required = 0
         " Works combined with DetectJSX()
         let g:jsx_pragma_required = 1
     "}}}
-    " IndentLine "{{{
+    " IndentLine {{{
         let g:indentLine_char = '│'
         let g:indentLine_noConcealCursor = 1
 
@@ -547,29 +547,29 @@ set ruler
             let g:indentLine_color_gui = '#003540'
         endif
     "}}}
-    " Emmet "{{{
+    " Emmet {{{
         let g:user_emmet_leader_key='<C-e>'
     "}}}
-    " JS DOC "{{{
+    " JS DOC {{{
         let g:jsdoc_default_mapping = 0
         let g:jsdoc_return = 0
         nmap <silent> <Leader>js :JsDoc<CR>
     "}}}
-    " CtrlP "{{{
+    " CtrlP {{{
         let g:ctrlp_extensions = ['buffertag']
     "}}}
-    " Require navigator "{{{
+    " Require navigator {{{
         nnoremap <Leader>gf :call Navigate()<cr>
         nnoremap <Leader>gb :call Back()<cr>
     "}}}
-    " Dpaster "{{{
+    " Dpaster {{{
         vmap <Leader>dp :w !dpaster -t 
     "}}}
-    " Supertab "{{{
+    " Supertab {{{
         let g:SuperTabDefaultCompletionType = "context"
         set completeopt-=preview
     "}}}
-    " Airline "{{{
+    " Airline {{{
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#bufferline#enabled = 0
         let g:airline#extensions#branch#enabled = 1
@@ -583,15 +583,15 @@ set ruler
         let g:airline#extensions#tmuxline#enabled = 1
         let g:airline#extensions#nrrwrgn#enabled = 0
     "}}}
-    " Gitgutter "{{{
+    " Gitgutter {{{
         let g:gitgutter_map_keys = 0
         let g:gitgutter_signs = 0
         let g:gitgutter_highlight_lines = 0
     "}}}
-    " Tern "{{{
+    " Tern {{{
         let g:tern_show_signature_in_pum = 1
     "}}}
-    " Toggle Cursor "{{{
+    " Toggle Cursor {{{
         " upon hitting escape to change modes,
         " send successive move-left and move-right
         " commands to immediately redraw the cursor
@@ -602,7 +602,7 @@ set ruler
         set guicursor+=i:blinkwait0
     "}}}
 " }}}
-" Disabled options "{{{
+" Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
     "set debug=msg
 
