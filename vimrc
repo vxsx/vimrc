@@ -341,12 +341,18 @@ set ruler
             let n = n + 1
         endwhile
     endfun
+
+    " Somewhat hackish way to enable vim-jsx
+    " If i don't do that - it will set ft=javascript.jsx on
+    " every javascript file, which in turn makes Tcomment to
+    " always use {/* comments like this */} which makes me sad.
     fun! DetectJSX()
         let n = 1
+        let b:jsx_pragma_found = 0
         while n < line("$")
             if getline(n) =~ 'React' || getline(n) =~ 'react'
                 " set syntax to jsx
-                set ft=javascript.jsx
+                let b:jsx_pragma_found = 1
                 return
             endif
             let n = n + 1
@@ -374,7 +380,7 @@ set ruler
         au! BufWritePost *.snippet call ReloadAllSnippets()
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! FileType javascript call DetectMinifiedJavaScriptFile()
-        au! BufRead,BufNewFile *.js call DetectJSX()
+        au! FileType javascript call DetectJSX()
         au! BufRead,BufNewFile *.json set ft=json
         au! bufwritepost vimrc nested source $MYVIMRC
 
@@ -524,6 +530,8 @@ set ruler
     "}}}
     " Vim-JSX "{{{
         let g:jsx_ext_required = 0
+        " Works combined with DetectJSX()
+        let g:jsx_pragma_required = 1
     "}}}
     " IndentLine "{{{
         let g:indentLine_char = '│'
