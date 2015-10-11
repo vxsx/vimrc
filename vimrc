@@ -553,6 +553,8 @@ set ruler
     " JS DOC {{{
         let g:jsdoc_default_mapping = 0
         let g:jsdoc_return = 0
+        let g:jsdoc_underscore_private = 1
+        let g:jsdoc_access_descriptions = 2
         nmap <silent> <Leader>js :JsDoc<CR>
     "}}}
     " CtrlP {{{
