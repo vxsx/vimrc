@@ -195,7 +195,7 @@ set ruler
 "}}}
 " Tab completion"{{{
     set wildmode=list:longest,list:full
-    set wildignore+=*.o,*.obj,.git,*.rbc
+    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*
 "}}}
 " Window manipulation "{{{
     set splitbelow
@@ -270,7 +270,6 @@ set ruler
         nnoremap K i<CR><ESC>
 
         set pastetoggle=<F10>
-
 
         " html escape/unescape
         " via: http://vim.wikia.com/wiki/HTML_entities
