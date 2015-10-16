@@ -257,7 +257,13 @@ set ruler
     " cd to the directory containing the file in the buffer
     nmap  <leader>cd :lcd <C-R>=expand("%:p:h")<CR><CR>
 
-    " save file with root permissions"
+    " Create parent directory on save if does not exist
+    augroup BWCCreateDir
+        au!
+        autocmd BufWritePre,BufNewFile * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+    augroup END
+
+    " save file with root permissions
     cmap w!! %!sudo tee > /dev/null %
 
     " map command wq wa qa in russian
