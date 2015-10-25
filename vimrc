@@ -573,6 +573,7 @@ set ruler
     "}}}
     " Dpaster {{{
         vmap <Leader>dp :w !dpaster -t 
+        vmap <silent> <Leader>cp :w !pbcopy<CR><CR>
     "}}}
     " Supertab {{{
         let g:SuperTabDefaultCompletionType = "context"
