@@ -611,6 +611,9 @@ set ruler
         " don't blink the cursor
         set guicursor+=i:blinkwait0
     "}}}
+    " Ack {{{
+        let g:ackprg = 'ag --nogroup --nocolor --column'
+    "}}}
 " }}}
 " Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
