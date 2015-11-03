@@ -11,6 +11,7 @@
 
     " Bundles {{{
         Bundle 'altercation/vim-colors-solarized'
+        Bundle 'morhetz/gruvbox'
         Bundle 'editorconfig/editorconfig-vim'
         Bundle 'mustache/vim-mustache-handlebars'
         Bundle 'cakebaker/scss-syntax.vim'
@@ -83,12 +84,21 @@ set ruler
         set laststatus=2
     "}}}
     " Colorscheme {{{
-        let g:solarized_visibility="low"
-        let g:solarized_contrast="normal"
-        let g:solarized_diffmode="high"
-        let g:solarized_termtrans=1
-        set background=dark
-        color solarized
+        " Solarized {{{
+            let g:solarized_visibility="low"
+            let g:solarized_contrast="normal"
+            let g:solarized_diffmode="high"
+            let g:solarized_termtrans=1
+            set background=light
+            color solarized
+        "}}}
+        " Gruvbox {{{
+            " let g:gruvbox_contrast_dark = 'soft'
+            " let g:gruvbox_invert_selection = 0
+            " let g:gruvbox_italic = 1
+            " set background=dark
+            " color gruvbox
+        "}}}
     "}}}
 
 "}}}
