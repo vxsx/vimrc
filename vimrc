@@ -576,6 +576,11 @@ set ruler
     "}}}
     " CtrlP {{{
         let g:ctrlp_extensions = ['buffertag']
+        let g:ctrlp_custom_ignore = {
+          \ 'dir':  '\v[\/](.git|.hg|.svn|.egg_link|.egg-info|.*migrations)$',
+          \ 'file': '\v\.(exe|so|dll)$',
+          \ 'link': 'some_bad_symbolic_links',
+          \ }
     "}}}
     " Require navigator {{{
         nnoremap <Leader>gf :call Navigate()<cr>
