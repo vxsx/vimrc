@@ -537,7 +537,7 @@ set ruler
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['javascript', 'json'],
                                    \ 'passive_filetypes': [] }
-        let g:syntastic_javascript_checkers = ['jsxhint', 'jscs']
+        let g:syntastic_javascript_checkers = ['jshint', 'jscs']
         " let g:syntastic_javascript_checkers = ['jsxhint']
         let g:syntastic_javascript_jsxhint_args = "--es6module"
         let g:syntastic_javascript_jscs_args = "--esnext"
