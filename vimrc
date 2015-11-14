@@ -89,7 +89,7 @@ set ruler
             let g:solarized_contrast="normal"
             let g:solarized_diffmode="high"
             let g:solarized_termtrans=1
-            set background=light
+            set background=dark
             color solarized
         "}}}
         " Gruvbox {{{
@@ -531,6 +531,32 @@ set ruler
         nnoremap <Leader>gu :GundoToggle<CR>
     "}}}
     " Syntastic {{{
+        " not yet implemented correctly
+        let s:defaultNodeModules = '~/.vim/node_modules/.bin/'
+
+        function! s:FindSyntasticExecPath(toolName)
+            let fullPath=fnamemodify('.', ':p:h')
+            while fullPath != fnamemodify('/', ':p:h')
+                if filereadable(expand(fullPath . '/node_modules/.bin/' . a:toolName, 1))
+                    return fullPath . '/node_modules/.bin/' . a:toolName
+                endif
+                if filereadable(expand(fullPath . '/node_modules/gulp-' .  a:toolName . '/node_modules/.bin/' . a:toolName, 1))
+                    return fullPath . '/node_modules/gulp-' .  a:toolName . '/node_modules/.bin/' . a:toolName
+                endif
+                let fullPath = fnamemodify(fullPath . '/../', ':p:h')
+            endwhile
+
+            if executable(a:toolName)
+                return a:toolName
+            endif
+
+            return  s:defaultNodeModules . a:toolName
+        endfunction
+
+        " setting up jshint and jscs if available
+        let g:syntastic_javascript_jshint_exec = s:FindSyntasticExecPath('jshint')
+        let g:syntastic_javascript_jscs_exec = s:FindSyntasticExecPath('jscs')
+
         let g:syntastic_check_on_open=1
         let g:syntastic_enable_signs=0
         let g:syntastic_enable_balloons = 0
