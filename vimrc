@@ -556,6 +556,7 @@ set ruler
         " setting up jshint and jscs if available
         let g:syntastic_javascript_jshint_exec = s:FindSyntasticExecPath('jshint')
         let g:syntastic_javascript_jscs_exec = s:FindSyntasticExecPath('jscs')
+        let g:syntastic_javascript_eslint_exec = s:FindSyntasticExecPath('eslint')
 
         let g:syntastic_check_on_open=1
         let g:syntastic_enable_signs=0
@@ -563,13 +564,25 @@ set ruler
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['javascript', 'json'],
                                    \ 'passive_filetypes': [] }
-        let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-        " let g:syntastic_javascript_checkers = ['jsxhint']
-        let g:syntastic_javascript_jsxhint_args = "--es6module"
+        " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+        let g:syntastic_javascript_checkers = ['eslint']
         let g:syntastic_javascript_jscs_args = "--esnext"
         " let g:syntastic_html_checkers = ['validator']
         let g:syntastic_always_populate_loc_list = 1
         let g:syntastic_aggregate_errors=1
+
+        command! ESLINT call ESlintSupport()
+        command! JSHINT call JSHintSupport()
+
+        function! ESlintSupport()
+            let g:syntastic_javascript_checkers = ['eslint']
+            execute 'SyntasticCheck'
+        endfunction
+
+        function! JSHintSupport()
+            let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+            execute 'SyntasticCheck'
+        endfunction
     "}}}
     " Vim-JSX {{{
         let g:jsx_ext_required = 0
