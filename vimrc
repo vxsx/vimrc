@@ -205,7 +205,7 @@ set ruler
 "}}}
 " Tab completion {{{
     set wildmode=list:longest,list:full
-    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*
+    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*
 "}}}
 " Window manipulation {{{
     set splitbelow
