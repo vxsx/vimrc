@@ -562,7 +562,7 @@ set ruler
         let g:syntastic_enable_signs=0
         let g:syntastic_enable_balloons = 0
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript', 'json'],
+                                   \ 'active_filetypes': ['javascript', 'json', 'python'],
                                    \ 'passive_filetypes': [] }
         " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
         let g:syntastic_javascript_checkers = ['eslint']
