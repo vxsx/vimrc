@@ -51,6 +51,7 @@
         Bundle 'jszakmeister/vim-togglecursor'
         Bundle 'bling/vim-airline'
         Bundle 'edkolev/tmuxline.vim'
+        Bundle 'w0ng/vim-hybrid'
     "}}}
 
     filetype plugin indent on     " required
@@ -84,12 +85,13 @@ set ruler
         set laststatus=2
     "}}}
     " Colorscheme {{{
+        try
         " Solarized {{{
-            let g:solarized_visibility="low"
-            let g:solarized_contrast="normal"
-            let g:solarized_diffmode="high"
+            let g:solarized_visibility='low'
+            let g:solarized_contrast='normal'
+            let g:solarized_diffmode='high'
             let g:solarized_termtrans=1
-            set background=dark
+            set background=light
             color solarized
         "}}}
         " Gruvbox {{{
@@ -99,6 +101,14 @@ set ruler
             " set background=dark
             " color gruvbox
         "}}}
+        " Hybrid {{{
+            " set background=dark
+            " let g:hybrid_custom_term_colors = 1
+            " color hybrid
+        "}}}
+        catch /:E185:/
+            " silently fail if no colorscheme found
+        endtry
     "}}}
 
 "}}}
