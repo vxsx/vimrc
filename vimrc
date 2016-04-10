@@ -289,13 +289,13 @@ set ruler
 
         " html escape/unescape
         " via: http://vim.wikia.com/wiki/HTML_entities
-        function HtmlEscape()
+        function! HtmlEscape()
           silent s/&/\&amp;/eg
           silent s/</\&lt;/eg
           silent s/>/\&gt;/eg
         endfunction
 
-        function HtmlUnEscape()
+        function! HtmlUnEscape()
           silent s/&lt;/</eg
           silent s/&gt;/>/eg
           silent s/&amp;/\&/eg
