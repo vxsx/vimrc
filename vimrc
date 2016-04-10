@@ -52,6 +52,12 @@
         Bundle 'bling/vim-airline'
         Bundle 'edkolev/tmuxline.vim'
         Bundle 'w0ng/vim-hybrid'
+        Bundle 'ekalinin/Dockerfile.vim'
+        Bundle 'wellle/targets.vim'
+        Bundle 'tommcdo/vim-exchange'
+        Bundle 'gregsexton/gitv'
+        Bundle 'AndrewRadev/splitjoin.vim'
+        Bundle 'moll/vim-node'
     "}}}
 
     filetype plugin indent on     " required
