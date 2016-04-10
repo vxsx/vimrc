@@ -650,6 +650,7 @@ set ruler
     " Gitgutter {{{
         let g:gitgutter_map_keys = 0
         let g:gitgutter_signs = 0
+        let g:gitgutter_max_signs = 10000
         let g:gitgutter_highlight_lines = 0
     "}}}
     " Tern {{{
