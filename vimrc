@@ -564,8 +564,12 @@ set ruler
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['javascript', 'json', 'python'],
                                    \ 'passive_filetypes': [] }
-        " let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-        let g:syntastic_javascript_checkers = ['eslint']
+        if $VIM_JS_LINT == 'jshint'
+            let g:syntastic_javascript_checkers = ['jshint', 'jscs']
+        else
+            let g:syntastic_javascript_checkers = ['eslint']
+        endif
+        let g:syntastic_python_checkers = ['flake8']
         let g:syntastic_javascript_jscs_args = "--esnext"
         " let g:syntastic_html_checkers = ['validator']
         let g:syntastic_always_populate_loc_list = 1
