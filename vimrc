@@ -638,15 +638,25 @@ set ruler
         let g:indentLine_char = '│'
         let g:indentLine_noConcealCursor = 1
 
-        let g:indentLine_color_term = 7
-        let g:indentLine_color_gui = '#E4E1D2'
+        try
+            if g:colors_name == 'solarized'
+                let g:indentLine_color_term = 7
+                let g:indentLine_color_gui = '#E4E1D2'
 
-        let g:indentLine_faster = 1
+                let g:indentLine_faster = 1
 
-        if &background is# "dark"
-            let g:indentLine_color_term = 0
-            let g:indentLine_color_gui = '#003540'
-        endif
+                if &background is# "dark"
+                    let g:indentLine_color_term = 0
+                    let g:indentLine_color_gui = '#003540'
+                endif
+            endif
+
+            if g:colors_name == 'gotham'
+                let g:indentLine_color_term = 8
+            endif
+        catch /^Vim:E121/
+        endtry
+
     "}}}
     " Emmet {{{
         let g:user_emmet_leader_key='<C-e>'
