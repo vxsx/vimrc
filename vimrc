@@ -74,6 +74,8 @@
 
     " make it easy
     nmap <Space> :
+    " annoying window
+    map q: :q
 "}}}
 " Appearance {{{
 set ruler
