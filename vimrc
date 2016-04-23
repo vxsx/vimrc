@@ -671,7 +671,8 @@ set ruler
         nnoremap <Leader>gb :call Back()<cr>
     "}}}
     " Dpaster {{{
-        vmap <Leader>dp :w !dpaster -t 
+        " npm install -g nodepaster
+        vmap <Leader>dp :w !dpaster -t<Space>
         vmap <silent> <Leader>cp :w !pbcopy<CR><CR>
     "}}}
     " Supertab {{{
@@ -720,9 +721,9 @@ set ruler
     "set debug=msg
 
 
-    " The following beast is something i didn't write... it will return the 
-    " syntax highlighting group that the current "thing" under the cursor
-    " belongs to -- very useful for figuring out what to change as far as 
+    " The following beast is something i didn't write... it will return the
+    " syntax highlighting group that the current `thing` under the cursor
+    " belongs to -- very useful for figuring out what to change as far as
     " syntax highlighting goes.
     " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 "}}}
