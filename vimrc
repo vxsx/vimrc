@@ -135,6 +135,9 @@ set ruler
             " let g:hybrid_custom_term_colors = 1
             " color hybrid
         "}}}
+        " Gotham {{{
+            " color gotham
+        "}}}
         catch /:E185:/
             " silently fail if no colorscheme found
         endtry
@@ -240,7 +243,6 @@ set ruler
 
     " map to fast search/replace
     nnoremap <leader>s :%s//<left>
-	
 "}}}
 " Tab completion {{{
     set wildmode=list:longest,list:full
