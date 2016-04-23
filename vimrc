@@ -10,54 +10,75 @@
     Bundle 'gmarik/vundle'
 
     " Bundles {{{
-        Bundle 'altercation/vim-colors-solarized'
-        Bundle 'morhetz/gruvbox'
-        Bundle 'editorconfig/editorconfig-vim'
-        Bundle 'mustache/vim-mustache-handlebars'
-        Bundle 'cakebaker/scss-syntax.vim'
-        Bundle 'scrooloose/syntastic'
-        Bundle 'vim-scripts/TaskList.vim'
-        Bundle 'tomtom/tcomment_vim'
-        Bundle 'mileszs/ack.vim'
-        Bundle 'pix/vim-align'
-        Bundle 'kchmck/vim-coffee-script'
-        Bundle 'kien/ctrlp.vim'
-        Bundle 'hail2u/vim-css3-syntax'
-        Bundle 'tpope/vim-fugitive'
-        Bundle 'tpope/vim-git'
-        Bundle 'airblade/vim-gitgutter'
-        Bundle 'sjl/gundo.vim'
-        Bundle 'Yggdroot/indentLine'
-        Bundle 'michaeljsmith/vim-indent-object'
-        Bundle 'pangloss/vim-javascript'
-        Bundle 'mxw/vim-jsx'
-        Bundle 'heavenshell/vim-jsdoc'
-        Bundle 'tpope/vim-markdown'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        Bundle 'tomtom/tlib_vim'
-        Bundle 'garbas/vim-snipmate'
-        Bundle 'ervandew/supertab'
-        Bundle 'tpope/vim-unimpaired'
-        Bundle 'regedarek/ZoomWin'
-        Bundle 'gregsexton/MatchTag'
-        Bundle 'vim-scripts/matchit.zip'
-        Bundle 'othree/html5.vim'
-        Bundle 'Glench/Vim-Jinja2-Syntax'
-        Bundle 'mattn/emmet-vim'
-        Bundle 'vxsx/vim-snippets'
-        Bundle 'wtfil/require-navigator.vim'
-        Bundle 'marijnh/tern_for_vim'
-        Bundle 'lukaszb/vim-web-indent'
-        Bundle 'jszakmeister/vim-togglecursor'
-        Bundle 'bling/vim-airline'
-        Bundle 'edkolev/tmuxline.vim'
-        Bundle 'w0ng/vim-hybrid'
-        Bundle 'ekalinin/Dockerfile.vim'
-        Bundle 'wellle/targets.vim'
-        Bundle 'tommcdo/vim-exchange'
-        Bundle 'gregsexton/gitv'
-        Bundle 'AndrewRadev/splitjoin.vim'
-        Bundle 'moll/vim-node'
+        " Colorschemes {{{
+            Bundle 'altercation/vim-colors-solarized'
+            Bundle 'morhetz/gruvbox'
+            Bundle 'whatyouhide/vim-gotham'
+            Bundle 'w0ng/vim-hybrid'
+        "}}}
+        " Syntax {{{
+            Bundle 'mustache/vim-mustache-handlebars'
+            Bundle 'cakebaker/scss-syntax.vim'
+            Bundle 'kchmck/vim-coffee-script'
+            Bundle 'hail2u/vim-css3-syntax'
+            Bundle 'othree/html5.vim'
+            Bundle 'Glench/Vim-Jinja2-Syntax'
+            Bundle 'ekalinin/Dockerfile.vim'
+            Bundle 'pangloss/vim-javascript'
+            Bundle 'mxw/vim-jsx'
+            Bundle 'heavenshell/vim-jsdoc'
+            Bundle 'tpope/vim-markdown'
+        "}}}
+        " Git {{{
+            Bundle 'tpope/vim-git'
+            Bundle 'tpope/vim-fugitive'
+            Bundle 'airblade/vim-gitgutter'
+            Bundle 'gregsexton/gitv'
+        "}}}
+        " UI {{{
+            Bundle 'jszakmeister/vim-togglecursor'
+            Bundle 'vim-airline/vim-airline'
+            Bundle 'vim-airline/vim-airline-themes'
+
+            Bundle 'edkolev/tmuxline.vim'
+            Bundle 'regedarek/ZoomWin'
+            Bundle 'Yggdroot/indentLine'
+        "}}}
+        " Navigatoin {{{
+            Bundle 'kien/ctrlp.vim'
+            Bundle 'mileszs/ack.vim'
+        "}}}
+        " Config / Linting {{{
+            Bundle 'editorconfig/editorconfig-vim'
+            Bundle 'scrooloose/syntastic'
+        "}}}
+        " Snippets {{{
+            Bundle 'mattn/emmet-vim'
+            Bundle 'MarcWeber/vim-addon-mw-utils'
+            Bundle 'tomtom/tlib_vim'
+            Bundle 'garbas/vim-snipmate'
+            Bundle 'ervandew/supertab'
+            Bundle 'vxsx/vim-snippets'
+        "}}}
+        " JS {{{
+            Bundle 'marijnh/tern_for_vim'
+            Bundle 'moll/vim-node'
+        "}}}
+        " Editing / Formatting {{{
+            Bundle 'pix/vim-align'
+            Bundle 'tomtom/tcomment_vim'
+            Bundle 'michaeljsmith/vim-indent-object'
+            Bundle 'tpope/vim-unimpaired'
+            Bundle 'gregsexton/MatchTag'
+            Bundle 'vim-scripts/matchit.zip'
+            Bundle 'lukaszb/vim-web-indent'
+            Bundle 'wellle/targets.vim'
+            Bundle 'tommcdo/vim-exchange'
+            Bundle 'AndrewRadev/splitjoin.vim'
+            Bundle 'terryma/vim-expand-region'
+            Bundle 'vim-scripts/TaskList.vim'
+            Bundle 'sjl/gundo.vim'
+        "}}}
     "}}}
 
     filetype plugin indent on     " required
