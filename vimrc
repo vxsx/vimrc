@@ -715,6 +715,10 @@ set ruler
     " Ack {{{
         let g:ackprg = 'ag --nogroup --nocolor --column'
     "}}}
+    " Expand region {{{
+        vmap v <Plug>(expand_region_expand)
+        vmap <C-v> <Plug>(expand_region_shrink)
+    "}}}
 " }}}
 " Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
