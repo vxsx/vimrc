@@ -120,7 +120,7 @@ set ruler
             let g:solarized_contrast='normal'
             let g:solarized_diffmode='high'
             let g:solarized_termtrans=1
-            set background=light
+            set background=dark
             color solarized
         "}}}
         " Gruvbox {{{
@@ -228,16 +228,16 @@ set ruler
     set ignorecase
     set smartcase
 
-    "mapping to disable search highlight
+    " mapping to disable search highlight
     nmap <silent> <Leader><Space> :noh<CR>
 
-	"always on center of the window
-	" nmap n nzz
-	" nmap N Nzz
-	" nmap * *zz
-	" nmap # #zz
-	" nmap g* g*zz
-	" nmap g# g#zz
+    " always on center of the window
+    " nmap n nzz
+    " nmap N Nzz
+    " nmap * *zz
+    " nmap # #zz
+    " nmap g* g*zz
+    " nmap g# g#zz
 
     set gdefault "set 'g' by default in commands like :%s/../.../
 
@@ -639,7 +639,7 @@ set ruler
         let g:indentLine_noConcealCursor = 1
 
         try
-            if g:colors_name == 'solarized'
+            if g:colors_name != 'gotham'
                 let g:indentLine_color_term = 7
                 let g:indentLine_color_gui = '#E4E1D2'
 
