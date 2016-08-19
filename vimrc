@@ -12,14 +12,14 @@
     " Bundles {{{
         " Colorschemes {{{
             Bundle 'altercation/vim-colors-solarized'
-            Bundle 'morhetz/gruvbox'
-            Bundle 'whatyouhide/vim-gotham'
-            Bundle 'w0ng/vim-hybrid'
+            " Bundle 'morhetz/gruvbox'
+            " Bundle 'whatyouhide/vim-gotham'
+            " Bundle 'w0ng/vim-hybrid'
+            " Bundle 'ajh17/Spacegray.vim'
         "}}}
         " Syntax {{{
             Bundle 'mustache/vim-mustache-handlebars'
             Bundle 'cakebaker/scss-syntax.vim'
-            Bundle 'kchmck/vim-coffee-script'
             Bundle 'hail2u/vim-css3-syntax'
             Bundle 'othree/html5.vim'
             Bundle 'Glench/Vim-Jinja2-Syntax'
@@ -44,7 +44,7 @@
             Bundle 'regedarek/ZoomWin'
             Bundle 'Yggdroot/indentLine'
         "}}}
-        " Navigatoin {{{
+        " Navigation {{{
             Bundle 'kien/ctrlp.vim'
             Bundle 'mileszs/ack.vim'
         "}}}
@@ -71,12 +71,13 @@
             Bundle 'tpope/vim-unimpaired'
             Bundle 'gregsexton/MatchTag'
             Bundle 'vim-scripts/matchit.zip'
+            Bundle 'Raimondi/delimitMate'
             Bundle 'lukaszb/vim-web-indent'
             Bundle 'wellle/targets.vim'
-            Bundle 'tommcdo/vim-exchange'
-            Bundle 'AndrewRadev/splitjoin.vim'
-            Bundle 'terryma/vim-expand-region'
-            Bundle 'vim-scripts/TaskList.vim'
+            " Bundle 'tommcdo/vim-exchange'
+            " Bundle 'AndrewRadev/splitjoin.vim'
+            " Bundle 'terryma/vim-expand-region'
+            " Bundle 'vim-scripts/TaskList.vim'
             Bundle 'sjl/gundo.vim'
         "}}}
     "}}}
@@ -120,7 +121,7 @@ set ruler
             let g:solarized_contrast='normal'
             let g:solarized_diffmode='high'
             let g:solarized_termtrans=1
-            set background=dark
+            set background=light
             color solarized
         "}}}
         " Gruvbox {{{
@@ -129,6 +130,10 @@ set ruler
             " let g:gruvbox_italic = 1
             " set background=dark
             " color gruvbox
+        "}}}
+        " Spacegray {{{
+            " color spacegray
+            " set background=dark
         "}}}
         " Hybrid {{{
             " set background=dark
@@ -430,6 +435,7 @@ set ruler
         au BufRead,BufNewFile *.yml  set tabstop=2
         au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
         au BufNewFile,BufRead *.lancet set ft=dosini
+        au BufNewFile,BufRead .babelrc set ft=javascript
         " That's so i have my css snippets in scss files
         au BufNewFile,BufRead *.scss set ft=scss.css
         au FileType scss,css nnoremap <buffer> <F5> :call CSScomb()<CR>
@@ -610,6 +616,7 @@ set ruler
         else
             let g:syntastic_javascript_checkers = ['eslint']
         endif
+        let g:syntastic_scss_checkers = ['stylelint']
         let g:syntastic_python_checkers = ['flake8']
         let g:syntastic_javascript_jscs_args = "--esnext"
         " let g:syntastic_html_checkers = ['validator']
@@ -629,6 +636,9 @@ set ruler
             execute 'SyntasticCheck'
         endfunction
     "}}}
+    " Vim Javascript {{{
+        let g:javascript_plugin_jsdoc = 1
+    "}}}
     " Vim-JSX {{{
         let g:jsx_ext_required = 0
         " Works combined with DetectJSX()
@@ -639,7 +649,7 @@ set ruler
         let g:indentLine_noConcealCursor = 1
 
         try
-            if g:colors_name != 'gotham'
+            if !exists("g:colors_name") || g:colors_name != 'gotham'
                 let g:indentLine_color_term = 7
                 let g:indentLine_color_gui = '#E4E1D2'
 
@@ -651,7 +661,7 @@ set ruler
                 endif
             endif
 
-            if g:colors_name == 'gotham'
+            if exists("g:colors_name") && g:colors_name == 'gotham'
                 let g:indentLine_color_term = 8
             endif
         catch /^Vim:E121/
@@ -728,6 +738,12 @@ set ruler
     " Expand region {{{
         vmap v <Plug>(expand_region_expand)
         vmap <C-v> <Plug>(expand_region_shrink)
+    "}}}
+    " Delimitmate {{{
+        let delimitMate_matchpairs = "(:),[:],<:>"
+    "}}}
+    " EditorConfig {{{
+        let g:EditorConfig_core_mode = 'python_external'
     "}}}
 " }}}
 " Disabled options {{{
