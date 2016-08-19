@@ -1,0 +1,37 @@
+#<pre>
+#!/bin/sh
+#
+#   _/      _/  _/_/_/  _/      _/  _/_/_/      _/_/_/
+#  _/      _/    _/    _/_/  _/_/  _/    _/  _/
+# _/      _/    _/    _/  _/  _/  _/_/_/    _/
+#  _/  _/      _/    _/      _/  _/    _/  _/
+#   _/      _/_/_/  _/      _/  _/    _/    _/_/_/
+#
+# https://github.com/vxsx/vimrc
+echo 'Backuping old vim files'
+for i in ~/.vim ~/.vimrc ~/.gvimrc; do [ -e $i ] && mv $i $i.old; done
+echo 'Fetching initial vim files'
+git clone git://github.com/vxsx/vimrc.git ~/.vim
+#yeah, I know about --recursive
+echo 'Creating symlinks'
+ln -s ~/.vim/vimrc ~/.vimrc
+ln -s ~/.vim/gvimrc ~/.gvimrc
+chmod u+x ~/.vim/update.sh
+cd ~/.vim
+echo 'Creating backup folder'
+mkdir -p ~/.vim/backup
+echo 'Initiating vundle'
+git submodule init
+git submodule update
+echo 'Installing plugins, may warn a bit'
+vim +BundleInstall +qall
+echo 'Plugins installed'
+echo ''
+echo '    _/_/_/      _/_/    _/      _/  _/_/_/_/  _/'
+echo '   _/    _/  _/    _/  _/_/    _/  _/        _/'
+echo '  _/    _/  _/    _/  _/  _/  _/  _/_/_/    _/'
+echo ' _/    _/  _/    _/  _/    _/_/  _/'
+echo '_/_/_/      _/_/    _/      _/  _/_/_/_/  _/'
+echo ''
+echo 'Installation completed'
+#</pre>
