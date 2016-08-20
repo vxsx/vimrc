@@ -2,85 +2,79 @@
     set nocompatible
     filetype off
 
-    " set the runtime path to include Vundle and initialize
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
+    " Initialize vim-plug
+    call plug#begin('~/.vim/bundle')
 
-    " let Vundle manage Vundle, required
-    Bundle 'gmarik/vundle'
-
-    " Bundles {{{
+    " Plugins {{{
         " Colorschemes {{{
-            Bundle 'altercation/vim-colors-solarized'
-            " Bundle 'morhetz/gruvbox'
-            " Bundle 'whatyouhide/vim-gotham'
-            " Bundle 'w0ng/vim-hybrid'
-            " Bundle 'ajh17/Spacegray.vim'
+            " fork of altercation/vim-colors-solarized
+            Plug 'vxsx/vim-colors-solarized'
+            " Plug 'morhetz/gruvbox'
+            " Plug 'whatyouhide/vim-gotham'
+            " Plug 'w0ng/vim-hybrid'
+            " Plug 'ajh17/Spacegray.vim'
         "}}}
         " Syntax {{{
-            Bundle 'mustache/vim-mustache-handlebars'
-            Bundle 'cakebaker/scss-syntax.vim'
-            Bundle 'hail2u/vim-css3-syntax'
-            Bundle 'othree/html5.vim'
-            Bundle 'Glench/Vim-Jinja2-Syntax'
-            Bundle 'ekalinin/Dockerfile.vim'
-            Bundle 'pangloss/vim-javascript'
-            Bundle 'mxw/vim-jsx'
-            Bundle 'heavenshell/vim-jsdoc'
-            Bundle 'tpope/vim-markdown'
+            Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+            Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
+            Plug 'othree/html5.vim', { 'for': ['html'] }
+            " fork of Glench/Vim-Jinja2-Syntax
+            Plug 'niftylettuce/Vim-Jinja2-Syntax', { 'for': ['jinja.html'] }
+            Plug 'ekalinin/Dockerfile.vim', { 'for': ['Dockerfile'] }
+            Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+            Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
+            Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
+            Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
         "}}}
         " Git {{{
-            Bundle 'tpope/vim-git'
-            Bundle 'tpope/vim-fugitive'
-            Bundle 'airblade/vim-gitgutter'
-            Bundle 'gregsexton/gitv'
+            Plug 'tpope/vim-git'
+            Plug 'tpope/vim-fugitive'
+            Plug 'airblade/vim-gitgutter'
         "}}}
         " UI {{{
-            Bundle 'jszakmeister/vim-togglecursor'
-            Bundle 'vim-airline/vim-airline'
-            Bundle 'vim-airline/vim-airline-themes'
+            Plug 'jszakmeister/vim-togglecursor'
+            Plug 'vim-airline/vim-airline'
+            Plug 'vim-airline/vim-airline-themes'
 
-            Bundle 'edkolev/tmuxline.vim'
-            Bundle 'regedarek/ZoomWin'
-            Bundle 'Yggdroot/indentLine'
+            Plug 'edkolev/tmuxline.vim'
+            Plug 'regedarek/ZoomWin'
+            Plug 'Yggdroot/indentLine'
         "}}}
         " Navigation {{{
-            Bundle 'kien/ctrlp.vim'
-            Bundle 'mileszs/ack.vim'
+            Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
+            Plug 'mileszs/ack.vim', { 'on': 'Ack' }
         "}}}
         " Config / Linting {{{
-            Bundle 'editorconfig/editorconfig-vim'
-            Bundle 'scrooloose/syntastic'
+            Plug 'editorconfig/editorconfig-vim'
+            Plug 'scrooloose/syntastic', { 'for': ['python', 'javascript'] }
         "}}}
         " Snippets {{{
-            Bundle 'mattn/emmet-vim'
-            Bundle 'MarcWeber/vim-addon-mw-utils'
-            Bundle 'tomtom/tlib_vim'
-            Bundle 'garbas/vim-snipmate'
-            Bundle 'ervandew/supertab'
-            Bundle 'vxsx/vim-snippets'
+            Plug 'mattn/emmet-vim', { 'for': ['html', 'jinja.html'] }
+            Plug 'MarcWeber/vim-addon-mw-utils'
+            Plug 'tomtom/tlib_vim'
+            Plug 'garbas/vim-snipmate'
+            Plug 'ervandew/supertab'
+            Plug 'vxsx/vim-snippets'
         "}}}
         " JS {{{
-            Bundle 'marijnh/tern_for_vim'
-            Bundle 'moll/vim-node'
+            Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+            Plug 'moll/vim-node', { 'for': 'javascript' }
         "}}}
         " Editing / Formatting {{{
-            Bundle 'pix/vim-align'
-            Bundle 'tomtom/tcomment_vim'
-            Bundle 'michaeljsmith/vim-indent-object'
-            Bundle 'tpope/vim-unimpaired'
-            Bundle 'gregsexton/MatchTag'
-            Bundle 'vim-scripts/matchit.zip'
-            Bundle 'Raimondi/delimitMate'
-            Bundle 'lukaszb/vim-web-indent'
-            Bundle 'wellle/targets.vim'
-            " Bundle 'tommcdo/vim-exchange'
-            " Bundle 'AndrewRadev/splitjoin.vim'
-            " Bundle 'terryma/vim-expand-region'
-            " Bundle 'vim-scripts/TaskList.vim'
-            Bundle 'sjl/gundo.vim'
+            Plug 'pix/vim-align', { 'on': 'Align' }
+            Plug 'tomtom/tcomment_vim', { 'on': 'TComment' }
+            Plug 'michaeljsmith/vim-indent-object'
+            Plug 'tpope/vim-unimpaired'
+            Plug 'gregsexton/MatchTag', { 'for': ['html', 'jinja.html'] }
+            Plug 'vim-scripts/matchit.zip'
+            Plug 'Raimondi/delimitMate'
+            Plug 'lukaszb/vim-web-indent'
+            Plug 'wellle/targets.vim'
+            Plug 'sjl/gundo.vim'
         "}}}
     "}}}
+
+    call plug#end()
 
     filetype plugin indent on     " required
 "}}}
@@ -685,6 +679,7 @@ set ruler
           \ 'file': '\v\.(exe|so|dll)$',
           \ 'link': 'some_bad_symbolic_links',
           \ }
+        nnoremap <silent> <C-p> :CtrlP<CR>
     "}}}
     " Require navigator {{{
         nnoremap <Leader>gf :call Navigate()<cr>
