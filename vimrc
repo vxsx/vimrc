@@ -1,4 +1,4 @@
-" Vundle initialization {{{
+" Plugin initialization {{{
     set nocompatible
     filetype off
 
@@ -13,6 +13,15 @@
             " Plug 'whatyouhide/vim-gotham'
             " Plug 'w0ng/vim-hybrid'
             " Plug 'ajh17/Spacegray.vim'
+        "}}}
+        " UI {{{
+            Plug 'jszakmeister/vim-togglecursor'
+            Plug 'vim-airline/vim-airline'
+            Plug 'vim-airline/vim-airline-themes'
+
+            " Plug 'edkolev/tmuxline.vim'
+            Plug 'regedarek/ZoomWin'
+            Plug 'Yggdroot/indentLine'
         "}}}
         " Syntax {{{
             Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
@@ -31,22 +40,15 @@
             Plug 'tpope/vim-fugitive'
             Plug 'airblade/vim-gitgutter'
         "}}}
-        " UI {{{
-            Plug 'jszakmeister/vim-togglecursor'
-            Plug 'vim-airline/vim-airline'
-            Plug 'vim-airline/vim-airline-themes'
-
-            Plug 'edkolev/tmuxline.vim'
-            Plug 'regedarek/ZoomWin'
-            Plug 'Yggdroot/indentLine'
+        " Config / Linting {{{
+            Plug 'editorconfig/editorconfig-vim'
+            Plug 'scrooloose/syntastic'
+            ", { 'for': ['python', 'javascript'] }
+            " ^ this doesn't work properly because of airline :(
         "}}}
         " Navigation {{{
             Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
             Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-        "}}}
-        " Config / Linting {{{
-            Plug 'editorconfig/editorconfig-vim'
-            Plug 'scrooloose/syntastic', { 'for': ['python', 'javascript'] }
         "}}}
         " Snippets {{{
             Plug 'mattn/emmet-vim', { 'for': ['html', 'jinja.html'] }
@@ -660,7 +662,6 @@ set ruler
             endif
         catch /^Vim:E121/
         endtry
-
     "}}}
     " Emmet {{{
         let g:user_emmet_leader_key='<C-e>'
@@ -675,7 +676,7 @@ set ruler
     " CtrlP {{{
         let g:ctrlp_extensions = ['buffertag']
         let g:ctrlp_custom_ignore = {
-          \ 'dir':  '\v[\/](.git|.hg|.svn|.egg_link|.egg-info|.*migrations|env|cms-test-env)$',
+          \ 'dir':  '\v[\/](.git|.hg|.svn|.egg_link|.egg-info|.*migrations|env|cms-test-env|filer_public)$',
           \ 'file': '\v\.(exe|so|dll)$',
           \ 'link': 'some_bad_symbolic_links',
           \ }
@@ -698,7 +699,6 @@ set ruler
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#bufferline#enabled = 0
         let g:airline#extensions#branch#enabled = 1
-        let g:airline#extensions#syntastic#enabled = 1
         let g:airline#extensions#tagbar#enabled = 0
         let g:airline#extensions#csv#enabled = 0
         let g:airline#extensions#hunks#non_zero_only = 1
@@ -707,6 +707,9 @@ set ruler
         let g:airline#extensions#tabline#enabled = 0
         let g:airline#extensions#tmuxline#enabled = 1
         let g:airline#extensions#nrrwrgn#enabled = 0
+        " if &ft == 'javascript' || &ft == 'python'
+            let g:airline#extensions#syntastic#enabled = 1
+        " endif
     "}}}
     " Gitgutter {{{
         let g:gitgutter_map_keys = 0
