@@ -1,37 +1,34 @@
 " General gui options "{{{
-    "set guioptions-=T  " disabling toolbar
-    set guioptions=aAce;
-    set guicursor=     " Disabling cursor blinking
-    set gcr=n:blinkon0 " Disabling cursor blinking
+"set guioptions-=T  " disabling toolbar
+set guioptions=aAc;
 
-    
-	function GuiTabLabel()
-	  let label = ''
-	  let bufnrlist = tabpagebuflist(v:lnum)
+function GuiTabLabel()
+    let label = ''
+    let bufnrlist = tabpagebuflist(v:lnum)
 
-	  " Add '+' if one of the buffers in the tab page is modified
-	  for bufnr in bufnrlist
-	    if getbufvar(bufnr, "&modified")
-	      let label = '+'
-	      break
-	    endif
-	  endfor
+    " Add '+' if one of the buffers in the tab page is modified
+    for bufnr in bufnrlist
+        if getbufvar(bufnr, "&modified")
+            let label = '+'
+            break
+        endif
+    endfor
 
-	  " Append the number of windows in the tab page if more than one
-	  let wincount = tabpagewinnr(v:lnum, '$')
-	  if wincount > 1
-	    let label .= '['.wincount.']'
-	  endif
-	  if label != ''
-	    let label .= ' '
-	  endif
+    " Append the number of windows in the tab page if more than one
+    let wincount = tabpagewinnr(v:lnum, '$')
+    if wincount > 1
+        let label .= '['.wincount.']'
+    endif
+    if label != ''
+        let label .= ' '
+    endif
 
-	  " Append the buffer name
-	  return label . "%t"
-	endfunction
+    " Append the buffer name
+    return label . "%t"
+endfunction
 
-    set guitablabel=%!GuiTabLabel()
-    
+set guitablabel=%!GuiTabLabel()
+
 "}}}
 " Mac settings "{{{
 if has("gui_macvim")
@@ -40,8 +37,6 @@ if has("gui_macvim")
 
     " Command-T for CommandT
     macmenu &File.New\ Tab key=<D-T>
-    map <D-t> :CommandT<CR>
-    imap <D-t> <Esc>:CommandT<CR>
 
     " Command-Return for fullscreen
     macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-CR>
@@ -89,52 +84,6 @@ if has("gui_macvim")
 
 endif
 "}}}
-" Colorscheme "{{{
-"set background=light
-"let g:solarized_contrast="high"
-colorscheme solarized
-" call togglebg#map("<F5>")
-nnoremap <F5> :call Tbg()<CR>
-
-"This is basically :ToggleBg replacement
-function! Tbg()
-    if &background == "light"
-        set background=dark
-        :let g:solarized_contrast = "normal" 
-        :colorscheme solarized
-    else
-        set background=light
-        :let g:solarized_contrast = "high" 
-        :colorscheme solarized
-    endif
-endfunction
-"}}}
-" NERDTree utility functions "{{{
-autocmd FocusGained * call s:UpdateNERDTree()
-
-function s:UpdateNERDTree(...)
-  let stay = 0
-
-  if(exists("a:1"))
-    let stay = a:1
-  end
-
-  if exists("t:NERDTreeBufName")
-    let nr = bufwinnr(t:NERDTreeBufName)
-    if nr != -1
-      exe nr . "wincmd w"
-      exe substitute(mapcheck("R"), "<CR>", "", "")
-      if !stay
-        wincmd p
-      end
-    endif
-  endif
-
-  if exists(":CommandTFlush") == 2
-    CommandTFlush
-  endif
-endfunction
-"}}}
 " Utility functions "{{{
 function s:CommandCabbr(abbreviation, expansion)
   execute 'cabbrev ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
@@ -160,5 +109,6 @@ endfunction
       source ~/.gvimrc.local
     endif
 "}}}
+
 
 " vim:foldmethod=marker:foldlevel=0

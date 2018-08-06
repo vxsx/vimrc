@@ -1,25 +1,32 @@
 " Plugin initialization {{{
     set nocompatible
     filetype off
-
     " Initialize vim-plug
     call plug#begin('~/.vim/bundle')
 
     " Plugins {{{
         " Colorschemes {{{
             " fork of altercation/vim-colors-solarized
-            Plug 'vxsx/vim-colors-solarized'
-            " Plug 'morhetz/gruvbox'
-            " Plug 'whatyouhide/vim-gotham'
-            " Plug 'w0ng/vim-hybrid'
-            " Plug 'ajh17/Spacegray.vim'
+            " Plug 'vxsx/vim-colors-solarized'
+            Plug 'lifepillar/vim-solarized8'
+            Plug 'jacoborus/tender.vim'
+            Plug 'tyrannicaltoucan/vim-deep-space'
+            Plug 'jacoborus/tender.vim'
+            Plug 'morhetz/gruvbox'
+            Plug 'whatyouhide/vim-gotham'
+            Plug 'w0ng/vim-hybrid'
+            Plug 'ajh17/Spacegray.vim'
+            Plug 'ayu-theme/ayu-vim'
         "}}}
         " UI {{{
-            Plug 'jszakmeister/vim-togglecursor'
+            if has('gui_running')
+            else
+                Plug 'jszakmeister/vim-togglecursor'
+            endif
             Plug 'vim-airline/vim-airline'
             Plug 'vim-airline/vim-airline-themes'
 
-            " Plug 'edkolev/tmuxline.vim'
+            Plug 'edkolev/tmuxline.vim'
             Plug 'regedarek/ZoomWin'
             Plug 'Yggdroot/indentLine'
         "}}}
@@ -38,17 +45,20 @@
         " Git {{{
             Plug 'tpope/vim-git'
             Plug 'tpope/vim-fugitive'
-            Plug 'airblade/vim-gitgutter'
+            " Plug 'airblade/vim-gitgutter'
         "}}}
         " Config / Linting {{{
             Plug 'editorconfig/editorconfig-vim'
             Plug 'scrooloose/syntastic'
+            " Plug 'w0rp/ale'
             ", { 'for': ['python', 'javascript'] }
             " ^ this doesn't work properly because of airline :(
+            Plug 'sbdchd/neoformat', { 'for': ['javascript', 'css', 'scss', 'scss.css'] }
         "}}}
         " Navigation {{{
-            Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
+            Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
             Plug 'mileszs/ack.vim', { 'on': 'Ack' }
+            " Plug 'vim-scripts/TaskList.vim'
         "}}}
         " Snippets {{{
             Plug 'mattn/emmet-vim', { 'for': ['html', 'jinja.html'] }
@@ -60,19 +70,23 @@
         "}}}
         " JS {{{
             Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-            Plug 'moll/vim-node', { 'for': 'javascript' }
+            " Plug 'moll/vim-node', { 'for': 'javascript' }
+            " Plug 'flowtype/vim-flow', { 'for': 'javascript' }
+            " Plug 'majutsushi/tagbar'
         "}}}
         " Editing / Formatting {{{
-            Plug 'pix/vim-align', { 'on': 'Align' }
+            " Plug 'pix/vim-align', { 'on': 'Align' }
+            Plug 'junegunn/vim-easy-align'
             Plug 'tomtom/tcomment_vim', { 'on': 'TComment' }
             Plug 'michaeljsmith/vim-indent-object'
             Plug 'tpope/vim-unimpaired'
             Plug 'gregsexton/MatchTag', { 'for': ['html', 'jinja.html'] }
             Plug 'vim-scripts/matchit.zip'
-            Plug 'Raimondi/delimitMate'
+            " Plug 'Raimondi/delimitMate'
             Plug 'lukaszb/vim-web-indent'
             Plug 'wellle/targets.vim'
             Plug 'sjl/gundo.vim'
+            Plug 'AndrewRadev/splitjoin.vim'
         "}}}
     "}}}
 
@@ -86,8 +100,17 @@
     set title
     set nospell
     set mouse=a
+    if has("mouse_sgr")
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    end
     if $TMUX == ''
         set clipboard+=unnamed
+    else
+        " tmux and truecolor aren't ok
+        " this handles the full length lines
+        set t_ut=
     endif
 
     " make it easy
@@ -98,14 +121,17 @@
 " Appearance {{{
 set ruler
     syntax on
-    set synmaxcol=500 " Syntax coloring lines that are too long just slows down the world
+    set synmaxcol=300 " Syntax coloring lines that are too long just slows down the world
     set cursorline
 
     set visualbell
     set scrolloff=3
     set showcmd
 
-    set rnu
+    set nu
+    let lines = str2nr(line('$'))
+
+    set numberwidth=5
 
     " Status bar {{{
         set laststatus=2
@@ -114,11 +140,18 @@ set ruler
         try
         " Solarized {{{
             let g:solarized_visibility='low'
-            let g:solarized_contrast='normal'
+            " let g:solarized_contrast='normal'
             let g:solarized_diffmode='high'
-            let g:solarized_termtrans=1
+            " let g:solarized_termtrans=1
+            let g:solarized_term_italics=1
             set background=light
-            color solarized
+            set termguicolors
+            color solarized8_light
+        "}}}
+        " Deep Space {{{
+            " set background=dark
+            " set termguicolors
+            " color deep-space
         "}}}
         " Gruvbox {{{
             " let g:gruvbox_contrast_dark = 'soft'
@@ -247,7 +280,7 @@ set ruler
 "}}}
 " Tab completion {{{
     set wildmode=list:longest,list:full
-    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*
+    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*,*.egg-info,*.egg_link,*/south_migrations/*,*/django_migrations/*,*/env/*,*/cms-test-env/*,data/media/filer_public/*
 "}}}
 " Window manipulation {{{
     set splitbelow
@@ -258,7 +291,6 @@ set ruler
     nmap <C-k> <C-w>k
     nmap <C-l> <C-w>l
 
-    " Window resizing mappings {{{
         nmap <Up>    5<C-w>+
         nmap <Down>  5<C-w>-
         nmap <Left>  5<C-w><
@@ -332,15 +364,15 @@ set ruler
         " html escape/unescape
         " via: http://vim.wikia.com/wiki/HTML_entities
         function! HtmlEscape()
-          silent s/&/\&amp;/eg
-          silent s/</\&lt;/eg
-          silent s/>/\&gt;/eg
+          silent s/&/\&amp;/e
+          silent s/</\&lt;/e
+          silent s/>/\&gt;/e
         endfunction
 
         function! HtmlUnEscape()
-          silent s/&lt;/</eg
-          silent s/&gt;/>/eg
-          silent s/&amp;/\&/eg
+          silent s/&lt;/</e
+          silent s/&gt;/>/e
+          silent s/&amp;/\&/e
         endfunction
 
         map <silent> <Leader>he :call HtmlEscape()<CR>
@@ -393,7 +425,8 @@ set ruler
         while n < line("$")
             if len(getline(n)) >= 500
                 " set syntastic to off
-                let b:syntastic_mode = 'passive'
+                let b:syntastic_skip_checks = 1
+                SyntasticReset
                 return
             endif
             let n = n + 1
@@ -410,7 +443,8 @@ set ruler
         while n < line("$")
             if getline(n) =~ 'React' || getline(n) =~ 'react'
                 " set syntax to jsx
-                let b:jsx_pragma_found = 1
+                " let b:jsx_pragma_found = 1
+                set filetype=javascript.jsx
                 return
             endif
             let n = n + 1
@@ -439,7 +473,7 @@ set ruler
         au! BufWritePost *.snippet call ReloadAllSnippets()
         " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
         au! FileType javascript call DetectMinifiedJavaScriptFile()
-        au! BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
+        au BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! FileType javascript call DetectJSX()
         au! BufRead,BufNewFile *.json set ft=json
         au! bufwritepost vimrc nested source $MYVIMRC
@@ -550,16 +584,6 @@ set ruler
     " TComment {{{
         map <silent> // :TComment<CR>
     "}}}
-    " NERDTree {{{
-        let NERDTreeIgnore=['\.rbc$', '\~$']
-        map <Leader>n :NERDTreeToggle<CR>
-        let NERDTreeChDirMode=0
-        "let NERDTreeQuitOnOpen=1
-        let NERDTreeShowHidden=1
-        "let NERDTreeKeepTreeInNewTab=1
-        "let NERDTreeMinimalUI=1 " Disables display of the 'Bookmarks' label and 'Press ? for help' text.
-        let NERDTreeDirArrows=1 " Tells the NERD tree to use arrows instead of + ~ chars when displaying directories.
-    "}}}
     " ZoomWin configuration {{{
         map <Leader><Leader> :ZoomWin<CR>
     "}}}
@@ -600,19 +624,24 @@ set ruler
         let g:syntastic_javascript_jshint_exec = s:FindSyntasticExecPath('jshint')
         let g:syntastic_javascript_jscs_exec = s:FindSyntasticExecPath('jscs')
         let g:syntastic_javascript_eslint_exec = s:FindSyntasticExecPath('eslint')
+        let g:syntastic_javascript_stylelint_exec = s:FindSyntasticExecPath('stylelint')
 
         let g:syntastic_check_on_open=1
         let g:syntastic_enable_signs=0
-        let g:syntastic_enable_balloons = 0
+        let g:syntastic_enable_balloons = 1
         let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['javascript', 'json', 'python'],
+                                   \ 'active_filetypes': ['scss', 'javascript', 'json', 'python'],
                                    \ 'passive_filetypes': [] }
         if $VIM_JS_LINT == 'jshint'
             let g:syntastic_javascript_checkers = ['jshint', 'jscs']
         else
             let g:syntastic_javascript_checkers = ['eslint']
         endif
-        let g:syntastic_scss_checkers = ['stylelint']
+
+        if filereadable(g:syntastic_javascript_stylelint_exec)
+            let g:syntastic_scss_checkers = ['stylelint']
+        endif
+
         let g:syntastic_python_checkers = ['flake8']
         let g:syntastic_javascript_jscs_args = "--esnext"
         " let g:syntastic_html_checkers = ['validator']
@@ -631,6 +660,16 @@ set ruler
             let g:syntastic_javascript_checkers = ['jshint', 'jscs']
             execute 'SyntasticCheck'
         endfunction
+
+        "disable syntastic on a per buffer basis (some work files blow it up)
+        function! SyntasticDisableBuffer()
+            let b:syntastic_skip_checks = 1
+            SyntasticReset
+            echo 'Syntastic disabled for this buffer'
+        endfunction
+
+        command! SyntasticDisableBuffer call SyntasticDisableBuffer()
+
     "}}}
     " Vim Javascript {{{
         let g:javascript_plugin_jsdoc = 1
@@ -674,12 +713,15 @@ set ruler
         nmap <silent> <Leader>js :JsDoc<CR>
     "}}}
     " CtrlP {{{
-        let g:ctrlp_extensions = ['buffertag']
-        let g:ctrlp_custom_ignore = {
-          \ 'dir':  '\v[\/](.git|.hg|.svn|.egg_link|.egg-info|.*migrations|env|cms-test-env|filer_public)$',
-          \ 'file': '\v\.(exe|so|dll)$',
-          \ 'link': 'some_bad_symbolic_links',
-          \ }
+        " if file is already open, do not switch to it
+        let g:ctrlp_switch_buffer = 'et'
+        if executable("ag")
+            let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+        endif
+
+        " let g:ctrlp_custom_ignore = {
+        "   \ 'dir':  '\v[\/](.git|.hg|.svn|.egg_link|.egg-info|.*migrations|env|cms-test-env|filer_public)$'
+        "   \ }
         nnoremap <silent> <C-p> :CtrlP<CR>
     "}}}
     " Require navigator {{{
@@ -689,14 +731,19 @@ set ruler
     " Dpaster {{{
         " npm install -g nodepaster
         vmap <Leader>dp :w !dpaster -t<Space>
-        vmap <silent> <Leader>cp :w !pbcopy<CR><CR>
+
+        if $TMUX == ''
+            vmap <silent> <Leader>cp :w !pbcopy<CR><CR>
+        else
+            vmap <silent> <Leader>cp :w !reattach-to-user-namespace pbcopy<CR><CR>
+        endif
     "}}}
     " Supertab {{{
         let g:SuperTabDefaultCompletionType = "context"
         set completeopt-=preview
     "}}}
     " Airline {{{
-        let g:airline_powerline_fonts = 1
+        let g:airline_powerline_fonts = 0
         let g:airline#extensions#bufferline#enabled = 0
         let g:airline#extensions#branch#enabled = 1
         let g:airline#extensions#tagbar#enabled = 0
@@ -705,11 +752,18 @@ set ruler
         let g:airline#extensions#virtualenv#enabled = 0
         let g:airline#extensions#eclim#enabled = 0
         let g:airline#extensions#tabline#enabled = 0
-        let g:airline#extensions#tmuxline#enabled = 1
+        let g:airline#extensions#tmuxline#enabled = 0
         let g:airline#extensions#nrrwrgn#enabled = 0
-        " if &ft == 'javascript' || &ft == 'python'
-            let g:airline#extensions#syntastic#enabled = 1
-        " endif
+        let g:airline#extensions#ale#enabled = 1
+        let g:airline_skip_empty_sections = 1
+
+        " let g:tmuxline_powerline_separators = 0
+        let g:tmuxline_separators = {
+            \ 'left' : ' ',
+            \ 'left_alt': '',
+            \ 'right' : '',
+            \ 'right_alt' : ' ',
+            \ 'space' : ' ' }
     "}}}
     " Gitgutter {{{
         let g:gitgutter_map_keys = 0
@@ -725,10 +779,14 @@ set ruler
         " send successive move-left and move-right
         " commands to immediately redraw the cursor
         " inoremap <special> <Esc> <Esc>hl
-        set ttimeoutlen=50
+        set ttimeoutlen=30
 
-        " don't blink the cursor
-        set guicursor+=i:blinkwait0
+        if has('gui_running')
+            set guicursor+=a:blinkon0
+        else
+            " don't blink the cursor
+            set guicursor+=i:blinkwait0
+        endif
     "}}}
     " Ack {{{
         let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -743,6 +801,79 @@ set ruler
     " EditorConfig {{{
         let g:EditorConfig_core_mode = 'python_external'
     "}}}
+    " Prettier {{{
+        nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
+
+        " let g:prettier#exec_cmd_async = 1
+
+        " max line lengh that prettier will wrap on
+        " let g:prettier#config#print_width = 120
+
+        " number of spaces per indentation level
+        " let g:prettier#config#tab_width = 4
+
+        " use tabs over spaces
+        " let g:prettier#config#use_tabs = 'false'
+
+        " print semicolons
+        " let g:prettier#config#semi = 'true'
+
+        " single quotes over double quotes
+        " let g:prettier#config#single_quote = 'true'
+        "
+        " print spaces between brackets
+        " let g:prettier#config#bracket_spacing = 'true'
+        "
+        " put > on the last line instead of new line
+        " let g:prettier#config#jsx_bracket_same_line = 'true'
+        "
+        " none|es5|all
+        " let g:prettier#config#trailing_comma = 'none'
+        " let g:prettier#config#trailing_comma = 'es5'
+        "
+        " flow|babylon|typescript|postcss
+        " let g:prettier#config#parser = 'flow'
+        " let g:prettier#autoformat = 0
+        " autocmd BufWritePre *idexxcom/*.js Prettier
+        " autocmd BufWritePre *cyberlinkch/*.js Prettier
+        " autocmd BufWritePre *django-cms/*.js Prettier
+        function! SetupEnvironment()
+            let l:path = expand('%:p')
+            if l:path =~ '/Users/divio/work/django-cms'
+                if &filetype == 'javascript'
+                    setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ none\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+                endif
+            else
+                if &filetype == 'javascript'
+                    setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+                endif
+                if &filetype == 'css'
+                    setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+                endif
+                if &filetype == 'scss'
+                    setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+                endif
+            endif
+        endfunction
+        autocmd! BufReadPost,BufNewFile *.js call SetupEnvironment()
+        " autocmd BufWritePre */django-cms/*.js Neoformat
+        autocmd BufWritePre */idexxcom/*.js Neoformat
+        autocmd BufWritePre */divio-ui/*.js Neoformat
+        autocmd BufWritePre */divio-ui/*.scss Neoformat
+        autocmd BufWritePre */components/*.js Neoformat
+        autocmd BufWritePre */components/*.scss Neoformat
+        autocmd BufWritePre */cms-prototype/*.js Neoformat
+        autocmd BufWritePre */cms-prototype/*.scss Neoformat
+
+        autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+        autocmd FileType css setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+        autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+        let g:neoformat_try_formatprg = 1
+
+    "}}}
+    " Flow {{{
+        let g:flow#autoclose=1
+    "}}}
 " }}}
 " Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
@@ -755,5 +886,7 @@ set ruler
     " syntax highlighting goes.
     " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 "}}}
+
+
 
 " vim:foldmethod=marker:foldlevel=0
