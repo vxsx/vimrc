@@ -49,8 +49,8 @@
         "}}}
         " Config / Linting {{{
             Plug 'editorconfig/editorconfig-vim'
-            Plug 'scrooloose/syntastic'
-            " Plug 'w0rp/ale'
+            " Plug 'scrooloose/syntastic'
+            Plug 'w0rp/ale'
             ", { 'for': ['python', 'javascript'] }
             " ^ this doesn't work properly because of airline :(
             Plug 'sbdchd/neoformat', { 'for': ['javascript', 'css', 'scss', 'scss.css'] }
@@ -69,7 +69,7 @@
             Plug 'vxsx/vim-snippets'
         "}}}
         " JS {{{
-            Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
+            " Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
             " Plug 'moll/vim-node', { 'for': 'javascript' }
             " Plug 'flowtype/vim-flow', { 'for': 'javascript' }
             " Plug 'majutsushi/tagbar'
@@ -80,7 +80,8 @@
             Plug 'tomtom/tcomment_vim', { 'on': 'TComment' }
             Plug 'michaeljsmith/vim-indent-object'
             Plug 'tpope/vim-unimpaired'
-            Plug 'gregsexton/MatchTag', { 'for': ['html', 'jinja.html'] }
+            " Plug 'gregsexton/MatchTag', { 'for': ['html', 'jinja.html'] }
+            Plug 'Valloric/MatchTagAlways'
             Plug 'vim-scripts/matchit.zip'
             " Plug 'Raimondi/delimitMate'
             Plug 'lukaszb/vim-web-indent'
@@ -111,6 +112,8 @@
         " tmux and truecolor aren't ok
         " this handles the full length lines
         set t_ut=
+        " let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+        " let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     endif
 
     " make it easy
@@ -146,7 +149,7 @@ set ruler
             let g:solarized_term_italics=1
             set background=light
             set termguicolors
-            color solarized8_light
+            color solarized8_dark
         "}}}
         " Deep Space {{{
             " set background=dark
@@ -597,6 +600,14 @@ set ruler
     " Gundo {{{
         nnoremap <Leader>gu :GundoToggle<CR>
     "}}}
+    " Ale {{{
+        let g:ale_linters = {
+        \   'javascript': ['eslint'],
+        \}
+        let g:ale_linters_explicit = 1
+        let g:ale_set_signs = 0
+        
+    "}}}
     " Syntastic {{{
         " not yet implemented correctly
         let s:defaultNodeModules = '~/.vim/node_modules/.bin/'
@@ -632,11 +643,7 @@ set ruler
         let g:syntastic_mode_map = { 'mode': 'passive',
                                    \ 'active_filetypes': ['scss', 'javascript', 'json', 'python'],
                                    \ 'passive_filetypes': [] }
-        if $VIM_JS_LINT == 'jshint'
-            let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-        else
-            let g:syntastic_javascript_checkers = ['eslint']
-        endif
+        let g:syntastic_javascript_checkers = ['eslint']
 
         if filereadable(g:syntastic_javascript_stylelint_exec)
             let g:syntastic_scss_checkers = ['stylelint']
@@ -858,6 +865,8 @@ set ruler
         autocmd! BufReadPost,BufNewFile *.js call SetupEnvironment()
         " autocmd BufWritePre */django-cms/*.js Neoformat
         autocmd BufWritePre */idexxcom/*.js Neoformat
+        autocmd BufWritePre */ac-control/*.js Neoformat
+        autocmd BufWritePre */ac-control/*.scss Neoformat
         autocmd BufWritePre */divio-ui/*.js Neoformat
         autocmd BufWritePre */divio-ui/*.scss Neoformat
         autocmd BufWritePre */components/*.js Neoformat
@@ -869,11 +878,18 @@ set ruler
         autocmd FileType css setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
         autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
         let g:neoformat_try_formatprg = 1
+        let g:neoformat_only_msg_on_error = 1
 
     "}}}
     " Flow {{{
         let g:flow#autoclose=1
     "}}}
+    let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja.html' : 1,
+    \}
 " }}}
 " Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
