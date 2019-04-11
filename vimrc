@@ -41,10 +41,11 @@
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
             Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
             Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
+            Plug 'elzr/vim-json', { 'for': ['json'] }
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
-            Plug 'tpope/vim-fugitive'
+            " Plug 'tpope/vim-fugitive'
             " Plug 'airblade/vim-gitgutter'
         "}}}
         " Config / Linting {{{
@@ -149,7 +150,7 @@ set ruler
             let g:solarized_term_italics=1
             set background=light
             set termguicolors
-            color solarized8_dark
+            color solarized8
         "}}}
         " Deep Space {{{
             " set background=dark
@@ -294,11 +295,10 @@ set ruler
     nmap <C-k> <C-w>k
     nmap <C-l> <C-w>l
 
-        nmap <Up>    5<C-w>+
-        nmap <Down>  5<C-w>-
-        nmap <Left>  5<C-w><
-        nmap <Right> 5<C-w>>
-    "}}}
+    nmap <Up>    5<C-w>+
+    nmap <Down>  5<C-w>-
+    nmap <Left>  5<C-w><
+    nmap <Right> 5<C-w>>
     " Tabs mappings {{{
         nnoremap <Leader>[ gT
         nnoremap <Leader>] gt
@@ -607,6 +607,9 @@ set ruler
         let g:ale_linters_explicit = 1
         let g:ale_set_signs = 0
         
+    "}}}
+    " JSON {{{
+        let g:vim_json_syntax_conceal = 0
     "}}}
     " Syntastic {{{
         " not yet implemented correctly
