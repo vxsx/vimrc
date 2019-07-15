@@ -6,9 +6,9 @@
 
     " Plugins {{{
         " Colorschemes {{{
-            " fork of altercation/vim-colors-solarized
-            " Plug 'vxsx/vim-colors-solarized'
-            Plug 'lifepillar/vim-solarized8'
+            " fork of lifepillar/vim-solarized8
+            Plug 'lifepillar/vim-colortemplate'
+            Plug 'vxsx/vim-solarized8'
             Plug 'jacoborus/tender.vim'
             Plug 'tyrannicaltoucan/vim-deep-space'
             Plug 'jacoborus/tender.vim'
@@ -42,6 +42,11 @@
             Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
             Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
             Plug 'elzr/vim-json', { 'for': ['json'] }
+            Plug 'leafgarland/typescript-vim'
+            Plug 'ianks/vim-tsx' 
+            Plug 'Quramy/tsuquyomi'
+            Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+            Plug 'Shougo/echodoc.vim'
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
@@ -54,7 +59,7 @@
             Plug 'w0rp/ale'
             ", { 'for': ['python', 'javascript'] }
             " ^ this doesn't work properly because of airline :(
-            Plug 'sbdchd/neoformat', { 'for': ['javascript', 'css', 'scss', 'scss.css'] }
+            Plug 'sbdchd/neoformat', { 'for': ['typescript', 'javascript', 'css', 'scss', 'scss.css'] }
         "}}}
         " Navigation {{{
             Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
@@ -102,11 +107,11 @@
     set title
     set nospell
     set mouse=a
-    if has("mouse_sgr")
-        set ttymouse=sgr
-    else
-        set ttymouse=xterm2
-    end
+    " if has("mouse_sgr")
+    "     set ttymouse=sgr
+    " else
+    "     set ttymouse=xterm2
+    " end
     if $TMUX == ''
         set clipboard+=unnamed
     else
@@ -144,9 +149,7 @@ set ruler
         try
         " Solarized {{{
             let g:solarized_visibility='low'
-            " let g:solarized_contrast='normal'
             let g:solarized_diffmode='high'
-            " let g:solarized_termtrans=1
             let g:solarized_term_italics=1
             set background=light
             set termguicolors
@@ -158,10 +161,12 @@ set ruler
             " color deep-space
         "}}}
         " Gruvbox {{{
-            " let g:gruvbox_contrast_dark = 'soft'
+            " let g:gruvbox_contrast_light = 'soft'
             " let g:gruvbox_invert_selection = 0
             " let g:gruvbox_italic = 1
-            " set background=dark
+            " set background=light
+            "
+            " set termguicolors
             " color gruvbox
         "}}}
         " Spacegray {{{
@@ -382,19 +387,8 @@ set ruler
         map <silent> <Leader>hu :call HtmlUnEscape()<CR>
     "}}}
     " Moving in file {{{
-        " imap <C-h> <C-o>h
-        " imap <C-j> <C-o>j
-        " imap <C-k> <C-o>k
-        " imap <C-l> <C-o>l
-
         nmap <tab> %
         vmap <tab> %
-
-        " this is for learning hjkl moving
-        inoremap <up>    <nop>
-        inoremap <down>  <nop>
-        inoremap <left>  <nop>
-        inoremap <right> <nop>
 
         " Move in insert mode like in command line
         imap <C-e> <C-o>A
@@ -603,10 +597,11 @@ set ruler
     " Ale {{{
         let g:ale_linters = {
         \   'javascript': ['eslint'],
+        \   'typescript': ['tslint', 'tsserver'],
         \}
         let g:ale_linters_explicit = 1
         let g:ale_set_signs = 0
-        
+        set signcolumn=no
     "}}}
     " JSON {{{
         let g:vim_json_syntax_conceal = 0
@@ -694,7 +689,7 @@ set ruler
         let g:indentLine_noConcealCursor = 1
 
         try
-            if !exists("g:colors_name") || g:colors_name != 'gotham'
+            if exists("g:colors_name") && g:colors_name == 'solarized8'
                 let g:indentLine_color_term = 7
                 let g:indentLine_color_gui = '#E4E1D2'
 
@@ -797,6 +792,14 @@ set ruler
             " don't blink the cursor
             set guicursor+=i:blinkwait0
         endif
+
+        let g:togglecursor_disable_neovim = 1
+        " let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+        " let g:togglecursor_force = 1
+
+        if has('nvim')
+            set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
+        endif
     "}}}
     " Ack {{{
         let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -809,44 +812,9 @@ set ruler
         let delimitMate_matchpairs = "(:),[:],<:>"
     "}}}
     " EditorConfig {{{
-        let g:EditorConfig_core_mode = 'python_external'
+        " let g:EditorConfig_core_mode = 'python_external'
     "}}}
     " Prettier {{{
-        nnoremap gp :silent %!prettier --stdin --trailing-comma all --single-quote<CR>
-
-        " let g:prettier#exec_cmd_async = 1
-
-        " max line lengh that prettier will wrap on
-        " let g:prettier#config#print_width = 120
-
-        " number of spaces per indentation level
-        " let g:prettier#config#tab_width = 4
-
-        " use tabs over spaces
-        " let g:prettier#config#use_tabs = 'false'
-
-        " print semicolons
-        " let g:prettier#config#semi = 'true'
-
-        " single quotes over double quotes
-        " let g:prettier#config#single_quote = 'true'
-        "
-        " print spaces between brackets
-        " let g:prettier#config#bracket_spacing = 'true'
-        "
-        " put > on the last line instead of new line
-        " let g:prettier#config#jsx_bracket_same_line = 'true'
-        "
-        " none|es5|all
-        " let g:prettier#config#trailing_comma = 'none'
-        " let g:prettier#config#trailing_comma = 'es5'
-        "
-        " flow|babylon|typescript|postcss
-        " let g:prettier#config#parser = 'flow'
-        " let g:prettier#autoformat = 0
-        " autocmd BufWritePre *idexxcom/*.js Prettier
-        " autocmd BufWritePre *cyberlinkch/*.js Prettier
-        " autocmd BufWritePre *django-cms/*.js Prettier
         function! SetupEnvironment()
             let l:path = expand('%:p')
             if l:path =~ '/Users/divio/work/django-cms'
@@ -867,17 +835,13 @@ set ruler
         endfunction
         autocmd! BufReadPost,BufNewFile *.js call SetupEnvironment()
         " autocmd BufWritePre */django-cms/*.js Neoformat
-        autocmd BufWritePre */idexxcom/*.js Neoformat
-        autocmd BufWritePre */ac-control/*.js Neoformat
-        autocmd BufWritePre */ac-control/*.scss Neoformat
-        autocmd BufWritePre */divio-ui/*.js Neoformat
-        autocmd BufWritePre */divio-ui/*.scss Neoformat
-        autocmd BufWritePre */components/*.js Neoformat
-        autocmd BufWritePre */components/*.scss Neoformat
-        autocmd BufWritePre */cms-prototype/*.js Neoformat
-        autocmd BufWritePre */cms-prototype/*.scss Neoformat
+        autocmd BufWritePre *.js Neoformat
+        autocmd BufWritePre *.scss Neoformat
+        autocmd BufWritePre *.ts Neoformat
 
         autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+        autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 80
+        autocmd FileType tsx setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 80
         autocmd FileType css setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
         autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
         let g:neoformat_try_formatprg = 1
@@ -886,6 +850,52 @@ set ruler
     "}}}
     " Flow {{{
         let g:flow#autoclose=1
+    "}}}
+    " Typescript {{{
+        autocmd FileType typescript setlocal completeopt+=menu,preview
+    "}}}
+    " COC {{{
+        inoremap <silent><expr> <TAB>
+            \ pumvisible() ? coc#_select_confirm() :
+            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+
+        " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+        " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+        function! s:check_back_space() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
+        endfunction
+
+        let g:coc_snippet_next = '<tab>'
+        imap <C-e> <Plug>(coc-snippets-expand)
+
+        nnoremap <silent> gh :call <SID>show_documentation()<CR>
+        " gd - go to definition of word under cursor
+        nmap <silent> gd <Plug>(coc-definition)
+        nmap <silent> gy <Plug>(coc-type-definition)
+
+        " gi - go to implementation
+        nmap <silent> gi <Plug>(coc-implementation)
+
+        " gr - find references
+        nmap <silent> gr <Plug>(coc-references)
+
+        function! s:show_documentation()
+            if &filetype == 'vim'
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
+        endfunction
+
+        autocmd CursorHold * silent call CocActionAsync('highlight')
+    "}}}
+    " Echodoc "{{{
+        " set cmdheight=2
+        set noshowmode 
     "}}}
     let g:mta_filetypes = {
     \ 'html' : 1,
@@ -906,6 +916,11 @@ set ruler
     " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 "}}}
 
+" hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#eee8d5 guisp=NONE cterm=NONE gui=NONE
+hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
+" hi PmenuSbar ctermfg=NONE ctermbg=247 guifg=NONE guibg=#93a1a1 guisp=NONE cterm=NONE gui=NONE
+" hi PmenuSel ctermfg=254 ctermbg=246 guifg=#eee8d5 guibg=#839496 guisp=NONE cterm=NONE gui=NONE
+" hi PmenuThumb ctermfg=NONE ctermbg=66 guifg=NONE guibg=#657b83 guisp=NONE cterm=NONE gui=NONE
 
 
 " vim:foldmethod=marker:foldlevel=0
