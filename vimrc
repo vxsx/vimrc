@@ -47,6 +47,7 @@
             Plug 'Quramy/tsuquyomi'
             Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
             Plug 'Shougo/echodoc.vim'
+            Plug 'nikvdp/ejs-syntax'
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
@@ -59,7 +60,7 @@
             Plug 'w0rp/ale'
             ", { 'for': ['python', 'javascript'] }
             " ^ this doesn't work properly because of airline :(
-            Plug 'sbdchd/neoformat', { 'for': ['typescript', 'javascript', 'css', 'scss', 'scss.css'] }
+            Plug 'sbdchd/neoformat', { 'for': ['typescript', 'typescript.tsx', 'javascript', 'css', 'scss', 'scss.css'] }
         "}}}
         " Navigation {{{
             Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
@@ -88,7 +89,7 @@
             Plug 'tpope/vim-unimpaired'
             " Plug 'gregsexton/MatchTag', { 'for': ['html', 'jinja.html'] }
             Plug 'Valloric/MatchTagAlways'
-            Plug 'vim-scripts/matchit.zip'
+            Plug 'chrisbra/matchit'
             " Plug 'Raimondi/delimitMate'
             Plug 'lukaszb/vim-web-indent'
             Plug 'wellle/targets.vim'
@@ -461,6 +462,7 @@ set ruler
         au FileType python  set tabstop=4 textwidth=79
         au BufRead,BufNewFile *.yml  set tabstop=2
         au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
+        au BufNewFile,BufRead *.flavour set ft=yaml.flavour
         au BufNewFile,BufRead *.lancet set ft=dosini
         au BufNewFile,BufRead .babelrc set ft=javascript
         " That's so i have my css snippets in scss files
@@ -583,6 +585,10 @@ set ruler
     "}}}
     " ZoomWin configuration {{{
         map <Leader><Leader> :ZoomWin<CR>
+        if has('nvim')
+            " removed 'key', 'oft', 'sn', 'tx' options which do not work with nvim
+            let g:zoomwin_localoptlist = ["ai","ar","bh","bin","bl","bomb","bt","cfu","ci","cin","cink","cino","cinw","cms","com","cpt","diff","efm","eol","ep","et","fenc","fex","ff","flp","fo","ft","gp","imi","ims","inde","inex","indk","inf","isk","kmp","lisp","mps","ml","ma","mod","nf","ofu","pi","qe","ro","sw","si","sts","spc","spf","spl","sua","swf","smc","syn","ts","tw","udf","wfh","wfw","wm"]
+        endif
     "}}}
     " Fugitive {{{
         autocmd User fugitive
@@ -597,7 +603,7 @@ set ruler
     " Ale {{{
         let g:ale_linters = {
         \   'javascript': ['eslint'],
-        \   'typescript': ['tslint', 'tsserver'],
+        \   'typescript': ['tsserver', 'tslint', 'eslint'],
         \}
         let g:ale_linters_explicit = 1
         let g:ale_set_signs = 0
@@ -738,9 +744,9 @@ set ruler
         vmap <Leader>dp :w !dpaster -t<Space>
 
         if $TMUX == ''
-            vmap <silent> <Leader>cp :w !pbcopy<CR><CR>
+            vmap <silent> <Leader>cp "+y
         else
-            vmap <silent> <Leader>cp :w !reattach-to-user-namespace pbcopy<CR><CR>
+            vmap <silent> <Leader>cp "+y
         endif
     "}}}
     " Supertab {{{
@@ -757,7 +763,7 @@ set ruler
         let g:airline#extensions#virtualenv#enabled = 0
         let g:airline#extensions#eclim#enabled = 0
         let g:airline#extensions#tabline#enabled = 0
-        let g:airline#extensions#tmuxline#enabled = 0
+        let g:airline#extensions#tmuxline#enabled = 1
         let g:airline#extensions#nrrwrgn#enabled = 0
         let g:airline#extensions#ale#enabled = 1
         let g:airline_skip_empty_sections = 1
@@ -838,12 +844,14 @@ set ruler
         autocmd BufWritePre *.js Neoformat
         autocmd BufWritePre *.scss Neoformat
         autocmd BufWritePre *.ts Neoformat
+        autocmd BufWritePre *.tsx Neoformat
 
         autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
         autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 80
         autocmd FileType tsx setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 80
-        autocmd FileType css setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-        autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+        autocmd FileType css setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
+        autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 120
+
         let g:neoformat_try_formatprg = 1
         let g:neoformat_only_msg_on_error = 1
 
@@ -917,7 +925,11 @@ set ruler
 "}}}
 
 " hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#eee8d5 guisp=NONE cterm=NONE gui=NONE
-hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
+if &background is# "dark"
+    hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#003741 guisp=NONE cterm=NONE gui=NONE
+else
+    hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
+endif
 " hi PmenuSbar ctermfg=NONE ctermbg=247 guifg=NONE guibg=#93a1a1 guisp=NONE cterm=NONE gui=NONE
 " hi PmenuSel ctermfg=254 ctermbg=246 guifg=#eee8d5 guibg=#839496 guisp=NONE cterm=NONE gui=NONE
 " hi PmenuThumb ctermfg=NONE ctermbg=66 guifg=NONE guibg=#657b83 guisp=NONE cterm=NONE gui=NONE
