@@ -43,9 +43,9 @@
             Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
             Plug 'elzr/vim-json', { 'for': ['json'] }
             Plug 'leafgarland/typescript-vim'
-            Plug 'ianks/vim-tsx' 
+            Plug 'ianks/vim-tsx'
             Plug 'Quramy/tsuquyomi'
-            Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+            Plug 'neoclide/coc.nvim', {'branch': 'release' }
             Plug 'Shougo/echodoc.vim'
             Plug 'nikvdp/ejs-syntax'
         "}}}
@@ -60,7 +60,6 @@
             Plug 'w0rp/ale'
             ", { 'for': ['python', 'javascript'] }
             " ^ this doesn't work properly because of airline :(
-            Plug 'sbdchd/neoformat', { 'for': ['typescript', 'typescript.tsx', 'javascript', 'css', 'scss', 'scss.css'] }
         "}}}
         " Navigation {{{
             Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
@@ -604,6 +603,7 @@ set ruler
         let g:ale_linters = {
         \   'javascript': ['eslint'],
         \   'typescript': ['tsserver', 'tslint', 'eslint'],
+        \   'scss': ['stylelint'],
         \}
         let g:ale_linters_explicit = 1
         let g:ale_set_signs = 0
@@ -766,7 +766,10 @@ set ruler
         let g:airline#extensions#tmuxline#enabled = 1
         let g:airline#extensions#nrrwrgn#enabled = 0
         let g:airline#extensions#ale#enabled = 1
+        let g:airline#extensions#coc#enabled = 0
+
         let g:airline_skip_empty_sections = 1
+        let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
         " let g:tmuxline_powerline_separators = 0
         let g:tmuxline_separators = {
@@ -821,40 +824,11 @@ set ruler
         " let g:EditorConfig_core_mode = 'python_external'
     "}}}
     " Prettier {{{
-        function! SetupEnvironment()
-            let l:path = expand('%:p')
-            if l:path =~ '/Users/divio/work/django-cms'
-                if &filetype == 'javascript'
-                    setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ none\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-                endif
-            else
-                if &filetype == 'javascript'
-                    setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-                endif
-                if &filetype == 'css'
-                    setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-                endif
-                if &filetype == 'scss'
-                    setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-                endif
-            endif
-        endfunction
-        autocmd! BufReadPost,BufNewFile *.js call SetupEnvironment()
-        " autocmd BufWritePre */django-cms/*.js Neoformat
-        autocmd BufWritePre *.js Neoformat
-        autocmd BufWritePre *.scss Neoformat
-        autocmd BufWritePre *.ts Neoformat
-        autocmd BufWritePre *.tsx Neoformat
-
-        autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-        autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 80
-        autocmd FileType tsx setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 80
-        autocmd FileType css setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 4\ --print-width\ 120
-        autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ scss\ --double-quote\ --trailing-comma\ es5\ --jsx-bracket-same-line\ --tab-width\ 2\ --print-width\ 120
-
-        let g:neoformat_try_formatprg = 1
-        let g:neoformat_only_msg_on_error = 1
-
+        autocmd BufRead .prettierrc set ft=json
+        " autocmd BufWritePre *.js Prettier
+        " autocmd BufWritePre *.scss Prettier
+        " autocmd BufWritePre *.ts Prettier 
+        " autocmd BufWritePre *.tsx Prettier 
     "}}}
     " Flow {{{
         let g:flow#autoclose=1
@@ -868,6 +842,11 @@ set ruler
             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
+
+        command! -nargs=0 Prettier :CocCommand prettier.formatFile
+        let g:coc_filetype_map = {
+            \ 'scss.css': 'scss'
+            \ }
 
         " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
         " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -900,10 +879,12 @@ set ruler
         endfunction
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
+
+        let b:coc_diagnostic_info = {'error': 1, 'warning': 1, 'info': 0, 'hint': 1}
     "}}}
     " Echodoc "{{{
         " set cmdheight=2
-        set noshowmode 
+        set noshowmode
     "}}}
     let g:mta_filetypes = {
     \ 'html' : 1,
