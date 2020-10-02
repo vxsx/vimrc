@@ -51,7 +51,7 @@
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
-            " Plug 'tpope/vim-fugitive'
+            Plug 'tpope/vim-fugitive', { 'on': 'Gblame' }
             " Plug 'airblade/vim-gitgutter'
         "}}}
         " Config / Linting {{{
