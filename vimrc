@@ -48,6 +48,7 @@
             Plug 'neoclide/coc.nvim', {'branch': 'release' }
             Plug 'Shougo/echodoc.vim'
             Plug 'nikvdp/ejs-syntax'
+            Plug 'jxnblk/vim-mdx-js'
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
@@ -151,7 +152,7 @@ set ruler
             let g:solarized_visibility='low'
             let g:solarized_diffmode='high'
             let g:solarized_term_italics=1
-            set background=light
+            set background=dark
             set termguicolors
             color solarized8
         "}}}
@@ -845,7 +846,8 @@ set ruler
 
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
         let g:coc_filetype_map = {
-            \ 'scss.css': 'scss'
+            \ 'scss.css': 'scss',
+            \ 'markdown.mdx': 'mdx'
             \ }
 
         " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
