@@ -28,7 +28,7 @@
             Plug 'elzr/vim-json', { 'for': ['json'] }
             Plug 'leafgarland/typescript-vim'
             Plug 'ianks/vim-tsx'
-            Plug 'neoclide/coc.nvim', {'branch': 'release' }
+            " Plug 'neoclide/coc.nvim', {'branch': 'release' }
             Plug 'nikvdp/ejs-syntax'
             Plug 'jxnblk/vim-mdx-js'
         "}}}
@@ -47,8 +47,8 @@
         " Snippets {{{
             Plug 'MarcWeber/vim-addon-mw-utils'
             Plug 'tomtom/tlib_vim'
-            Plug 'garbas/vim-snipmate'
-            Plug 'ervandew/supertab'
+            " Plug 'garbas/vim-snipmate'
+            " Plug 'ervandew/supertab'
             Plug 'vxsx/vim-snippets'
         "}}}
         " Editing / Formatting {{{
@@ -62,6 +62,15 @@
             Plug 'wellle/targets.vim'
             Plug 'sjl/gundo.vim'
             Plug 'AndrewRadev/splitjoin.vim'
+        "}}}
+        " Experimental {{{
+            Plug 'neovim/nvim-lspconfig'
+            Plug 'williamboman/nvim-lsp-installer'
+            Plug 'hrsh7th/cmp-nvim-lsp'
+            Plug 'hrsh7th/cmp-buffer'
+            Plug 'hrsh7th/cmp-path'
+            Plug 'hrsh7th/cmp-cmdline'
+            Plug 'hrsh7th/nvim-cmp' 
         "}}}
     "}}}
 
@@ -164,7 +173,6 @@
 
     " Remove the Windows ^M - when the encodings gets messed up
     noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
 "}}}
 " Searching and Replacing {{{
     set hlsearch
@@ -358,7 +366,8 @@
 " Plugins {{{
 
     " SnipMate {{{
-        let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
+        " let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
+        " let g:snipMate = { 'snippet_version' : 0 }
     "}}}
     " TComment {{{
         map <silent> // :TComment<CR>
@@ -494,6 +503,7 @@
             if exists("g:colors_name") && g:colors_name == 'gotham'
                 let g:indentLine_color_term = 8
             endif
+
             if exists("g:colors_name") && g:colors_name == 'edge'
                 let g:indentLine_color_term = 8
                 let g:indentLine_color_gui = '#333648'
@@ -538,7 +548,8 @@
         endif
     "}}}
     " Supertab {{{
-        let g:SuperTabDefaultCompletionType = "context"
+        " let g:SuperTabDefaultCompletionType = "context"
+        " let g:SuperTabContextDefaultCompletionType = "<c-n>"
         set completeopt-=preview
     "}}}
     " Airline {{{
@@ -599,51 +610,59 @@
         autocmd FileType typescript setlocal completeopt+=menu,preview
     "}}}
     " COC {{{
-        inoremap <silent><expr> <TAB>
-            \ pumvisible() ? coc#_select_confirm() :
-            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-
-        command! -nargs=0 Prettier :CocCommand prettier.formatFile
-        let g:coc_filetype_map = {
-            \ 'scss.css': 'scss',
-            \ 'markdown.mdx': 'mdx'
-            \ }
-
-        " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-        " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-        function! s:check_back_space() abort
-            let col = col('.') - 1
-            return !col || getline('.')[col - 1]  =~# '\s'
-        endfunction
-
-        let g:coc_snippet_next = '<tab>'
-        imap <C-e> <Plug>(coc-snippets-expand)
-
-        nnoremap <silent> gh :call <SID>show_documentation()<CR>
-        " gd - go to definition of word under cursor
-        nmap <silent> gd <Plug>(coc-definition)
-        nmap <silent> gy <Plug>(coc-type-definition)
-
-        " gi - go to implementation
-        nmap <silent> gi <Plug>(coc-implementation)
-
-        " gr - find references
-        nmap <silent> gr <Plug>(coc-references)
-
-        function! s:show_documentation()
-            if &filetype == 'vim'
-                execute 'h '.expand('<cword>')
-            else
-                call CocAction('doHover')
-            endif
-        endfunction
-
-        autocmd CursorHold * silent call CocActionAsync('highlight')
-
-        let b:coc_diagnostic_info = {'error': 1, 'warning': 1, 'info': 0, 'hint': 1}
+        " let g:coc_node_path = '/Users/vadim/.nvm/versions/node/v16.13.1/bin/node'
+        " set updatetime=300
+        "
+        " command! -nargs=0 Prettier :CocCommand prettier.formatFile
+        " let g:coc_filetype_map = {
+        "     \ 'scss.css': 'scss',
+        "     \ 'markdown.mdx': 'mdx'
+        "     \ }
+        "
+        " " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+        " " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+        "
+        " function! s:check_back_space() abort
+        "     let col = col('.') - 1
+        "     return !col || getline('.')[col - 1]  =~# '\s'
+        " endfunction
+        "
+        " let g:coc_snippet_next = '<tab>'
+        " imap <C-e> <Plug>(coc-snippets-expand)
+        "
+        " nnoremap <silent> gh :call <SID>show_documentation()<CR>
+        " " gd - go to definition of word under cursor
+        " nmap <silent> gd <Plug>(coc-definition)
+        " nmap <silent> gy <Plug>(coc-type-definition)
+        "
+        " " gi - go to implementation
+        " nmap <silent> gi <Plug>(coc-implementation)
+        "
+        " " gr - find references
+        " nmap <silent> gr <Plug>(coc-references)
+        "
+        " " trigger completion on c-space
+        " inoremap <silent><expr> <c-space> coc#refresh()
+        "
+        " " Remap for rename current word
+        " nmap <F2> <Plug>(coc-rename)
+        "
+        "
+        " function! s:show_documentation()
+        "     if (index(['vim','help'], &filetype) >= 0)
+        "         execute 'h '.expand('<cword>')
+        "     elseif (coc#rpc#ready())
+        "         call CocActionAsync('doHover')
+        "     else
+        "         execute '!' . &keywordprg . " " . expand('<cword>')
+        "     endif
+        " endfunction
+        "
+        " " autocmd CursorHold * silent call CocActionAsync('highlight')
+        "
+        " let b:coc_diagnostic_info = {'error': 1, 'warning': 1, 'info': 0, 'hint': 1}
+        " let g:coc_default_semantic_highlight_groups = 0
+        " command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
     "}}}
     " Echodoc "{{{
         " set cmdheight=2
@@ -687,5 +706,131 @@ hi typescriptReserved guifg=#859900	guibg=NONE guisp=NONE cterm=NONE gui=NONE
 hi link typescriptParens Operator
 hi link typescriptNull Type
 hi link CocFadeOut SpellBad
+
+lua << EOF
+require("nvim-lsp-installer").setup {}
+-- require'lspconfig'.eslint.setup{}
+EOF
+
+lua <<EOF
+  -- Set up nvim-cmp.
+  local cmp = require'cmp'
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+
+  local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  end
+
+
+  cmp.setup({
+    -- snippet = {
+    --   -- REQUIRED - you must specify a snippet engine
+    --   expand = function(args)
+    --     vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+    --     -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    --     -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+    --     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+    --   end,
+    -- },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    --    ["<Tab>"] = cmp.mapping(function(fallback)
+    --   if cmp.visible() then
+    --     cmp.select_next_item()
+    --   elseif vim.fn["vsnip#available"](1) == 1 then
+    --     feedkey("<Plug>(vsnip-expand-or-jump)", "")
+    --   elseif has_words_before() then
+    --     cmp.complete()
+    --   else
+    --     fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+    --   end
+    -- end, { "i", "s" }),
+    --
+    -- ["<S-Tab>"] = cmp.mapping(function()
+    --   if cmp.visible() then
+    --     cmp.select_prev_item()
+    --   elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+    --     feedkey("<Plug>(vsnip-jump-prev)", "")
+    --   end
+    -- end, { "i", "s" }),
+      ['<Tab>'] = function(fallback)
+      if not cmp.select_next_item() then
+        if vim.bo.buftype ~= 'prompt' and has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end
+    end,
+
+    ['<S-Tab>'] = function(fallback)
+      if not cmp.select_prev_item() then
+        if vim.bo.buftype ~= 'prompt' and has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end
+    end,
+    }),
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Set configuration for specific filetype.
+  cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = 'buffer' }
+    }
+  })
+
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
+  })
+
+  -- Set up lspconfig.
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+  require('lspconfig')['tsserver'].setup {
+    capabilities = capabilities
+  }
+  require('lspconfig')['tailwindcss'].setup {
+    capabilities = capabilities
+  }
+EOF
 
 " vim:foldmethod=marker:foldlevel=0
