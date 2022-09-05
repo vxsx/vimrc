@@ -6,36 +6,20 @@
 
     " Plugins {{{
         " Colorschemes {{{
-            " fork of lifepillar/vim-solarized8
-            Plug 'lifepillar/vim-colortemplate'
             Plug 'vxsx/vim-solarized8'
-            Plug 'jacoborus/tender.vim'
-            Plug 'tyrannicaltoucan/vim-deep-space'
-            Plug 'jacoborus/tender.vim'
-            Plug 'morhetz/gruvbox'
-            Plug 'whatyouhide/vim-gotham'
-            Plug 'w0ng/vim-hybrid'
-            Plug 'ajh17/Spacegray.vim'
-            Plug 'ayu-theme/ayu-vim'
         "}}}
         " UI {{{
-            if has('gui_running')
-            else
-                Plug 'jszakmeister/vim-togglecursor'
-            endif
             Plug 'vim-airline/vim-airline'
             Plug 'vim-airline/vim-airline-themes'
 
             Plug 'edkolev/tmuxline.vim'
             Plug 'regedarek/ZoomWin'
-            Plug 'Yggdroot/indentLine'
+            Plug 'lukas-reineke/indent-blankline.nvim'
         "}}}
         " Syntax {{{
             Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
             Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
             Plug 'othree/html5.vim', { 'for': ['html'] }
-            " fork of Glench/Vim-Jinja2-Syntax
-            Plug 'niftylettuce/Vim-Jinja2-Syntax', { 'for': ['jinja.html'] }
             Plug 'ekalinin/Dockerfile.vim', { 'for': ['Dockerfile'] }
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
@@ -44,53 +28,36 @@
             Plug 'elzr/vim-json', { 'for': ['json'] }
             Plug 'leafgarland/typescript-vim'
             Plug 'ianks/vim-tsx'
-            Plug 'Quramy/tsuquyomi'
             Plug 'neoclide/coc.nvim', {'branch': 'release' }
-            Plug 'Shougo/echodoc.vim'
             Plug 'nikvdp/ejs-syntax'
             Plug 'jxnblk/vim-mdx-js'
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
-            Plug 'tpope/vim-fugitive', { 'on': 'Gblame' }
-            " Plug 'airblade/vim-gitgutter'
+            Plug 'tpope/vim-fugitive', { 'on': 'Git' }
         "}}}
         " Config / Linting {{{
             Plug 'editorconfig/editorconfig-vim'
-            " Plug 'scrooloose/syntastic'
-            Plug 'w0rp/ale'
-            ", { 'for': ['python', 'javascript'] }
-            " ^ this doesn't work properly because of airline :(
+            Plug 'dense-analysis/ale'
         "}}}
         " Navigation {{{
-            Plug 'ctrlpvim/ctrlp.vim', { 'on': 'CtrlP' }
+            Plug 'ctrlpvim/ctrlp.vim'
             Plug 'mileszs/ack.vim', { 'on': 'Ack' }
-            " Plug 'vim-scripts/TaskList.vim'
         "}}}
         " Snippets {{{
-            Plug 'mattn/emmet-vim', { 'for': ['html', 'jinja.html'] }
             Plug 'MarcWeber/vim-addon-mw-utils'
             Plug 'tomtom/tlib_vim'
             Plug 'garbas/vim-snipmate'
             Plug 'ervandew/supertab'
             Plug 'vxsx/vim-snippets'
         "}}}
-        " JS {{{
-            " Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-            " Plug 'moll/vim-node', { 'for': 'javascript' }
-            " Plug 'flowtype/vim-flow', { 'for': 'javascript' }
-            " Plug 'majutsushi/tagbar'
-        "}}}
         " Editing / Formatting {{{
-            " Plug 'pix/vim-align', { 'on': 'Align' }
             Plug 'junegunn/vim-easy-align'
             Plug 'tomtom/tcomment_vim', { 'on': 'TComment' }
             Plug 'michaeljsmith/vim-indent-object'
             Plug 'tpope/vim-unimpaired'
-            " Plug 'gregsexton/MatchTag', { 'for': ['html', 'jinja.html'] }
             Plug 'Valloric/MatchTagAlways'
             Plug 'chrisbra/matchit'
-            " Plug 'Raimondi/delimitMate'
             Plug 'lukaszb/vim-web-indent'
             Plug 'wellle/targets.vim'
             Plug 'sjl/gundo.vim'
@@ -125,11 +92,12 @@
 
     " make it easy
     nmap <Space> :
+    nmap Y yy
     " annoying window
     map q: :q
 "}}}
 " Appearance {{{
-set ruler
+    set ruler
     syntax on
     set synmaxcol=300 " Syntax coloring lines that are too long just slows down the world
     set cursorline
@@ -152,61 +120,15 @@ set ruler
             let g:solarized_visibility='low'
             let g:solarized_diffmode='high'
             let g:solarized_term_italics=1
-            set background=dark
+            set background=light
             set termguicolors
             color solarized8
-        "}}}
-        " Deep Space {{{
-            " set background=dark
-            " set termguicolors
-            " color deep-space
-        "}}}
-        " Gruvbox {{{
-            " let g:gruvbox_contrast_light = 'soft'
-            " let g:gruvbox_invert_selection = 0
-            " let g:gruvbox_italic = 1
-            " set background=light
-            "
-            " set termguicolors
-            " color gruvbox
-        "}}}
-        " Spacegray {{{
-            " color spacegray
-            " set background=dark
-        "}}}
-        " Hybrid {{{
-            " set background=dark
-            " let g:hybrid_custom_term_colors = 1
-            " color hybrid
-        "}}}
-        " Gotham {{{
-            " color gotham
         "}}}
         catch /:E185:/
             " silently fail if no colorscheme found
         endtry
     "}}}
 
-"}}}
-" Encoding {{{
-    set fileencodings=utf8,cp1251
-    set encoding=utf-8
-    menu Encoding.UTF-8          :e ++enc=utf-8<CR>
-    menu Encoding.KOI8-R         :e ++enc=koi8-r<CR>
-    menu Encoding.KOI8-U         :e ++enc=koi8-u<CR>
-    menu Encoding.CP1251         :e ++enc=cp1251<CR>
-    menu Encoding.IBM-855        :e ++enc=ibm855<CR>
-    menu Encoding.IBM-866        :e ++enc=ibm866<CR>
-    menu Encoding.ISO-8859-5     :e ++enc=iso-8859-5<CR>
-    menu Encoding.Latin-1        :e ++enc=latin1<CR>
-    map <F2> :emenu Encoding.
-"}}}
-" FileFormat {{{
-    menu FileFormat.UNIX         :e ++ff=unix<CR>
-    menu FileFormat.DOS          :e ++ff=dos<CR>
-    menu FileFormat.Mac          :e ++ff=mac<CR>
-
-    map <S-F2> :emenu FileFormat.
 "}}}
 " Whitespace and indentation {{{
     set nowrap
@@ -224,11 +146,7 @@ set ruler
     " Invisible characters
     set list
     if has('multi_byte')
-        if version >= 700
-            set listchars=tab:\ \ ,trail:·,extends:→,nbsp:×
-        else
-            set listchars=tab:\ \ ,trail:·,extends:>,nbsp:_
-        endif
+        set listchars=tab:\ \ ,trail:·,extends:→,nbsp:×
     endif
     if has("linebreak")
         let &sbr = nr2char(8618).' '  " Show ↪ at the beginning of wrapped lines
@@ -240,31 +158,13 @@ set ruler
     " load the plugin and indent settings for the detected filetype
     filetype plugin indent on
 
-    " Indent ala Textmate
-    imap <D-[> <ESC><<
-    imap <D-]> <ESC>>>
-    nmap <D-[> <<
-    nmap <D-]> >>
-    vmap <D-[> <gv
-    vmap <D-]> >gv
-
+    " indent
     vnoremap < <gv
     vnoremap > >gv
 
     " Remove the Windows ^M - when the encodings gets messed up
     noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-    " Strip trailing whitespace
-    function! StripWhitespace ()
-        exec ':%s/ \+$//gc'
-    endfunction
-    map <Leader>sw :call StripWhitespace ()<CR>
-
-    " CSScomb
-    function! CSScomb()
-        execute "silent !csscomb " . expand('%')
-        redraw!
-    endfunction
 "}}}
 " Searching and Replacing {{{
     set hlsearch
@@ -274,14 +174,6 @@ set ruler
 
     " mapping to disable search highlight
     nmap <silent> <Leader><Space> :noh<CR>
-
-    " always on center of the window
-    " nmap n nzz
-    " nmap N Nzz
-    " nmap * *zz
-    " nmap # #zz
-    " nmap g* g*zz
-    " nmap g# g#zz
 
     set gdefault "set 'g' by default in commands like :%s/../.../
 
@@ -322,8 +214,6 @@ set ruler
 " Folding {{{
     set foldenable                " Turn on folding
     set foldmethod=manual
-    "set foldlevel=100             " Don't autofold anything (but I can still fold manually)
-
     set foldopen=block,hor,tag    " what movements open folds
     set foldopen+=percent,mark
     set foldopen+=quickfix,search
@@ -333,7 +223,6 @@ set ruler
     nnoremap <leader>we  <C-w>v:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>se  <C-w>s:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>ve  <C-w>v:e ~/.vim/vimrc<CR>
-    nnoremap <leader>vge <C-w>v:e ~/.vim/gvimrc<CR>
 
     " Opens an edit command with the path of the currently edited file filled in
     " Normal mode: <Leader>e
@@ -347,13 +236,10 @@ set ruler
     " Command mode: Ctrl+P
     cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-    " cd to the directory containing the file in the buffer
-    nmap  <leader>cd :lcd <C-R>=expand("%:p:h")<CR><CR>
-
     " Create parent directory on save if does not exist
     augroup BWCCreateDir
         au!
-        autocmd BufWritePre,BufNewFile * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
+        autocmd BufNewFile * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
     augroup END
 
     " save file with root permissions
@@ -365,10 +251,9 @@ set ruler
     cmap й q
 
     " Editing files {{{
+        " split line
         nnoremap K <nop>
         nnoremap K i<CR><ESC>
-
-        set pastetoggle=<F10>
 
         " html escape/unescape
         " via: http://vim.wikia.com/wiki/HTML_entities
@@ -390,10 +275,6 @@ set ruler
     " Moving in file {{{
         nmap <tab> %
         vmap <tab> %
-
-        " Move in insert mode like in command line
-        imap <C-e> <C-o>A
-        imap <C-a> <C-o>I
     "}}}
     " File formatting {{{
         set fo-=o  " Do not insert the current comment leader after hitting 'o' or 'O' in Normal mode.
@@ -406,18 +287,6 @@ set ruler
     endif
     "}}}
     " Helper functions {{{
-    fun! DetectDjangoTemplate()
-        let n = 1
-        while n < line("$")
-            if getline(n) =~ '{%' || getline(n) =~ '{{'
-                set ft=htmldjango
-                return
-            endif
-            let n = n + 1
-        endwhile
-        set ft=html "default html
-    endfun
-
     fun! DetectMinifiedJavaScriptFile()
         let n = 1
         while n < line("$")
@@ -454,12 +323,6 @@ set ruler
     if has("autocmd")
         " make uses real tabs
         au FileType make  set noexpandtab
-        " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-        au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
-        " md, markdown, and mk are markdown and define buffer-local preview
-        au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn}  map <buffer> <Leader>p :Hammer <CR>
-        " make python follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-        au FileType python  set tabstop=4 textwidth=79
         au BufRead,BufNewFile *.yml  set tabstop=2
         au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
         au BufNewFile,BufRead *.flavour set ft=yaml.flavour
@@ -467,18 +330,12 @@ set ruler
         au BufNewFile,BufRead .babelrc set ft=javascript
         " That's so i have my css snippets in scss files
         au BufNewFile,BufRead *.scss set ft=scss.css
-        au FileType scss,css nnoremap <buffer> <F5> :call CSScomb()<CR>
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
-        " au! BufNewFile,BufRead *.html call DetectDjangoTemplate()
-        au! FileType javascript call DetectMinifiedJavaScriptFile()
         au BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! FileType javascript call DetectJSX()
         au! BufRead,BufNewFile *.json set ft=json
         au! bufwritepost vimrc nested source $MYVIMRC
-
-        au BufRead,BufWinEnter,WinEnter,FocusGained * checktime
-
     endif
 
     " Automatically reload file if it was changed on disc
@@ -490,77 +347,8 @@ set ruler
     set noswapfile
     set undofile
     set undodir=~/.vim/backup
-"}}}
-" Cyrillic keys mappings {{{
-    map ё `
-    map й q
-    map ц w
-    map у e
-    map к r
-    map е t
-    map н y
-    map г u
-    map ш i
-    map щ o
-    map з p
-    map х [
-    map ъ ]
-    map ф a
-    map ы s
-    map в d
-    map а f
-    map п g
-    map р h
-    map о j
-    map л k
-    map д l
-    map ж ;
-    map э '
-    map я z
-    map ч x
-    map с c
-    map м v
-    map и b
-    map т n
-    map ь m
-    map б ,
-    map ю .
-    "map . /
-
-    map Ё ~
-    map Й Q
-    map Ц W
-    map У E
-    map К R
-    map Е T
-    map Н Y
-    map Г U
-    map Ш I
-    map Щ O
-    map З P
-    map Х {
-    map Ъ }
-    map Ф A
-    map Ы S
-    map В D
-    map А F
-    map П G
-    map Р H
-    map О J
-    map Л K
-    map Д L
-    map Ж :
-    map Э "
-    map Я Z
-    map Ч X
-    map С C
-    map М V
-    map И B
-    map Т N
-    map Ь M
-    map Б <
-    map Ю >
-    "map , ?
+    set nobackup
+    set nowritebackup
 "}}}
 " Include user's local vim config {{{
     if filereadable(expand("~/.vimrc.local"))
@@ -569,14 +357,6 @@ set ruler
 "}}}
 " Plugins {{{
 
-    " Unimpaired {{{
-        " Bubble single lines
-        nmap <D-k> [e
-        nmap <D-j> ]e
-        " Bubble multiple lines
-        vmap <D-k> [egv
-        vmap <D-j> ]egv
-    "}}}
     " SnipMate {{{
         let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
     "}}}
@@ -599,11 +379,12 @@ set ruler
     "}}}
     " Gundo {{{
         nnoremap <Leader>gu :GundoToggle<CR>
+        let g:gundo_prefer_python3 = 1
     "}}}
     " Ale {{{
         let g:ale_linters = {
         \   'javascript': ['eslint'],
-        \   'typescript': ['tsserver', 'tslint', 'eslint'],
+        \   'typescript': ['tsserver', 'eslint'],
         \   'scss': ['stylelint'],
         \}
         let g:ale_linters_explicit = 1
@@ -694,6 +475,8 @@ set ruler
     " IndentLine {{{
         let g:indentLine_char = '│'
         let g:indentLine_noConcealCursor = 1
+        let g:indent_blankline_show_trailing_blankline_indent = 0
+        let g:indent_blankline_show_first_indent_level = v:false
 
         try
             if exists("g:colors_name") && g:colors_name == 'solarized8'
@@ -710,6 +493,10 @@ set ruler
 
             if exists("g:colors_name") && g:colors_name == 'gotham'
                 let g:indentLine_color_term = 8
+            endif
+            if exists("g:colors_name") && g:colors_name == 'edge'
+                let g:indentLine_color_term = 8
+                let g:indentLine_color_gui = '#333648'
             endif
         catch /^Vim:E121/
         endtry
@@ -756,6 +543,14 @@ set ruler
     "}}}
     " Airline {{{
         let g:airline_powerline_fonts = 0
+        if !exists('g:airline_symbols')
+            let g:airline_symbols = {}
+        endif
+        let g:airline_symbols.colnr = ' '
+        let g:airline_symbols.maxlinenr = ''
+        let g:airline_symbols.linenr = ' '
+        let g:airline_section_z = airline#section#create(['%p%%', 'linenr', 'maxlinenr'])
+
         let g:airline#extensions#bufferline#enabled = 0
         let g:airline#extensions#branch#enabled = 1
         let g:airline#extensions#tagbar#enabled = 0
@@ -780,33 +575,10 @@ set ruler
             \ 'right_alt' : ' ',
             \ 'space' : ' ' }
     "}}}
-    " Gitgutter {{{
-        let g:gitgutter_map_keys = 0
-        let g:gitgutter_signs = 0
-        let g:gitgutter_max_signs = 10000
-        let g:gitgutter_highlight_lines = 0
-    "}}}
     " Tern {{{
         let g:tern_show_signature_in_pum = 1
     "}}}
     " Toggle Cursor {{{
-        " upon hitting escape to change modes,
-        " send successive move-left and move-right
-        " commands to immediately redraw the cursor
-        " inoremap <special> <Esc> <Esc>hl
-        set ttimeoutlen=30
-
-        if has('gui_running')
-            set guicursor+=a:blinkon0
-        else
-            " don't blink the cursor
-            set guicursor+=i:blinkwait0
-        endif
-
-        let g:togglecursor_disable_neovim = 1
-        " let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-        " let g:togglecursor_force = 1
-
         if has('nvim')
             set guicursor=n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor50
         endif
@@ -814,22 +586,11 @@ set ruler
     " Ack {{{
         let g:ackprg = 'ag --nogroup --nocolor --column'
     "}}}
-    " Expand region {{{
-        vmap v <Plug>(expand_region_expand)
-        vmap <C-v> <Plug>(expand_region_shrink)
-    "}}}
     " Delimitmate {{{
         let delimitMate_matchpairs = "(:),[:],<:>"
     "}}}
-    " EditorConfig {{{
-        " let g:EditorConfig_core_mode = 'python_external'
-    "}}}
     " Prettier {{{
         autocmd BufRead .prettierrc set ft=json
-        " autocmd BufWritePre *.js Prettier
-        " autocmd BufWritePre *.scss Prettier
-        " autocmd BufWritePre *.ts Prettier 
-        " autocmd BufWritePre *.tsx Prettier 
     "}}}
     " Flow {{{
         let g:flow#autoclose=1
@@ -892,30 +653,39 @@ set ruler
     \ 'html' : 1,
     \ 'xhtml' : 1,
     \ 'xml' : 1,
-    \ 'jinja.html' : 1,
     \}
+    " \ 'jinja.html' : 1,
 " }}}
 " Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
-    "set debug=msg
+    " set debug=msg
 
 
     " The following beast is something i didn't write... it will return the
     " syntax highlighting group that the current `thing` under the cursor
     " belongs to -- very useful for figuring out what to change as far as
     " syntax highlighting goes.
-    " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+    nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 "}}}
 
 " hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#eee8d5 guisp=NONE cterm=NONE gui=NONE
-if &background is# "dark"
-    hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#003741 guisp=NONE cterm=NONE gui=NONE
-else
-    hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
+if exists("g:colors_name") && g:colors_name == 'solarized8'
+    if &background is# "dark"
+        hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#003741 guisp=NONE cterm=NONE gui=NONE
+    else
+        hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
+    endif
 endif
 " hi PmenuSbar ctermfg=NONE ctermbg=247 guifg=NONE guibg=#93a1a1 guisp=NONE cterm=NONE gui=NONE
 " hi PmenuSel ctermfg=254 ctermbg=246 guifg=#eee8d5 guibg=#839496 guisp=NONE cterm=NONE gui=NONE
 " hi PmenuThumb ctermfg=NONE ctermbg=66 guifg=NONE guibg=#657b83 guisp=NONE cterm=NONE gui=NONE
 
+" make it green instead of bold red
+hi typescriptReserved guifg=#859900	guibg=NONE guisp=NONE cterm=NONE gui=NONE
+" fix typescript syntax in nvim@0.5.0
+" hi link typescriptReserved Keyword
+hi link typescriptParens Operator
+hi link typescriptNull Type
+hi link CocFadeOut SpellBad
 
 " vim:foldmethod=marker:foldlevel=0
