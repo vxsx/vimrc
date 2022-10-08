@@ -15,6 +15,7 @@
             Plug 'edkolev/tmuxline.vim'
             Plug 'regedarek/ZoomWin'
             Plug 'lukas-reineke/indent-blankline.nvim'
+            Plug 'cormacrelf/dark-notify'
         "}}}
         " Syntax {{{
             Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
@@ -120,7 +121,7 @@
             let g:solarized_visibility='low'
             let g:solarized_diffmode='high'
             let g:solarized_term_italics=1
-            set background=light
+            set background=dark
             set termguicolors
             color solarized8
         "}}}
@@ -359,6 +360,7 @@
 
     " SnipMate {{{
         let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
+        let g:snipMate = { 'snippet_version' : 0 }
     "}}}
     " TComment {{{
         map <silent> // :TComment<CR>
@@ -471,35 +473,6 @@
         let g:jsx_ext_required = 0
         " Works combined with DetectJSX()
         let g:jsx_pragma_required = 1
-    "}}}
-    " IndentLine {{{
-        let g:indentLine_char = '│'
-        let g:indentLine_noConcealCursor = 1
-        let g:indent_blankline_show_trailing_blankline_indent = 0
-        let g:indent_blankline_show_first_indent_level = v:false
-
-        try
-            if exists("g:colors_name") && g:colors_name == 'solarized8'
-                let g:indentLine_color_term = 7
-                let g:indentLine_color_gui = '#E4E1D2'
-
-                let g:indentLine_faster = 1
-
-                if &background is# "dark"
-                    let g:indentLine_color_term = 0
-                    let g:indentLine_color_gui = '#003540'
-                endif
-            endif
-
-            if exists("g:colors_name") && g:colors_name == 'gotham'
-                let g:indentLine_color_term = 8
-            endif
-            if exists("g:colors_name") && g:colors_name == 'edge'
-                let g:indentLine_color_term = 8
-                let g:indentLine_color_gui = '#333648'
-            endif
-        catch /^Vim:E121/
-        endtry
     "}}}
     " Emmet {{{
         let g:user_emmet_leader_key='<C-e>'
@@ -667,6 +640,10 @@
     " syntax highlighting goes.
     nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 "}}}
+
+:lua <<EOF
+    require('dark_notify').run()
+EOF
 
 " hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#eee8d5 guisp=NONE cterm=NONE gui=NONE
 if exists("g:colors_name") && g:colors_name == 'solarized8'
