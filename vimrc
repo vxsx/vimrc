@@ -130,7 +130,7 @@
             let g:solarized_visibility='low'
             let g:solarized_diffmode='high'
             let g:solarized_term_italics=1
-            set background=dark
+            set background=light
             set termguicolors
             color solarized8
         "}}}
