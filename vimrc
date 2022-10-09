@@ -6,7 +6,8 @@
 
     " Plugins {{{
         " Colorschemes {{{
-            Plug 'vxsx/vim-solarized8'
+            " Plug 'vxsx/vim-solarized8'
+            Plug 'ishan9299/nvim-solarized-lua'
         "}}}
         " UI {{{
             Plug 'vim-airline/vim-airline'
@@ -18,20 +19,22 @@
             Plug 'cormacrelf/dark-notify'
         "}}}
         " Syntax {{{
-            Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-            Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
-            Plug 'othree/html5.vim', { 'for': ['html'] }
-            Plug 'ekalinin/Dockerfile.vim', { 'for': ['Dockerfile'] }
-            Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
-            Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
-            Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
-            Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
-            Plug 'elzr/vim-json', { 'for': ['json'] }
-            Plug 'leafgarland/typescript-vim'
-            Plug 'ianks/vim-tsx'
+            " Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+            " Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
+            " Plug 'othree/html5.vim', { 'for': ['html'] }
+            " Plug 'ekalinin/Dockerfile.vim', { 'for': ['Dockerfile'] }
+            " Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+            " Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
+            " Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
+            " Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
+            " Plug 'elzr/vim-json', { 'for': ['json'] }
+            " Plug 'leafgarland/typescript-vim'
+
             " Plug 'neoclide/coc.nvim', {'branch': 'release' }
-            Plug 'nikvdp/ejs-syntax'
-            Plug 'jxnblk/vim-mdx-js'
+            " Plug 'nikvdp/ejs-syntax'
+            " Plug 'jxnblk/vim-mdx-js'
+
+            Plug 'evanleck/vim-svelte', {'branch': 'main'}
         "}}}
         " Git {{{
             Plug 'tpope/vim-git'
@@ -66,12 +69,27 @@
         "}}}
         " Experimental {{{
             Plug 'neovim/nvim-lspconfig'
+            Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
             Plug 'williamboman/nvim-lsp-installer'
             Plug 'hrsh7th/cmp-nvim-lsp'
             Plug 'hrsh7th/cmp-buffer'
             Plug 'hrsh7th/cmp-path'
             Plug 'hrsh7th/cmp-cmdline'
+            Plug 'hrsh7th/cmp-nvim-lua' " -- nvim config completions
+            Plug 'hrsh7th/cmp-nvim-lsp' ", -- lsp completions
+            Plug 'saadparwaiz1/cmp_luasnip' " -- snippets completions
             Plug 'hrsh7th/nvim-cmp' 
+            Plug 'L3MON4D3/LuaSnip'
+            " Plug 'norcalli/nvim-colorizer.lua'
+
+            Plug 'nvim-lua/plenary.nvim' " -- dependency
+            Plug 'windwp/nvim-spectre' " -- find and replace
+
+            Plug 'jose-elias-alvarez/null-ls.nvim' " -- prettier, among other things
+
+            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " -- syntax highlighting
+            Plug 'nvim-treesitter/playground'
+
         "}}}
     "}}}
 
@@ -132,7 +150,7 @@
             let g:solarized_term_italics=1
             set background=light
             set termguicolors
-            color solarized8
+            color solarized
         "}}}
         catch /:E185:/
             " silently fail if no colorscheme found
@@ -337,8 +355,6 @@
         au BufNewFile,BufRead *.flavour set ft=yaml.flavour
         au BufNewFile,BufRead *.lancet set ft=dosini
         au BufNewFile,BufRead .babelrc set ft=javascript
-        " That's so i have my css snippets in scss files
-        au BufNewFile,BufRead *.scss set ft=scss.css
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
         au BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
@@ -518,11 +534,6 @@
             vmap <silent> <Leader>cp "+y
         endif
     "}}}
-    " Supertab {{{
-        " let g:SuperTabDefaultCompletionType = "context"
-        " let g:SuperTabContextDefaultCompletionType = "<c-n>"
-        set completeopt-=preview
-    "}}}
     " Airline {{{
         let g:airline_powerline_fonts = 0
         if !exists('g:airline_symbols')
@@ -687,9 +698,48 @@ require("nvim-lsp-installer").setup {}
 -- require'lspconfig'.eslint.setup{}
 EOF
 
+lua << EOF
+-- barely useful
+-- require'colorizer'.setup({
+--   'scss';
+--   'typescript';
+-- })
+EOF
+
+lua << EOF
+local keymap = vim.keymap.set
+local saga = require('lspsaga')
+
+vim.wo.number = true -- this is set number, but lspsaga wouldn't get it unless set through this
+
+saga.init_lsp_saga({
+    code_action_lightbulb = { enable = false }
+})
+
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+
+-- Code action
+keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+
+-- Rename
+keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
+
+-- Peek Definition
+-- you can edit the definition file in this flaotwindow
+-- also support open/vsplit/etc operation check definition_action_keys
+-- support tagstack C-t jump back
+keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+
+EOF
+
 lua <<EOF
   -- Set up nvim-cmp.
   local cmp = require'cmp'
+  local luasnip = require("luasnip")
+
+  require("luasnip/loaders/from_vscode").lazy_load()
+  require("luasnip.loaders.from_snipmate").lazy_load()
+
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -699,20 +749,24 @@ lua <<EOF
     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
   end
 
+  local check_backspace = function()
+    local col = vim.fn.col '.' - 1
+    return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
+  end
 
   cmp.setup({
-    -- snippet = {
-    --   -- REQUIRED - you must specify a snippet engine
-    --   expand = function(args)
-    --     vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    --     -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-    --     -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-    --     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    --   end,
-    -- },
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
     window = {
       -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+    experimental = {
+        -- native_menu = false,
+        -- ghost_text = true,
     },
     mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -739,32 +793,48 @@ lua <<EOF
     --     feedkey("<Plug>(vsnip-jump-prev)", "")
     --   end
     -- end, { "i", "s" }),
-      ['<Tab>'] = function(fallback)
-      if not cmp.select_next_item() then
-        if vim.bo.buftype ~= 'prompt' and has_words_before() then
-          cmp.complete()
+      -- ['<Tab>'] = function(fallback)
+      -- if not cmp.select_next_item() then
+      --   if vim.bo.buftype ~= 'prompt' and has_words_before() then
+      --     cmp.complete()
+      --   else
+      --     fallback()
+      --   end
+      -- end
+    ['<Tab>'] = function(fallback)
+        if luasnip.expand_or_jumpable() then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+        elseif not cmp.select_next_item() then
+            if vim.bo.buftype ~= 'prompt' and has_words_before() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end
+    end,
+        ['<S-Tab>'] = function(fallback)
+        if vim.fn.pumvisible() == 1 then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+        elseif luasnip.jumpable(-1) then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
         else
           fallback()
         end
-      end
-    end,
+      end,
 
-    ['<S-Tab>'] = function(fallback)
-      if not cmp.select_prev_item() then
-        if vim.bo.buftype ~= 'prompt' and has_words_before() then
-          cmp.complete()
-        else
-          fallback()
-        end
-      end
-    end,
+    -- ['<S-Tab>'] = function(fallback)
+    --   if not cmp.select_prev_item() then
+    --     if vim.bo.buftype ~= 'prompt' and has_words_before() then
+    --       cmp.complete()
+    --     else
+    --       fallback()
+    --     end
+    --   end
+    -- end,
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+      { name = 'luasnip' },
     }, {
       { name = 'buffer' },
     })
@@ -801,11 +871,103 @@ lua <<EOF
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')['tsserver'].setup {
-    capabilities = capabilities
+    capabilities = capabilities,
+    on_attach = function(client) 
+        client.resolved_capabilities.document_formatting = false
+        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+    end
   }
   require('lspconfig')['tailwindcss'].setup {
     capabilities = capabilities
   }
+EOF
+
+lua << EOF
+    local null_ls = require("null-ls")
+    null_ls.setup({
+        sources = { null_ls.builtins.formatting.prettierd },
+        on_attach = function()
+            vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+        end,
+        debug = true,
+    })
+EOF
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "typescript", "svelte", "scss", "lua" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+  -- ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+    use_languagetree = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = true,
+  },
+  indent = {
+    enable = true
+  },
+   playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
+};
+EOF
+
+lua << EOF
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = false,
+    use_treesitter = true,
+    show_first_indent_level = false,
+}
 EOF
 
 " vim:foldmethod=marker:foldlevel=0
