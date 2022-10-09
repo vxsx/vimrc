@@ -666,10 +666,11 @@
     " syntax highlighting group that the current `thing` under the cursor
     " belongs to -- very useful for figuring out what to change as far as
     " syntax highlighting goes.
-    nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+    " nmap <silent> <Leader>qq :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+    nmap <silent> <Leader>qq :TSHighlightCapturesUnderCursor<CR>
 "}}}
 
-:lua <<EOF
+lua <<EOF
     require('dark_notify').run()
 EOF
 
