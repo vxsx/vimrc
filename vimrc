@@ -6,8 +6,10 @@
 
     " Plugins {{{
         " Colorschemes {{{
-            " Plug 'vxsx/vim-solarized8'
+            Plug 'vxsx/vim-solarized8'
+            Plug 'arcticicestudio/nord-vim'
             Plug 'ishan9299/nvim-solarized-lua'
+            Plug 'sainnhe/everforest'
         "}}}
         " UI {{{
             Plug 'vim-airline/vim-airline'
@@ -19,20 +21,21 @@
             Plug 'cormacrelf/dark-notify'
         "}}}
         " Syntax {{{
-            " Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
-            " Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
+            Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+            Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
             " Plug 'othree/html5.vim', { 'for': ['html'] }
             " Plug 'ekalinin/Dockerfile.vim', { 'for': ['Dockerfile'] }
-            " Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
-            " Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
+            Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+            Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
             " Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
             " Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
             " Plug 'elzr/vim-json', { 'for': ['json'] }
-            " Plug 'leafgarland/typescript-vim'
+            Plug 'leafgarland/typescript-vim'
+            Plug 'ianks/vim-tsx'
 
             " Plug 'neoclide/coc.nvim', {'branch': 'release' }
             " Plug 'nikvdp/ejs-syntax'
-            " Plug 'jxnblk/vim-mdx-js'
+            Plug 'jxnblk/vim-mdx-js'
 
             Plug 'evanleck/vim-svelte', {'branch': 'main'}
         "}}}
@@ -80,12 +83,13 @@
             Plug 'saadparwaiz1/cmp_luasnip' " -- snippets completions
             Plug 'hrsh7th/nvim-cmp' 
             Plug 'L3MON4D3/LuaSnip'
-            " Plug 'norcalli/nvim-colorizer.lua'
+            Plug 'norcalli/nvim-colorizer.lua'
 
             Plug 'nvim-lua/plenary.nvim' " -- dependency
             Plug 'windwp/nvim-spectre' " -- find and replace
 
             Plug 'jose-elias-alvarez/null-ls.nvim' " -- prettier, among other things
+            Plug 'MunifTanjim/prettier.nvim'
 
             Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " -- syntax highlighting
             Plug 'nvim-treesitter/playground'
@@ -134,6 +138,8 @@
     set scrolloff=3
     set showcmd
 
+    set completeopt-=preview
+
     set nu
     let lines = str2nr(line('$'))
 
@@ -150,7 +156,7 @@
             let g:solarized_term_italics=1
             set background=light
             set termguicolors
-            color solarized
+            color solarized8
         "}}}
         catch /:E185:/
             " silently fail if no colorscheme found
@@ -207,7 +213,8 @@
     " map to fast search/replace
     nnoremap <leader>s :%s//<left>
 "}}}
-" Tab completion {{{
+    " set wildmode=full
+    set nowildmenu
     set wildmode=list:longest,list:full
     set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*,*.egg-info,*.egg_link,*/south_migrations/*,*/django_migrations/*,*/env/*,*/cms-test-env/*,data/media/filer_public/*
 "}}}
@@ -258,6 +265,7 @@
     " Opens a tab edit command with the path of the currently edited file filled in
     " Normal mode: <Leader>t
     map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
 
     " Inserts the path of the currently edited file into a command
     " Command mode: Ctrl+P
@@ -501,13 +509,6 @@
     " Emmet {{{
         let g:user_emmet_leader_key='<C-e>'
     "}}}
-    " JS DOC {{{
-        let g:jsdoc_default_mapping = 0
-        let g:jsdoc_return = 0
-        let g:jsdoc_underscore_private = 1
-        let g:jsdoc_access_descriptions = 2
-        nmap <silent> <Leader>js :JsDoc<CR>
-    "}}}
     " CtrlP {{{
         " if file is already open, do not switch to it
         let g:ctrlp_switch_buffer = 'et'
@@ -675,13 +676,13 @@ lua <<EOF
 EOF
 
 " hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#eee8d5 guisp=NONE cterm=NONE gui=NONE
-if exists("g:colors_name") && g:colors_name == 'solarized8'
-    if &background is# "dark"
-        hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#003741 guisp=NONE cterm=NONE gui=NONE
-    else
-        hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
-    endif
-endif
+" if exists("g:colors_name") && g:colors_name == 'solarized8'
+"     if &background is# "dark"
+"         hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#003741 guisp=NONE cterm=NONE gui=NONE
+"     else
+"         hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
+"     endif
+" endif
 " hi PmenuSbar ctermfg=NONE ctermbg=247 guifg=NONE guibg=#93a1a1 guisp=NONE cterm=NONE gui=NONE
 " hi PmenuSel ctermfg=254 ctermbg=246 guifg=#eee8d5 guibg=#839496 guisp=NONE cterm=NONE gui=NONE
 " hi PmenuThumb ctermfg=NONE ctermbg=66 guifg=NONE guibg=#657b83 guisp=NONE cterm=NONE gui=NONE
@@ -701,10 +702,11 @@ EOF
 
 lua << EOF
 -- barely useful
--- require'colorizer'.setup({
---   'scss';
---   'typescript';
--- })
+require'colorizer'.setup({
+  'scss';
+  'typescript';
+   'lua';
+})
 EOF
 
 lua << EOF
@@ -813,25 +815,25 @@ lua <<EOF
             end
         end
     end,
-        ['<S-Tab>'] = function(fallback)
-        if vim.fn.pumvisible() == 1 then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
-        elseif luasnip.jumpable(-1) then
-          vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      --   ['<S-Tab>'] = function(fallback)
+      --   if vim.fn.pumvisible() == 1 then
+      --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+      --   elseif luasnip.jumpable(-1) then
+      --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      --   else
+      --     fallback()
+      --   end
+      -- end,
+    
+    ['<S-Tab>'] = function(fallback)
+      if not cmp.select_prev_item() then
+        if vim.bo.buftype ~= 'prompt' and has_words_before() then
+          cmp.complete()
         else
           fallback()
         end
-      end,
-
-    -- ['<S-Tab>'] = function(fallback)
-    --   if not cmp.select_prev_item() then
-    --     if vim.bo.buftype ~= 'prompt' and has_words_before() then
-    --       cmp.complete()
-    --     else
-    --       fallback()
-    --     end
-    --   end
-    -- end,
+      end
+    end,
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -851,22 +853,24 @@ lua <<EOF
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline('/', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = {
-      { name = 'buffer' }
-    }
-  })
+  -- cmp.setup.cmdline('/', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  --   sources = {
+  --     { name = 'buffer' }
+  --   }
+  -- })
 
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    mapping = cmp.mapping.preset.cmdline(),
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
+  -- cmp.setup.cmdline(':Ack', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  --   sources = {
+  --     { name = 'buffer' }
+  --   }
+  -- })
+
+  -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  -- cmp.setup.cmdline(':', {
+  --   mapping = cmp.mapping.preset.cmdline(),
+  -- })
 
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -887,12 +891,61 @@ EOF
 lua << EOF
     local null_ls = require("null-ls")
     null_ls.setup({
-        sources = { null_ls.builtins.formatting.prettierd },
-        on_attach = function()
-            vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+        on_attach = function(client, bufnr)
+            if client.server_capabilities.documentFormattingProvider then
+                vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+
+                -- format on save
+                vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+            end
+
+            if client.server_capabilities.documentRangeFormattingProvider then
+                vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+            end
         end,
+        -- sources = { 
+        --     null_ls.builtins.formatting.prettierd.with  {
+        --         filetypes = { "json", "svelte", "markdown", "css", "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        --     }, 
+        -- },
+        -- on_attach = function(client, bufnr) 
+        --     if client.supports_method("textDocument/formatting") then
+        --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        --         vim.api.nvim_create_autocmd("BufWritePre", {
+        --             group = augroup,
+        --             buffer = bufnr,
+        --             callback = function()
+        --                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+        --                 vim.lsp.buf.formatting_sync()
+        --             end,
+        --         })
+        --     end
+        -- end,
         debug = true,
     })
+EOF
+
+lua << EOF
+local prettier = require("prettier")
+
+prettier.setup({
+  bin = 'prettierd', -- or `'prettierd'` (v0.22+)
+  filetypes = {
+    "css",
+    "svelte",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
 EOF
 
 lua << EOF
@@ -913,8 +966,9 @@ require'nvim-treesitter.configs'.setup {
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
   highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
+    -- `false` will disable the whole extension, which is the case for now, otherwise the colorscheme becomes way too bright
+    -- and "i hate change"
+    enable = false,
     use_languagetree = true,
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
@@ -964,11 +1018,46 @@ EOF
 lua << EOF
 require("indent_blankline").setup {
     -- for example, context is off by default, use this to turn it on
-    show_current_context = true,
+    show_current_context = false,
     show_current_context_start = false,
     use_treesitter = true,
     show_first_indent_level = false,
 }
+EOF
+
+nnoremap <leader>S <cmd>lua require('spectre').open()<CR>
+
+lua << EOF
+require('spectre').setup({
+    find_engine = {
+    ['ag'] = {
+      cmd = "ag",
+      args = {
+        '--vimgrep',
+        '-s'
+      } ,
+      options = {
+        ['ignore-case'] = {
+          value= "-i",
+          icon="[I]",
+          desc="ignore case"
+        },
+        ['hidden'] = {
+          value="--hidden",
+          desc="hidden file",
+          icon="[H]"
+        },
+      },
+    },
+},
+ default = {
+      find = {
+          --pick one of item in find_engine
+          cmd = "ag",
+          options = {"ignore-case"}
+      },
+  },
+})
 EOF
 
 " vim:foldmethod=marker:foldlevel=0
