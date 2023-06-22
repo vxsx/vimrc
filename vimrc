@@ -45,7 +45,7 @@
         "}}}
         " Config / Linting {{{
             Plug 'editorconfig/editorconfig-vim'
-            Plug 'dense-analysis/ale'
+            " Plug 'dense-analysis/ale'
         "}}}
         " Navigation {{{
             Plug 'ctrlpvim/ctrlp.vim'
@@ -91,9 +91,10 @@
             Plug 'jose-elias-alvarez/null-ls.nvim' " -- prettier, among other things
             Plug 'MunifTanjim/prettier.nvim'
 
-            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " -- syntax highlighting
-            Plug 'nvim-treesitter/playground'
+            " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " -- syntax highlighting
+            " Plug 'nvim-treesitter/playground'
 
+            Plug 'github/copilot.vim'
         "}}}
     "}}}
 
@@ -322,18 +323,6 @@
     endif
     "}}}
     " Helper functions {{{
-    fun! DetectMinifiedJavaScriptFile()
-        let n = 1
-        while n < line("$")
-            if len(getline(n)) >= 500
-                " set syntastic to off
-                let b:syntastic_skip_checks = 1
-                SyntasticReset
-                return
-            endif
-            let n = n + 1
-        endwhile
-    endfun
 
     " Somewhat hackish way to enable vim-jsx
     " If i don't do that - it will set ft=javascript.jsx on
@@ -365,7 +354,6 @@
         au BufNewFile,BufRead .babelrc set ft=javascript
         " Reload snippets when editing snippets file
         au! BufWritePost *.snippet call ReloadAllSnippets()
-        au BufRead,BufNewFile *.js call DetectMinifiedJavaScriptFile()
         au! FileType javascript call DetectJSX()
         au! BufRead,BufNewFile *.json set ft=json
         au! bufwritepost vimrc nested source $MYVIMRC
@@ -427,76 +415,6 @@
     "}}}
     " JSON {{{
         let g:vim_json_syntax_conceal = 0
-    "}}}
-    " Syntastic {{{
-        " not yet implemented correctly
-        let s:defaultNodeModules = '~/.vim/node_modules/.bin/'
-
-        function! s:FindSyntasticExecPath(toolName)
-            let fullPath=fnamemodify('.', ':p:h')
-            while fullPath != fnamemodify('/', ':p:h')
-                if filereadable(expand(fullPath . '/node_modules/.bin/' . a:toolName, 1))
-                    return fullPath . '/node_modules/.bin/' . a:toolName
-                endif
-                if filereadable(expand(fullPath . '/node_modules/gulp-' .  a:toolName . '/node_modules/.bin/' . a:toolName, 1))
-                    return fullPath . '/node_modules/gulp-' .  a:toolName . '/node_modules/.bin/' . a:toolName
-                endif
-                let fullPath = fnamemodify(fullPath . '/../', ':p:h')
-            endwhile
-
-            if executable(a:toolName)
-                return a:toolName
-            endif
-
-            return  s:defaultNodeModules . a:toolName
-        endfunction
-
-        " setting up jshint and jscs if available
-        let g:syntastic_javascript_jshint_exec = s:FindSyntasticExecPath('jshint')
-        let g:syntastic_javascript_jscs_exec = s:FindSyntasticExecPath('jscs')
-        let g:syntastic_javascript_eslint_exec = s:FindSyntasticExecPath('eslint')
-        let g:syntastic_javascript_stylelint_exec = s:FindSyntasticExecPath('stylelint')
-
-        let g:syntastic_check_on_open=1
-        let g:syntastic_enable_signs=0
-        let g:syntastic_enable_balloons = 1
-        let g:syntastic_mode_map = { 'mode': 'passive',
-                                   \ 'active_filetypes': ['scss', 'javascript', 'json', 'python'],
-                                   \ 'passive_filetypes': [] }
-        let g:syntastic_javascript_checkers = ['eslint']
-
-        if filereadable(g:syntastic_javascript_stylelint_exec)
-            let g:syntastic_scss_checkers = ['stylelint']
-        endif
-
-        let g:syntastic_python_checkers = ['flake8']
-        let g:syntastic_javascript_jscs_args = "--esnext"
-        " let g:syntastic_html_checkers = ['validator']
-        let g:syntastic_always_populate_loc_list = 1
-        let g:syntastic_aggregate_errors=1
-
-        command! ESLINT call ESlintSupport()
-        command! JSHINT call JSHintSupport()
-
-        function! ESlintSupport()
-            let g:syntastic_javascript_checkers = ['eslint']
-            execute 'SyntasticCheck'
-        endfunction
-
-        function! JSHintSupport()
-            let g:syntastic_javascript_checkers = ['jshint', 'jscs']
-            execute 'SyntasticCheck'
-        endfunction
-
-        "disable syntastic on a per buffer basis (some work files blow it up)
-        function! SyntasticDisableBuffer()
-            let b:syntastic_skip_checks = 1
-            SyntasticReset
-            echo 'Syntastic disabled for this buffer'
-        endfunction
-
-        command! SyntasticDisableBuffer call SyntasticDisableBuffer()
-
     "}}}
     " Vim Javascript {{{
         let g:javascript_plugin_jsdoc = 1
@@ -651,6 +569,11 @@
         " set cmdheight=2
         set noshowmode
     "}}}
+    " Copilot "{{{
+        imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+        let g:copilot_no_tab_map = v:true
+        highlight CopilotSuggestion guifg=#95A0A1 ctermfg=8
+    "}}}
     let g:mta_filetypes = {
     \ 'html' : 1,
     \ 'xhtml' : 1,
@@ -710,28 +633,26 @@ require'colorizer'.setup({
 EOF
 
 lua << EOF
-local keymap = vim.keymap.set
-local saga = require('lspsaga')
+    local keymap = vim.keymap.set
+    local saga = require('lspsaga')
 
-vim.wo.number = true -- this is set number, but lspsaga wouldn't get it unless set through this
+    vim.wo.number = true -- this is set number, but lspsaga wouldn't get it unless set through this
 
-saga.init_lsp_saga({
-    code_action_lightbulb = { enable = false }
-})
+    saga.setup({
+        code_action_lightbulb = { enable = false },
+        symbol_in_winbar = { enable = false }
+    })
 
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+    keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
--- Code action
-keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+    -- Code action
+    keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 
--- Rename
-keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
+    -- Rename
+    keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
 
--- Peek Definition
--- you can edit the definition file in this flaotwindow
--- also support open/vsplit/etc operation check definition_action_keys
--- support tagstack C-t jump back
-keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+    keymap("n", "pd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+    keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", { silent = true })
 
 EOF
 
@@ -873,55 +794,99 @@ lua <<EOF
   -- })
 
   -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require("cmp_nvim_lsp").default_capabilities()
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
   require('lspconfig')['tsserver'].setup {
     capabilities = capabilities,
     on_attach = function(client) 
-        client.resolved_capabilities.document_formatting = false
-        client.resolved_capabilities.document_range_formatting = false
+        client.server_capabilities.document_formatting = false
+        client.server_capabilities.document_range_formatting = false
         client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
     end
   }
-  require('lspconfig')['tailwindcss'].setup {
+  require('lspconfig')['stylelint_lsp'].setup {
+    capabilities = capabilities,
+    filetypes = { 'scss', 'css' }
+  }
+  require('lspconfig')['eslint'].setup {
     capabilities = capabilities
+  }
+  require('lspconfig')['tailwindcss'].setup {
+    capabilities = capabilities,
+    filetypes = { 'svelte' }
+  }
+  require('lspconfig')['svelte'].setup {
+    capabilities = capabilities,
+    filetypes = { 'svelte' }
+  }
+  require('lspconfig')['grammarly'].setup {
+    capabilities = capabilities,
+    filetypes = { 'rst', 'markdown' }
   }
 EOF
 
 lua << EOF
+    -- local null_ls = require("null-ls")
+    -- null_ls.setup({
+    --     on_attach = function(client, bufnr)
+    --         if client.server_capabilities.documentFormattingProvider then
+    --             vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+    --
+    --             -- format on save
+    --             vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    --         end
+    --     end,
+    --     -- sources = { 
+    --     --     null_ls.builtins.formatting.prettierd.with  {
+    --     --         filetypes = { "json", "svelte", "markdown", "css", "typescript", "typescriptreact", "javascript", "javascriptreact" },
+    --     --     }, 
+    --     -- },
+    --     -- on_attach = function(client, bufnr) 
+    --     --     if client.supports_method("textDocument/formatting") then
+    --     --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    --     --         vim.api.nvim_create_autocmd("BufWritePre", {
+    --     --             group = augroup,
+    --     --             buffer = bufnr,
+    --     --             callback = function()
+    --     --                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+    --     --                 vim.lsp.buf.formatting_sync()
+    --     --             end,
+    --     --         })
+    --     --     end
+    --     -- end,
+    --     debug = true,
+    -- })
     local null_ls = require("null-ls")
+
+    local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+    local event = "BufWritePre" -- or "BufWritePost"
+    local async = event == "BufWritePost"
+
     null_ls.setup({
         on_attach = function(client, bufnr)
-            if client.server_capabilities.documentFormattingProvider then
-                vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+            if client.supports_method("textDocument/formatting") then
+                vim.keymap.set("n", "<Leader>f", function()
+                    vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+                end, { buffer = bufnr, desc = "[lsp] format" })
 
                 -- format on save
-                vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
-            end
+                vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+                vim.api.nvim_create_autocmd(event, {
+                    buffer = bufnr,
+                    group = group,
+                    callback = function()
+                    vim.lsp.buf.format({ bufnr = bufnr, async = async })
+                    end,
+                    desc = "[lsp] format on save",
+                })
+                end
 
-            if client.server_capabilities.documentRangeFormattingProvider then
-                vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+                if client.supports_method("textDocument/rangeFormatting") then
+                vim.keymap.set("x", "<Leader>f", function()
+                    vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+                end, { buffer = bufnr, desc = "[lsp] format" })
             end
         end,
-        -- sources = { 
-        --     null_ls.builtins.formatting.prettierd.with  {
-        --         filetypes = { "json", "svelte", "markdown", "css", "typescript", "typescriptreact", "javascript", "javascriptreact" },
-        --     }, 
-        -- },
-        -- on_attach = function(client, bufnr) 
-        --     if client.supports_method("textDocument/formatting") then
-        --         vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-        --         vim.api.nvim_create_autocmd("BufWritePre", {
-        --             group = augroup,
-        --             buffer = bufnr,
-        --             callback = function()
-        --                 -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-        --                 vim.lsp.buf.formatting_sync()
-        --             end,
-        --         })
-        --     end
-        -- end,
-        debug = true,
     })
 EOF
 
@@ -929,7 +894,15 @@ lua << EOF
 local prettier = require("prettier")
 
 prettier.setup({
-  bin = 'prettierd', -- or `'prettierd'` (v0.22+)
+  bin = 'prettierd',
+  ["null-ls"] = {
+    condition = function()
+      return prettier.config_exists({
+        -- if `false`, skips checking `package.json` for `"prettier"` key
+        check_package_json = false,
+      })
+    end,
+  },
   filetypes = {
     "css",
     "svelte",
@@ -948,79 +921,79 @@ prettier.setup({
 })
 EOF
 
-lua << EOF
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "typescript", "svelte", "scss", "lua" },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  auto_install = true,
-
-  -- List of parsers to ignore installing (for "all")
-  -- ignore_install = { "javascript" },
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    -- `false` will disable the whole extension, which is the case for now, otherwise the colorscheme becomes way too bright
-    -- and "i hate change"
-    enable = false,
-    use_languagetree = true,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = true,
-  },
-  indent = {
-    enable = true
-  },
-   playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false, -- Whether the query persists across vim sessions
-    keybindings = {
-      toggle_query_editor = 'o',
-      toggle_hl_groups = 'i',
-      toggle_injected_languages = 't',
-      toggle_anonymous_nodes = 'a',
-      toggle_language_display = 'I',
-      focus_language = 'f',
-      unfocus_language = 'F',
-      update = 'R',
-      goto_node = '<cr>',
-      show_help = '?',
-    },
-  }
-};
-EOF
+" lua << EOF
+" require'nvim-treesitter.configs'.setup {
+"   -- A list of parser names, or "all"
+"   ensure_installed = { "typescript", "svelte", "scss", "lua" },
+"
+"   -- Install parsers synchronously (only applied to `ensure_installed`)
+"   sync_install = false,
+"
+"   -- Automatically install missing parsers when entering buffer
+"   auto_install = true,
+"
+"   -- List of parsers to ignore installing (for "all")
+"   -- ignore_install = { "javascript" },
+"
+"   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+"   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+"
+"   highlight = {
+"     -- `false` will disable the whole extension, which is the case for now, otherwise the colorscheme becomes way too bright
+"     -- and "i hate change"
+"     enable = false,
+"     use_languagetree = true,
+"
+"     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+"     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+"     -- the name of the parser)
+"     -- list of language that will be disabled
+"     -- disable = { "c", "rust" },
+"     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+"     disable = function(lang, buf)
+"         local max_filesize = 100 * 1024 -- 100 KB
+"         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+"         if ok and stats and stats.size > max_filesize then
+"             return true
+"         end
+"     end,
+"
+"     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+"     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+"     -- Using this option may slow down your editor, and you may see some duplicate highlights.
+"     -- Instead of true it can also be a list of languages
+"     additional_vim_regex_highlighting = true,
+"   },
+"   indent = {
+"     enable = true
+"   },
+"    playground = {
+"     enable = true,
+"     disable = {},
+"     updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+"     persist_queries = false, -- Whether the query persists across vim sessions
+"     keybindings = {
+"       toggle_query_editor = 'o',
+"       toggle_hl_groups = 'i',
+"       toggle_injected_languages = 't',
+"       toggle_anonymous_nodes = 'a',
+"       toggle_language_display = 'I',
+"       focus_language = 'f',
+"       unfocus_language = 'F',
+"       update = 'R',
+"       goto_node = '<cr>',
+"       show_help = '?',
+"     },
+"   }
+" };
+" EOF
 
 lua << EOF
 require("indent_blankline").setup {
     -- for example, context is off by default, use this to turn it on
     show_current_context = false,
     show_current_context_start = false,
-    use_treesitter = true,
+    use_treesitter = false, -- true,
     show_first_indent_level = false,
 }
 EOF
