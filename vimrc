@@ -618,6 +618,10 @@ hi link typescriptParens Operator
 hi link typescriptNull Type
 hi link CocFadeOut SpellBad
 
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 lua << EOF
 require("nvim-lsp-installer").setup {}
 -- require'lspconfig'.eslint.setup{}
@@ -799,6 +803,7 @@ lua <<EOF
   require('lspconfig')['tsserver'].setup {
     capabilities = capabilities,
     on_attach = function(client) 
+        client.server_capabilities.semanticTokensProvider = nil
         client.server_capabilities.document_formatting = false
         client.server_capabilities.document_range_formatting = false
         client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
