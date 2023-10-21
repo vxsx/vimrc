@@ -72,9 +72,7 @@ require("neoai").setup({
 			use_context = false,
 			prompt = function()
 				return [[
-                    Using the following git diff generate a consise and
-                    clear git commit message, with a short title summary
-                    that is 75 characters or less:
+                    I want you to act as a commit message generator. I will provide you with the diff, and I would like you to generate an appropriate commit message using the conventional commit format. Do not write any explanations or other words, just reply with the commit message. Diff:
                 ]] .. vim.fn.system("git diff --cached")
 			end,
 			modes = { "n" },
