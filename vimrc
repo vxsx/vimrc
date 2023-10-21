@@ -95,6 +95,9 @@
             " Plug 'nvim-treesitter/playground'
 
             Plug 'github/copilot.vim'
+
+            Plug 'MunifTanjim/nui.nvim'
+            Plug 'Bryley/neoai.nvim'
         "}}}
     "}}}
 
