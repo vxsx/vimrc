@@ -2,9 +2,9 @@ require("mason").setup({ PATH = "prepend" })
 require("mason-lspconfig").setup()
 
 require("colorizer").setup({
-	"scss",
-	"typescript",
-	"lua",
+    "scss",
+    "typescript",
+    "lua",
 })
 
 require("plugins.lspsaga")
@@ -15,3 +15,4 @@ require("plugins.prettier")
 require("plugins.indent_blankline")
 require("plugins.spectre")
 require("plugins.neoai")
+require("plugins.trouble")

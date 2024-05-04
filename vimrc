@@ -94,10 +94,12 @@
             " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " -- syntax highlighting
             " Plug 'nvim-treesitter/playground'
 
-            Plug 'github/copilot.vim'
+            " Plug 'github/copilot.vim'
 
             Plug 'MunifTanjim/nui.nvim'
             Plug 'Bryley/neoai.nvim'
+
+            Plug 'folke/trouble.nvim'
         "}}}
     "}}}
 
@@ -262,6 +264,7 @@
     nnoremap <leader>we  <C-w>v:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>se  <C-w>s:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>ve  <C-w>v:e ~/.vim/vimrc<CR>
+    nnoremap <leader>rv  :source $MYVIMRC<CR>
 
     " Opens an edit command with the path of the currently edited file filled in
     " Normal mode: <Leader>e
@@ -380,6 +383,7 @@
       source ~/.vimrc.local
     endif
 "}}}
+
 " Plugins {{{
 
     " SnipMate {{{
@@ -425,7 +429,7 @@
         " if file is already open, do not switch to it
         let g:ctrlp_switch_buffer = 'et'
         if executable("ag")
-            let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+            let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
         endif
 
         " let g:ctrlp_custom_ignore = {
@@ -490,7 +494,7 @@
         endif
     "}}}
     " Ack {{{
-        let g:ackprg = 'ag --nogroup --nocolor --column'
+        let g:ackprg = 'ag --nogroup --hidden --nocolor --column'
     "}}}
     " Delimitmate {{{
         let delimitMate_matchpairs = "(:),[:],<:>"

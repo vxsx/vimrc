@@ -1,7 +1,7 @@
 local prettier = require("prettier")
 
 prettier.setup({
-	bin = "prettierd",
+	-- bin = "prettierd",
 	["null-ls"] = {
 		condition = function()
 			return prettier.config_exists({
