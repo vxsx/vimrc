@@ -6,10 +6,9 @@
 
     " Plugins {{{
         " Colorschemes {{{
+            " Plug 'EdenEast/nightfox.nvim'
             Plug 'vxsx/vim-solarized8'
-            Plug 'arcticicestudio/nord-vim'
-            Plug 'ishan9299/nvim-solarized-lua'
-            Plug 'sainnhe/everforest'
+            Plug 'f-person/auto-dark-mode.nvim'
         "}}}
         " UI {{{
             Plug 'vim-airline/vim-airline'
@@ -18,33 +17,26 @@
             Plug 'regedarek/ZoomWin'
             Plug 'lukas-reineke/indent-blankline.nvim'
             Plug 'cormacrelf/dark-notify'
+            Plug 'christoomey/vim-tmux-navigator'
+            Plug 'nvim-tree/nvim-web-devicons'
+
         "}}}
         " Syntax {{{
             Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
             Plug 'hail2u/vim-css3-syntax', { 'for': ['scss'] }
-            " Plug 'othree/html5.vim', { 'for': ['html'] }
-            " Plug 'ekalinin/Dockerfile.vim', { 'for': ['Dockerfile'] }
             Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
             Plug 'mxw/vim-jsx', { 'for': ['javascript'] }
-            " Plug 'heavenshell/vim-jsdoc', { 'for': ['javascript'] }
-            " Plug 'tpope/vim-markdown', { 'for': ['markdown'] }
-            " Plug 'elzr/vim-json', { 'for': ['json'] }
             Plug 'leafgarland/typescript-vim'
             Plug 'ianks/vim-tsx'
-
-            " Plug 'neoclide/coc.nvim', {'branch': 'release' }
-            " Plug 'nikvdp/ejs-syntax'
             Plug 'jxnblk/vim-mdx-js'
-
             Plug 'evanleck/vim-svelte', {'branch': 'main'}
+            Plug 'prisma/vim-prisma'
         "}}}
         " Git {{{
-            Plug 'tpope/vim-git'
             Plug 'tpope/vim-fugitive', { 'on': 'Git' }
         "}}}
         " Config / Linting {{{
             Plug 'editorconfig/editorconfig-vim'
-            " Plug 'dense-analysis/ale'
         "}}}
         " Navigation {{{
             Plug 'ctrlpvim/ctrlp.vim'
@@ -53,21 +45,15 @@
         " Snippets {{{
             Plug 'MarcWeber/vim-addon-mw-utils'
             Plug 'tomtom/tlib_vim'
-            " Plug 'garbas/vim-snipmate'
-            " Plug 'ervandew/supertab'
             Plug 'vxsx/vim-snippets'
         "}}}
         " Editing / Formatting {{{
-            Plug 'junegunn/vim-easy-align'
             Plug 'tomtom/tcomment_vim', { 'on': 'TComment' }
             Plug 'michaeljsmith/vim-indent-object'
-            Plug 'tpope/vim-unimpaired'
             Plug 'Valloric/MatchTagAlways'
             Plug 'chrisbra/matchit'
-            Plug 'lukaszb/vim-web-indent'
             Plug 'wellle/targets.vim'
             Plug 'sjl/gundo.vim'
-            Plug 'AndrewRadev/splitjoin.vim'
         "}}}
         " Experimental {{{
             Plug 'neovim/nvim-lspconfig'
@@ -81,26 +67,46 @@
             Plug 'hrsh7th/cmp-nvim-lua' " -- nvim config completions
             Plug 'hrsh7th/cmp-nvim-lsp' ", -- lsp completions
             Plug 'saadparwaiz1/cmp_luasnip' " -- snippets completions
-            Plug 'hrsh7th/nvim-cmp' 
+            Plug 'hrsh7th/nvim-cmp'
             Plug 'L3MON4D3/LuaSnip'
             Plug 'norcalli/nvim-colorizer.lua'
 
             Plug 'nvim-lua/plenary.nvim' " -- dependency
             Plug 'windwp/nvim-spectre' " -- find and replace
 
-            Plug 'jose-elias-alvarez/null-ls.nvim' " -- prettier, among other things
-            Plug 'MunifTanjim/prettier.nvim'
+            Plug 'stevearc/conform.nvim'
 
-            " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " -- syntax highlighting
-            " Plug 'nvim-treesitter/playground'
-
-            " Plug 'github/copilot.vim'
+            Plug 'github/copilot.vim'
 
             Plug 'MunifTanjim/nui.nvim'
-            Plug 'Bryley/neoai.nvim'
+            " Plug 'Bryley/neoai.nvim'
 
-            Plug 'folke/trouble.nvim'
+            " Plug 'folke/trouble.nvim'
+
+            Plug 'themaxmarchuk/tailwindcss-colors.nvim'
+            Plug 'rachartier/tiny-inline-diagnostic.nvim'
         "}}}
+        " AI {{{
+
+            Plug 'folke/snacks.nvim'
+            " Plug 'NickvanDyke/opencode.nvim'
+            " Plug 'coder/claudecode.nvim'
+
+            " Plug 'nvim-treesitter/nvim-treesitter'
+            " Plug 'stevearc/dressing.nvim'
+            " Plug 'nvim-lua/plenary.nvim'
+            " Plug 'MunifTanjim/nui.nvim'
+            " Plug 'MeanderingProgrammer/render-markdown.nvim'
+
+            " Optional deps
+            " Plug 'hrsh7th/nvim-cmp'
+            " Plug 'nvim-tree/nvim-web-devicons' "or Plug 'echasnovski/mini.icons'
+            " Plug 'HakonHarnes/img-clip.nvim'
+            " Plug 'zbirenbaum/copilot.lua'
+
+            " Yay, pass source=true if you want to build from source
+            " Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+        " }}}
     "}}}
 
     call plug#end()
@@ -113,29 +119,24 @@
     set title
     set nospell
     set mouse=a
-    " if has("mouse_sgr")
-    "     set ttymouse=sgr
-    " else
-    "     set ttymouse=xterm2
-    " end
+
+    " yank into system clipboard by default
+    set clipboard+=unnamed
+
     if $TMUX == ''
-        set clipboard+=unnamed
     else
         " tmux and truecolor aren't ok
         " this handles the full length lines
         set t_ut=
-        " let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
-        " let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     endif
 
     " make it easy
     nmap <Space> :
     nmap Y yy
-    " annoying window
+    " annoying window i never use
     map q: :q
 "}}}
 " Appearance {{{
-    set ruler
     syntax on
     set synmaxcol=300 " Syntax coloring lines that are too long just slows down the world
     set cursorline
@@ -148,7 +149,6 @@
     set completeopt-=preview
 
     set nu
-    let lines = str2nr(line('$'))
 
     set numberwidth=5
 
@@ -156,13 +156,14 @@
         set laststatus=2
     "}}}
     " Colorscheme {{{
+        set termguicolors
         try
         " Solarized {{{
+            " color nightfox
             let g:solarized_visibility='low'
             let g:solarized_diffmode='high'
             let g:solarized_term_italics=1
             set background=light
-            set termguicolors
             color solarized8
         "}}}
         catch /:E185:/
@@ -202,9 +203,6 @@
     " indent
     vnoremap < <gv
     vnoremap > >gv
-
-    " Remove the Windows ^M - when the encodings gets messed up
-    noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 "}}}
 " Searching and Replacing {{{
     set hlsearch
@@ -223,16 +221,17 @@
     " set wildmode=full
     set nowildmenu
     set wildmode=list:longest,list:full
-    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*,*.egg-info,*.egg_link,*/south_migrations/*,*/django_migrations/*,*/env/*,*/cms-test-env/*,data/media/filer_public/*
+    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/.git/*,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*,*.egg-info,*.egg_link,*/south_migrations/*,*/django_migrations/*,data/media/filer_public/*
 "}}}
 " Window manipulation {{{
     set splitbelow
     set splitright
 
-    nmap <C-h> <C-w>h
-    nmap <C-j> <C-w>j
-    nmap <C-k> <C-w>k
-    nmap <C-l> <C-w>l
+    " tmux naviagator used instead
+    " nmap <C-h> <C-w>h
+    " nmap <C-j> <C-w>j
+    " nmap <C-k> <C-w>k
+    " nmap <C-l> <C-w>l
 
     nmap <Up>    5<C-w>+
     nmap <Down>  5<C-w>-
@@ -241,15 +240,6 @@
     " Tabs mappings {{{
         nnoremap <Leader>[ gT
         nnoremap <Leader>] gt
-        nnoremap <Leader>1 1gt
-        nnoremap <Leader>2 2gt
-        nnoremap <Leader>3 3gt
-        nnoremap <Leader>4 4gt
-        nnoremap <Leader>5 5gt
-        nnoremap <Leader>6 6gt
-        nnoremap <Leader>7 7gt
-        nnoremap <Leader>8 8gt
-        nnoremap <Leader>9 9gt
     "}}}
 "}}}
 " Folding {{{
@@ -264,7 +254,6 @@
     nnoremap <leader>we  <C-w>v:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>se  <C-w>s:e <C-R>=expand("%:p:h") . "/" <CR>
     nnoremap <leader>ve  <C-w>v:e ~/.vim/vimrc<CR>
-    nnoremap <leader>rv  :source $MYVIMRC<CR>
 
     " Opens an edit command with the path of the currently edited file filled in
     " Normal mode: <Leader>e
@@ -285,35 +274,20 @@
         autocmd BufNewFile * if expand("<afile>")!~#'^\w\+:/' && !isdirectory(expand("%:h")) | execute "silent! !mkdir -p ".shellescape(expand('%:h'), 1) | redraw! | endif
     augroup END
 
-    " save file with root permissions
-    cmap w!! %!sudo tee > /dev/null %
-
-    " map command wq wa qa in russian
-    cmap ц w
-    cmap ф a
-    cmap й q
-
     " Editing files {{{
         " split line
         nnoremap K <nop>
         nnoremap K i<CR><ESC>
+        " Move the current line up
+        nnoremap [e :silent! move .-2<CR>
+        " Move the current line down
+        nnoremap ]e :silent! move .+1<CR>
 
-        " html escape/unescape
-        " via: http://vim.wikia.com/wiki/HTML_entities
-        function! HtmlEscape()
-          silent s/&/\&amp;/e
-          silent s/</\&lt;/e
-          silent s/>/\&gt;/e
-        endfunction
+        " Add an empty line above the current line silently
+        nnoremap [<Space> :silent! put!=repeat([''], v:count1)<CR>
 
-        function! HtmlUnEscape()
-          silent s/&lt;/</e
-          silent s/&gt;/>/e
-          silent s/&amp;/\&/e
-        endfunction
-
-        map <silent> <Leader>he :call HtmlEscape()<CR>
-        map <silent> <Leader>hu :call HtmlUnEscape()<CR>
+        " Add an empty line below the current line silently
+        nnoremap ]<Space> :silent! put =repeat([''], v:count1)<CR>
     "}}}
     " Moving in file {{{
         nmap <tab> %
@@ -324,47 +298,20 @@
         set fo+=r  " Automatically insert a comment leader after an enter
     "}}}
     " Remember last location in file {{{
-    if has("autocmd")
       au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
         \| exe "normal g'\"" | endif
-    endif
-    "}}}
-    " Helper functions {{{
-
-    " Somewhat hackish way to enable vim-jsx
-    " If i don't do that - it will set ft=javascript.jsx on
-    " every javascript file, which in turn makes Tcomment to
-    " always use {/* comments like this */} which makes me sad.
-    fun! DetectJSX()
-        let n = 1
-        let b:jsx_pragma_found = 0
-        while n < line("$")
-            if getline(n) =~ 'React' || getline(n) =~ 'react'
-                " set syntax to jsx
-                " let b:jsx_pragma_found = 1
-                set filetype=javascript.jsx
-                return
-            endif
-            let n = n + 1
-        endwhile
-    endfun
     "}}}
 "}}}
 " Filetype autocommands {{{
-    if has("autocmd")
-        " make uses real tabs
-        au FileType make  set noexpandtab
-        au BufRead,BufNewFile *.yml  set tabstop=2
-        au BufNewFile,BufRead *.tt set ft=html.css matchpairs-=<:>
-        au BufNewFile,BufRead *.flavour set ft=yaml.flavour
-        au BufNewFile,BufRead *.lancet set ft=dosini
-        au BufNewFile,BufRead .babelrc set ft=javascript
-        " Reload snippets when editing snippets file
-        au! BufWritePost *.snippet call ReloadAllSnippets()
-        au! FileType javascript call DetectJSX()
-        au! BufRead,BufNewFile *.json set ft=json
-        au! bufwritepost vimrc nested source $MYVIMRC
-    endif
+    " make uses real tabs
+    au! FileType make setlocal noexpandtab
+    au BufRead,BufNewFile *.yml  set tabstop=2
+    au BufNewFile,BufRead *.lancet set ft=dosini
+    au BufNewFile,BufRead .babelrc set ft=javascript
+    au BufRead .prettierrc set ft=json
+    " Reload snippets when editing snippets file
+    au! BufWritePost *.snippet call ReloadAllSnippets()
+    au! BufRead,BufNewFile *.json set ft=json
 
     " Automatically reload file if it was changed on disc
     " and was saved already in the editor
@@ -385,11 +332,6 @@
 "}}}
 
 " Plugins {{{
-
-    " SnipMate {{{
-        " let g:snippets_dir = '~/.vim/bundle/vim-snippets/snippets'
-        " let g:snipMate = { 'snippet_version' : 0 }
-    "}}}
     " TComment {{{
         map <silent> // :TComment<CR>
     "}}}
@@ -397,7 +339,7 @@
         map <Leader><Leader> :ZoomWin<CR>
         if has('nvim')
             " removed 'key', 'oft', 'sn', 'tx' options which do not work with nvim
-            let g:zoomwin_localoptlist = ["ai","ar","bh","bin","bl","bomb","bt","cfu","ci","cin","cink","cino","cinw","cms","com","cpt","diff","efm","eol","ep","et","fenc","fex","ff","flp","fo","ft","gp","imi","ims","inde","inex","indk","inf","isk","kmp","lisp","mps","ml","ma","mod","nf","ofu","pi","qe","ro","sw","si","sts","spc","spf","spl","sua","swf","smc","syn","ts","tw","udf","wfh","wfw","wm"]
+            let g:zoomwin_localoptlist = ["ai","ar","bh","bin","bl","bomb","bt","cfu","ci","cin","cink","cino","cinw","cms","com","cpt","diff","efm", "eol","ep","et","fenc","fex","ff","flp","fo","ft","gp","imi","ims","inde","inex","indk","inf","isk","kmp","lisp", "mps","ml","ma","mod","nf","ofu","pi","qe","ro","sw","si","sts","spc","spf","spl","sua","swf","smc","syn","ts","tw","udf","wfh","wfw","wm"]
         endif
     "}}}
     " Fugitive {{{
@@ -417,39 +359,17 @@
     " Vim Javascript {{{
         let g:javascript_plugin_jsdoc = 1
     "}}}
-    " Vim-JSX {{{
-        let g:jsx_ext_required = 0
-        " Works combined with DetectJSX()
-        let g:jsx_pragma_required = 1
-    "}}}
-    " Emmet {{{
-        let g:user_emmet_leader_key='<C-e>'
-    "}}}
     " CtrlP {{{
         " if file is already open, do not switch to it
         let g:ctrlp_switch_buffer = 'et'
         if executable("ag")
-            let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+            let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g "" --ignore-dir=.git'
         endif
 
-        " let g:ctrlp_custom_ignore = {
-        "   \ 'dir':  '\v[\/](.git|.hg|.svn|.egg_link|.egg-info|.*migrations|env|cms-test-env|filer_public)$'
-        "   \ }
         nnoremap <silent> <C-p> :CtrlP<CR>
     "}}}
-    " Require navigator {{{
-        nnoremap <Leader>gf :call Navigate()<cr>
-        nnoremap <Leader>gb :call Back()<cr>
-    "}}}
-    " Dpaster {{{
-        " npm install -g nodepaster
-        vmap <Leader>dp :w !dpaster -t<Space>
-
-        if $TMUX == ''
-            vmap <silent> <Leader>cp "+y
-        else
-            vmap <silent> <Leader>cp "+y
-        endif
+    " Copy / paste {{{
+        vmap <silent> <Leader>cp "+y
     "}}}
     " Airline {{{
         let g:airline_powerline_fonts = 0
@@ -460,7 +380,6 @@
         let g:airline_symbols.maxlinenr = ''
         let g:airline_symbols.linenr = ' '
         let g:airline_section_z = airline#section#create(['%p%%', 'linenr', 'maxlinenr'])
-        
         let g:airline#extensions#bufferline#enabled = 0
         let g:airline#extensions#branch#enabled = 1
         let g:airline#extensions#tagbar#enabled = 0
@@ -473,10 +392,10 @@
         let g:airline#extensions#nrrwrgn#enabled = 0
         let g:airline#extensions#ale#enabled = 1
         let g:airline#extensions#coc#enabled = 0
-        
+
         let g:airline_skip_empty_sections = 1
         let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-        
+
         " let g:tmuxline_powerline_separators = 0
         let g:tmuxline_separators = {
             \ 'left' : ' ',
@@ -484,9 +403,6 @@
             \ 'right' : '',
             \ 'right_alt' : ' ',
             \ 'space' : ' ' }
-    "}}}
-    " Tern {{{
-        let g:tern_show_signature_in_pum = 1
     "}}}
     " Toggle Cursor {{{
         if has('nvim')
@@ -496,88 +412,24 @@
     " Ack {{{
         let g:ackprg = 'ag --nogroup --hidden --nocolor --column'
     "}}}
-    " Delimitmate {{{
-        let delimitMate_matchpairs = "(:),[:],<:>"
-    "}}}
-    " Prettier {{{
-        autocmd BufRead .prettierrc set ft=json
-    "}}}
-    " Flow {{{
-        let g:flow#autoclose=1
-    "}}}
     " Typescript {{{
         autocmd FileType typescript setlocal completeopt+=menu,preview
-    "}}}
-    " COC {{{
-        " let g:coc_node_path = '/Users/vadim/.nvm/versions/node/v16.13.1/bin/node'
-        " set updatetime=300
-        "
-        " command! -nargs=0 Prettier :CocCommand prettier.formatFile
-        " let g:coc_filetype_map = {
-        "     \ 'scss.css': 'scss',
-        "     \ 'markdown.mdx': 'mdx'
-        "     \ }
-        "
-        " " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-        " " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        "
-        " function! s:check_back_space() abort
-        "     let col = col('.') - 1
-        "     return !col || getline('.')[col - 1]  =~# '\s'
-        " endfunction
-        "
-        " let g:coc_snippet_next = '<tab>'
-        " imap <C-e> <Plug>(coc-snippets-expand)
-        "
-        " nnoremap <silent> gh :call <SID>show_documentation()<CR>
-        " " gd - go to definition of word under cursor
-        " nmap <silent> gd <Plug>(coc-definition)
-        " nmap <silent> gy <Plug>(coc-type-definition)
-        "
-        " " gi - go to implementation
-        " nmap <silent> gi <Plug>(coc-implementation)
-        "
-        " " gr - find references
-        " nmap <silent> gr <Plug>(coc-references)
-        "
-        " " trigger completion on c-space
-        " inoremap <silent><expr> <c-space> coc#refresh()
-        "
-        " " Remap for rename current word
-        " nmap <F2> <Plug>(coc-rename)
-        "
-        "
-        " function! s:show_documentation()
-        "     if (index(['vim','help'], &filetype) >= 0)
-        "         execute 'h '.expand('<cword>')
-        "     elseif (coc#rpc#ready())
-        "         call CocActionAsync('doHover')
-        "     else
-        "         execute '!' . &keywordprg . " " . expand('<cword>')
-        "     endif
-        " endfunction
-        "
-        " " autocmd CursorHold * silent call CocActionAsync('highlight')
-        "
-        " let b:coc_diagnostic_info = {'error': 1, 'warning': 1, 'info': 0, 'hint': 1}
-        " let g:coc_default_semantic_highlight_groups = 0
-        " command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
-    "}}}
-    " Echodoc "{{{
-        " set cmdheight=2
-        set noshowmode
     "}}}
     " Copilot "{{{
         imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
         let g:copilot_no_tab_map = v:true
         highlight CopilotSuggestion guifg=#95A0A1 ctermfg=8
     "}}}
-    let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \}
-    " \ 'jinja.html' : 1,
+    " MatchTagAlways "{{{
+        let g:mta_filetypes = {
+        \ 'html' : 1,
+        \ 'xhtml' : 1,
+        \ 'xml' : 1,
+        \}
+    "}}}
+    " Trouble "{{{
+        autocmd FileType typescript,typescriptreact compiler tsc | setlocal makeprg=npx\ tsc
+    "}}}
 " }}}
 " Disabled options {{{
     " Setting this below makes it sow that error messages don't disappear after one second on startup.
@@ -592,22 +444,6 @@
     nmap <silent> <Leader>qq :TSHighlightCapturesUnderCursor<CR>
 "}}}
 
-lua <<EOF
-    require('dark_notify').run()
-EOF
-
-" hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#eee8d5 guisp=NONE cterm=NONE gui=NONE
-" if exists("g:colors_name") && g:colors_name == 'solarized8'
-"     if &background is# "dark"
-"         hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#003741 guisp=NONE cterm=NONE gui=NONE
-"     else
-"         hi Pmenu ctermfg=242 ctermbg=254 guifg=#586e75 guibg=#F3EBD9 guisp=NONE cterm=NONE gui=NONE
-"     endif
-" endif
-" hi PmenuSbar ctermfg=NONE ctermbg=247 guifg=NONE guibg=#93a1a1 guisp=NONE cterm=NONE gui=NONE
-" hi PmenuSel ctermfg=254 ctermbg=246 guifg=#eee8d5 guibg=#839496 guisp=NONE cterm=NONE gui=NONE
-" hi PmenuThumb ctermfg=NONE ctermbg=66 guifg=NONE guibg=#657b83 guisp=NONE cterm=NONE gui=NONE
-
 " make it green instead of bold red
 hi typescriptReserved guifg=#859900	guibg=NONE guisp=NONE cterm=NONE gui=NONE
 " fix typescript syntax in nvim@0.5.0
@@ -616,18 +452,50 @@ hi link typescriptParens Operator
 hi link typescriptNull Type
 hi link CocFadeOut SpellBad
 
+
+" TODO move to trouble.lua
+hi TroubleFsBasename guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleFsCount guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleFsFilename guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleFsSource guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconArray guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconBoolean guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconClass guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconConstant guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconConstructor guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconFunction guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconNamespace guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconNull guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconNumber guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconObject guifg=NONE guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIconOperator guifg=#B968FC guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIndentFoldClosed guifg=#B968FC guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIndentFoldOpen guifg=#B968FC guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIndentLast guifg=#B968FC guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIndentMiddle guifg=#B968FC guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIndentTop guifg=#B968FC guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleIndentWs guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleNormal guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroubleNormalNC guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroublePos guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+hi TroublePreview guifg=#E1D6F8 guibg=none guisp=NONE blend=NONE gui=NONE
+
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 
+" i'm shit at typing
 iabbrev funciton function
+iabbrev applicaiton application
 iabbrev enviroment environment
 iabbrev enviromnet environment
 iabbrev enviromnent environment
 iabbrev environemt environment
 iabbrev environemnt environment
 iabbrev environemnt environment
+iabbrev ligth light
+iabbrev rigth right
 
 lua << EOF
 local home_dir = os.getenv("HOME")

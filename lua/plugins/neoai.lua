@@ -57,6 +57,7 @@ require("neoai").setup({
 			key = "<leader>as",
 			desc = "fix text with AI",
 			use_context = true,
+			-- doesn't seem to work
 			prompt = [[
                 Please rewrite the text to make it more readable, clear,
                 concise, and fix any grammatical, punctuation, or spelling

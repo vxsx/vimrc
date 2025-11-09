@@ -1,7 +1,9 @@
 -- Set up lspconfig.
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require("lspconfig")["tsserver"].setup({
+vim.lsp.handlers["textDocument/semanticTokens/full"] = function() end
+
+vim.lsp.config("ts_ls", {
 	capabilities = capabilities,
 	on_init = function(client)
 		if client.server_capabilities then
@@ -11,47 +13,55 @@ require("lspconfig")["tsserver"].setup({
 			client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
 		end
 	end,
-	on_attach = function(client) end,
+	on_attach = function(client)
+        client.server_capabilities.semanticTokensProvider = nil
+    end,
 })
 
-require("lspconfig")["stylelint_lsp"].setup({
+vim.lsp.config("stylelint_lsp", {
 	capabilities = capabilities,
 	filetypes = { "scss", "css" },
 })
 
-require("lspconfig")["eslint"].setup({
+vim.lsp.config("eslint", {
 	capabilities = capabilities,
 })
 
-require("lspconfig")["pyright"].setup({
+vim.lsp.config("pyright", {
 	capabilities = capabilities,
 })
 
-require("lspconfig")["tailwindcss"].setup({
+vim.lsp.config("prismals", {
+	capabilities = capabilities,
+	filetypes = { "prisma" },
+})
+
+vim.lsp.config("tailwindcss", {
+	capabilities = capabilities,
+	filetypes = { "svelte", "typescript", "typescriptreact", "typescript.tsx" },
+	on_attach = function(_, bufnr)
+		require("tailwindcss-colors").buf_attach(bufnr)
+	end,
+})
+
+vim.lsp.config("svelte", {
 	capabilities = capabilities,
 	filetypes = { "svelte" },
 })
 
-require("lspconfig")["svelte"].setup({
-	capabilities = capabilities,
-	filetypes = { "svelte" },
-})
-
-require("lspconfig")["grammarly"].setup({
+vim.lsp.config("grammarly", {
 	capabilities = capabilities,
 	filetypes = { "rst", "markdown" },
 })
 
-require("lspconfig")["lua_ls"].setup({
+vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 	filetypes = { "lua" },
 	settings = {
-		Lua = {
-			diagnostics = {
-				-- Get the language server to recognize the `vim` global
-				globals = { "vim", "buffer" },
-			},
-		},
+        diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim", "buffer" },
+        },
 	},
 })
 

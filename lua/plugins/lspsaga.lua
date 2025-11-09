@@ -4,14 +4,31 @@ local saga = require("lspsaga")
 vim.wo.number = true -- this is set number, but lspsaga wouldn't get it unless set through this
 
 saga.setup({
-	code_action_lightbulb = { enable = false },
+    lightbulb = {
+        enable = false,
+    },
+    diagnostic = {
+        enable = false,
+        -- show_layout = 'float',
+        -- show_normal_height = 10,
+        -- jump_num_shortcut = true,
+        -- auto_preview = true,
+        -- max_width = 0.8,
+        -- max_height = 0.6,
+        -- max_show_width = 0.9,
+        -- max_show_height = 0.6,
+        -- wrap_long_lines = true,
+        -- extend_relatedInformation = false,
+        -- diagnostic_only_current = true,
+        -- keys = {
+        --     exec_action = 'o',
+        --     quit = 'q',
+        --     toggle_or_jump = '<CR>',
+        --     quit_in_show = { 'q', '<ESC>' },
+        -- },
+    },
 	symbol_in_winbar = { enable = false },
 })
-
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-
--- Code action
-keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 
 -- Rename
 keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
