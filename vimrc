@@ -76,7 +76,7 @@
 
             Plug 'stevearc/conform.nvim'
 
-            Plug 'github/copilot.vim'
+            " Plug 'github/copilot.vim'
 
             Plug 'MunifTanjim/nui.nvim'
             " Plug 'Bryley/neoai.nvim'
@@ -363,7 +363,7 @@
         " if file is already open, do not switch to it
         let g:ctrlp_switch_buffer = 'et'
         if executable("ag")
-            let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g "" --ignore-dir=.git'
+            let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g "" --ignore-dir=packages/ui/coverage --ignore-dir=apps/frameworks/coverage --ignore-dir=apps/auth/coverage --ignore-dir=apps/app/coverage --ignore-dir=.git'
         endif
 
         nnoremap <silent> <C-p> :CtrlP<CR>
@@ -410,7 +410,7 @@
         endif
     "}}}
     " Ack {{{
-        let g:ackprg = 'ag --nogroup --hidden --nocolor --column'
+        let g:ackprg = 'ag --nogroup --hidden --nocolor --column --ignore-dir .git'
     "}}}
     " Typescript {{{
         autocmd FileType typescript setlocal completeopt+=menu,preview
