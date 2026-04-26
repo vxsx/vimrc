@@ -14,8 +14,8 @@ vim.lsp.config("ts_ls", {
 		end
 	end,
 	on_attach = function(client)
-        client.server_capabilities.semanticTokensProvider = nil
-    end,
+		client.server_capabilities.semanticTokensProvider = nil
+	end,
 })
 
 vim.lsp.config("stylelint_lsp", {
@@ -49,20 +49,26 @@ vim.lsp.config("svelte", {
 	filetypes = { "svelte" },
 })
 
-vim.lsp.config("grammarly", {
-	capabilities = capabilities,
-	filetypes = { "rst", "markdown" },
-})
+-- vim.lsp.config("grammarly", {
+-- 	capabilities = capabilities,
+-- 	filetypes = { "rst", "markdown" },
+-- })
 
 vim.lsp.config("lua_ls", {
 	capabilities = capabilities,
 	filetypes = { "lua" },
 	settings = {
-        diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { "vim", "buffer" },
-        },
+		Lua = {
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = { "vim", "buffer" },
+			},
+		},
 	},
+})
+
+vim.lsp.config("biome", {
+	capabilities = capabilities,
 })
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {

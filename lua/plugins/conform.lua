@@ -1,3 +1,5 @@
+local web = { "biome-check", "prettierd", "prettier", stop_after_first = true }
+
 require("conform").setup({
 	format_on_save = {
 		-- These options will be passed to conform.format()
@@ -11,11 +13,11 @@ require("conform").setup({
 		-- You can customize some of the format options for the filetype (:help conform.format)
 		-- rust = { "rustfmt", lsp_format = "fallback" },
 		-- Conform will run the first available formatter
-		markdown = { "prettierd", "prettier", stop_after_first = true },
-		javascript = { "prettierd", "prettier", stop_after_first = true },
-		typescript = { "prettierd", "prettier", stop_after_first = true },
-		json = { "prettierd", "prettier", stop_after_first = true },
-		scss = { "prettierd", "prettier", stop_after_first = true },
-		css = { "prettierd", "prettier", stop_after_first = true },
+		markdown = web,
+		javascript = web,
+		typescript = web,
+		json = web,
+		scss = web,
+		css = web,
 	},
 })
