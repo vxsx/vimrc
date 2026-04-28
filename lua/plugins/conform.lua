@@ -1,6 +1,11 @@
 local web = { "biome-check", "prettierd", "prettier", stop_after_first = true }
 
 require("conform").setup({
+	formatters = {
+		["biome-check"] = {
+			require_cwd = true,
+		},
+	},
 	format_on_save = {
 		-- These options will be passed to conform.format()
 		timeout_ms = 2500,
