@@ -221,7 +221,7 @@
     " set wildmode=full
     set nowildmenu
     set wildmode=list:longest,list:full
-    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/.git/*,*/build/*,*/dist/*,*/node_modules/*,*/coverage/*,*.egg-info,*.egg_link,*/south_migrations/*,*/django_migrations/*,data/media/filer_public/*
+    set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,*/.git/*,*/build/*,*/dist/*,*/node_modules/*,*/build/*,*/.pnpm-store/*,*/coverage/*,*.egg-info,*.egg_link,*/south_migrations/*,*/django_migrations/*,data/media/filer_public/*
 "}}}
 " Window manipulation {{{
     set splitbelow
@@ -410,7 +410,7 @@
         endif
     "}}}
     " Ack {{{
-        let g:ackprg = 'ag --nogroup --hidden --nocolor --column --ignore-dir .git'
+        let g:ackprg = 'ag --nogroup --hidden --nocolor --column --ignore-dir .git --ignore-dir apps/app/coverage --ignore-dir .pnpm-store --ignore-dir build'
     "}}}
     " Typescript {{{
         autocmd FileType typescript setlocal completeopt+=menu,preview

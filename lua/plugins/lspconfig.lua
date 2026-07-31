@@ -69,6 +69,12 @@ vim.lsp.config("lua_ls", {
 
 vim.lsp.config("biome", {
 	capabilities = capabilities,
+	get_language_id = function(_, ftype)
+		if ftype == "typescript.tsx" then
+			return "typescriptreact"
+		end
+		return ftype
+	end,
 })
 
 -- vim.api.nvim_create_autocmd("BufWritePre", {
